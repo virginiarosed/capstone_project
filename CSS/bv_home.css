@@ -1,0 +1,263 @@
+@font-face {
+    font-family: 'Montserrat-Regular';
+    src: url('../Fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Gusto-Bold';
+    src: url('../Fonts/Gusto-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-Medium';
+    src: url('../Fonts/Montserrat-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-Bold';
+    src: url('../Fonts/Montserrat-Bold.ttf') format('truetype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Montserrat-Regular', sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    border: 3px solid #585D27;
+}
+
+.sidebar {
+    width: 8%;
+    background-color: #f8fff0;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 3px solid #585D27;
+}
+
+.logo {
+    margin-bottom: 20px;
+}
+
+.logo-img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px
+}
+
+.menu {
+    list-style-type: none;
+    width: 100%;
+}
+
+.menu li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.menu img {
+    max-width: 40px;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.menu span {
+    font-size: 14px;
+    text-align: center;
+    color: #585D27;
+    font-family: 'Montserrat-Bold', sans-serif; 
+}
+
+.menu a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none; 
+    color: inherit; 
+}
+
+.menu a:hover {
+    opacity: 0.8; 
+}
+
+.content {
+    width: 92%;
+    padding: 40px;
+    background-color: #FFF0D9;
+    background-image: url('../Images/bv_contentbg.png');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    overflow-y: auto;
+}
+
+.welcome-img {
+    max-width: 80%;
+    height: auto;
+    display: block;
+    margin-top: -25px;
+}
+
+.profile-container {
+    display: flex;
+    margin-top: 1px;
+    padding: 20px;
+    gap: 20px; 
+    border: 5px solid #585D27;
+    border-radius: 15px;
+    background-color: #f8fff0;
+    width: 65%; 
+    max-width: 600px; 
+}
+
+.profile-left {
+    width: 30%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-right {
+    width: 70%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profile-img {
+    max-width: 100px; 
+    width: 100%; 
+    height: auto; 
+}
+
+.profile-name {
+    font-size: 30px;
+    font-family: 'Montserrat-Bold', sans-serif;
+    margin-bottom: 5px;
+}
+
+.profile-email {
+    font-size: 20px;
+    font-family: 'Montserrat-Regular', sans-serif;
+    color: #585D27;
+}
+
+
+.menu li.active {
+    background-color: #FFF0D9; 
+    border-radius: 8px; 
+    outline: 2px solid #585D27;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.menu li.active span {
+    color: #585D27; 
+}
+
+.menu li.active img {
+    filter: brightness(1.2); 
+}
+
+.menu li:hover {
+    background-color: #e0e5c1; 
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+}
+
+.menu li:focus-within {
+    outline: 2px solid #585D27; 
+    background-color: #e8f0d9; 
+    border-radius: 8px;
+    border-radius: 8px;
+}
+
+.info-containers {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.first-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1.16;
+    gap: 20px;  /* Gap between the travel-tip and quote-of-the-day */
+}
+
+.travel-tip,
+.quote-of-the-day {
+    background-color: #f8fff0;
+    padding: 25px;
+    border-radius: 10px;
+    border: 4px dashed #585D27;
+}
+
+.second-container {
+    flex: 1;  /* Takes the remaining space */
+    background-color: #f8fff0;
+    padding: 10px;
+    border-radius: 10px;
+    border: 4px dashed #585D27;
+}
+
+.travel-tip h1 {
+    font-family: 'Gusto-Bold', sans-serif;
+    color: #585D27;
+    margin-bottom: 10px;
+    font-size: 40px;
+}
+
+.quote-of-the-day h1 {
+    font-family: 'Gusto-Bold', sans-serif;
+    color: #585D27;
+    margin-bottom: 10px;
+    font-size: 40px;
+}
+
+.packing-list h1 {
+    font-family: 'Gusto-Bold', sans-serif;
+    color: #585D27;
+    margin-bottom: 5px;
+    font-size: 38px;
+} 
+/* Additional styling as needed */
+
+.select-button-container {
+    display: flex;
+    justify-content: space-between;  /* Optional: adjusts spacing between select and button */
+    align-items: center;  /* Aligns them vertically */
+    gap: 10px;  /* Adds space between the select and button */
+}
+
+.select-button-container select,
+.select-button-container button {
+    flex: 1;  /* Ensures both elements take up equal width, or you can adjust individually */
+    padding: 3px;
+    font-size: 13px;
+    border: 1px solid #585D27;
+    border-radius: 5px;
+    font-family: 'Montserrat-Medium', sans-serif;
+}
+
+.select-button-container button {
+    background-color: #585D27;
+    color: white;
+    cursor: pointer;
+}
+
+.select-button-container button:hover {
+    background-color: #3c4f19;
+}

@@ -1,0 +1,86 @@
+@font-face {
+    font-family: 'Montserrat-Regular';
+    src: url('../Fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Gusto-Bold';
+    src: url('../Fonts/Gusto-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-Medium';
+    src: url('../Fonts/Montserrat-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-Bold';
+    src: url('../Fonts/Montserrat-Bold.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Montserrat-Regular', sans-serif;
+    background-image: url('../Images/bv_contentbg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.confirmation-container {
+    text-align: center;
+    background: #FFF0D9;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    border: 8px solid #585D27;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: width 0.3s ease-in-out;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;  
+    align-items: center;      
+    margin-bottom: -30px;
+}
+
+.logo {
+    max-width: 150px;
+    width: 100%;  
+}
+
+h1 {
+    font-family: 'Gusto-Bold', sans-serif;
+    font-size: 60px;
+    color: #585D27;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.login-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #585D27;
+    color: white;
+    font-family: 'Montserrat-Medium', sans-serif;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #A3C585;
+}

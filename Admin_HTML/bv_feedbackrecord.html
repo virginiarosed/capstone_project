@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BondVoyage │ Admin Feedback Record</title>
+    <link rel="stylesheet" href="../CSS/bv_feedbackrecord.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="../Images/bv_logo.png" alt="Logo" class="logo-img">
+            </div>
+            <ul class="menu">
+                <li><a href="../Admin_HTML/bv_adminhome.html"><img src="../Images/bv_home.png" alt="Home Icon"><span>Home</span></a></li>
+                <li><a href="../Admin_HTML/bv_users.html"><img src="../Images/bv_users.png" alt="Users Icon"><span>Users</span></a></li>
+                <li><a href="../Admin_HTML/bv_usersitinerary.html"><img src="../Images/bv_usersitinerary.png" alt="Users Itinerary Icon"><span>User's Itinerary</span></a></li>
+                <li><a href="../Admin_HTML/bv_standard.html"><img src="../Images/bv_standard.png" alt="Standard Itinerary Icon"><span>Standard Itinerary</span></a></li>
+                <li><a href="../Admin_HTML/bv_placeguide.html"><img src="../Images/bv_placeguide.png" alt="Place Guide Icon"><span>Place Guide</span></a></li>
+                <li><a href="../PHP/bv_adminlogout.php"><img src="../Images/bv_logout.png" alt="Log Out Icon" style="width: 33px; height: auto;"><span>Log Out</span></a></li>
+            </ul>              
+        </nav>
+        <main class="content">
+            <img src="../Images/feedback_record_title.png" alt="Feedback Title" class="feedbackrecord-img">
+
+            <div class="feedback-container" id="feedback-records">
+                <!-- Feedbacks will be dynamically loaded here -->
+            </div>
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Fetch feedback data and display it dynamically
+        $(document).ready(function() {
+            $.ajax({
+                url: '../PHP/fetch_feedback.php', // PHP script to fetch feedbacks
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    data.forEach(feedback => {
+                        let formattedDate = new Date(feedback.submitted_at).toLocaleString('en-US', {
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: true
+                        });
+
+                        let feedbackContainer = `
+                        <div class="feedback-item">
+                            <h1>Feedback #${feedback.id}</h1>
+                            <p><strong>Name:</strong> ${feedback.name}</p>
+                            <p><strong>Email:</strong> ${feedback.email}</p>
+                            <p><strong>Submitted Date:</strong><br> ${formattedDate}</p>
+                            <div class="feedback-text" id="feedback-text-${feedback.id}" style="display:none;">
+                                <p><strong>Feedback:</strong><br><span style="margin-top: 8px; display: block;">${feedback.feedback}</span></p>
+                            </div>
+                            <button class="view-feedback-btn" id="feedback-btn-${feedback.id}" onclick="toggleFeedback(${feedback.id})">View Feedback</button>
+                        </div>
+                    `;
+                        $('#feedback-records').append(feedbackContainer);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching feedbacks: ", error);
+                }
+            });
+        });
+
+        // Toggle the feedback visibility when "View Feedback" or "Hide Feedback" button is clicked
+function toggleFeedback(feedbackId) {
+    let feedbackText = document.getElementById(`feedback-text-${feedbackId}`);
+    let button = document.getElementById(`feedback-btn-${feedbackId}`);
+
+    if (feedbackText.style.display === 'none') {
+        feedbackText.style.display = 'block';
+        button.textContent = "Hide Feedback";  // Change button text to "Hide Feedback"
+    } else {
+        feedbackText.style.display = 'none';
+        button.textContent = "View Feedback";  // Change button text back to "View Feedback"
+    }
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BondVoyage │ Admin Place Guide</title>
+    <link rel="stylesheet" href="../CSS/bv_placeguide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
+</head>
+<body>
+    <header class="header">
+        <!-- Logo Image -->
+        <div class="logo1">
+          <img src="../Images/logo_title.png" alt="Logo" />
+        </div>
+      
+        <!-- Hamburger Menu Icon -->
+        <div class="hamburger-menu" onclick="toggleMenu()">
+          &#9776;
+        </div>
+      </header>
+      
+      <!-- Menu -->
+      <div id="nav-menu" class="nav-menu">
+        <ul>
+          <li><a href="../Admin_HTML/bv_adminhome.html">Home</a></li>
+          <div class="divider2"></div>
+          <li><a href="../Admin_HTML/bv_users.html">Users</a></li>
+          <div class="divider2"></div>
+          <li><a href="../Admin_HTML/bv_usersitinerary.html">User's Itinerary</a></li>
+          <div class="divider2"></div>
+          <li><a href="../Admin_HTML/bv_standard.html">Standard Itinerary</a></li>
+          <div class="divider2"></div>
+          <li><a href="../Admin_HTML/bv_placeguide.html">Place Guide</a></li>
+          <div class="divider2"></div>
+          <li><a href="../Admin_HTML/bv_adminlogin.html">Log Out</a></li>
+        </ul>
+      </div>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="../Images/bv_logo.png" alt="Logo" class="logo-img">
+            </div>
+            <ul class="menu">
+                <li><a href="../Admin_HTML/bv_adminhome.html"><img src="../Images/bv_home.png" alt="Home Icon"><span>Home</span></a></li>
+                <li><a href="../Admin_HTML/bv_users.html"><img src="../Images/bv_users.png" alt="Users Icon"><span>Users</span></a></li>
+                <li><a href="../Admin_HTML/bv_usersitinerary.html"><img src="../Images/bv_usersitinerary.png" alt="Users Itinerary Icon"><span>User's Itinerary</span></a></li>
+                <li><a href="../Admin_HTML/bv_standard.html"><img src="../Images/bv_standard.png" alt="Standard Itinerary Icon"><span>Standard Itinerary</span></a></li>
+                <li class="active"><a href="../Admin_HTML/bv_placeguide.html"><img src="../Images/bv_placeguide.png" alt="Place Guide Icon"><span>Place Guide</span></a></li>
+                <li><a href="../PHP/bv_adminlogout.php"><img src="../Images/bv_logout.png" alt="Log Out Icon" style="width: 33px; height: auto;"><span>Log Out</span></a></li>
+            </ul>             
+        </nav>
+        <main class="content">
+            <img src="../Images/placeguide_title.png" alt="Place Guide Title" class="placeguide-img">
+                
+            <div class="add-placeguide-container">
+                
+                <form id="place-form" method="POST" action="../PHP/placeguide_handler.php" enctype="multipart/form-data">
+                    <div class="placeguide-form">
+                        <h1>Add Place Guide</h1>
+                        
+                        <label for="destination">Destination:</label>
+                        <select id="destination" name="destination" required>
+                            <option value="" disabled selected>Choose a destination</option>
+                            <option value="Ilocos">Ilocos</option>
+                            <option value="Baguio">Baguio</option>
+                            <option value="Vigan-Baguio">Vigan-Baguio</option>
+                            <option value="Bicol">Bicol</option>
+                            <option value="Sagada">Sagada</option>
+                            <option value="La Union">La Union</option>
+                            <option value="Baler">Baler</option>
+                            <option value="Maniwaya">Maniwaya</option>
+                        </select>
+
+                        <label for="place-name">Place Name:</label>
+                        <input type="text" id="place-name" name="place-name" required>
+                        <div id="place-name-error" style="color: red; display: none; font-size: 15px; text-align: center; margin: 0 auto; margin-bottom: 5px;">
+                            <p>Place name cannot start with a space or special character and must be longer than one letter.</p>
+                        </div>
+
+                        <label for="location">Location:</label>
+                        <input type="text" id="location" name="location" required>
+                        <div id="location-error" style="color: red; display: none; font-size: 15px; text-align: center; margin: 0 auto; margin-bottom: 5px;">
+                            <p>Location name cannot start with a space or special character and must be longer than one letter.</p>
+                        </div>
+
+                        <label for="place-description">Place Description:</label>
+                        <textarea id="place-description" name="place-description" required></textarea>
+
+                        <label for="activities">Activities Offered:</label>
+                        <textarea id="activities" name="activities" placeholder="Enter each activity on a new line." required></textarea>
+
+                        <label for="photos">Upload Photos:</label>
+                        <input type="file" id="photos" name="photos[]" multiple onchange="previewImages()" required>
+
+                        <div class="image-preview-container">
+                            <div id="image-preview"></div>
+                            <div class="button-container">
+                                <button type="button" id="add-photo-btn" onclick="triggerFileInput()" style="display: none;">+ Photo</button>
+                            </div>
+                        </div>
+                        <div id="file-error" style="color: red; display: none; font-size: 15px; text-align: center; margin: 0 auto; margin-bottom: 5px;">
+                            <p>Please select at least one image.</p>
+                        </div>
+                        
+                        <div id="success-message"></div>
+                        <div id="loading-spinner" class="loading-spinner" style="display: none;"></div>
+                        <button type="submit" id="add-place">Add Place</button>
+                    </div>
+                </form>
+                
+                <div class="placeguide-display">
+                    <h1>Added Place Guide</h1>
+                    <div class="destination-buttons">
+                        <div id="destination-buttons" class="button-container">
+                            <!-- Dynamically generated destination buttons will appear here -->
+                        </div>
+                    </div>
+                    <div id="search-container" style="display: none;">
+                        <input type="text" id="search-input" placeholder="Search places..." />
+                        <i id="search-icon" class="fa fa-search"></i>
+                    </div>
+                    <div id="destination-data" class="data-container">
+                        <!-- Dynamically loaded destination data will appear here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get the current URL path
+            const currentPath = window.location.pathname;
+
+            // Select all <a> elements in the sidebar
+            const menuLinks = document.querySelectorAll('.menu a');
+
+            // Loop through the links and compare their href with the current path
+            menuLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    // Add the active class to the parent <li>
+                    link.parentElement.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+    <script src="../JS/bv_placeguide.js"></script>
+</body>
+</html>

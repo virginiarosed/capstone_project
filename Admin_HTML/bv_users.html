@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BondVoyage │ Admin Users</title>
+    <link rel="stylesheet" href="../CSS/bv_users.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
+</head>
+<body>
+    <header class="header">
+        <!-- Logo Image -->
+        <div class="logo1">
+          <img src="../Images/logo_title.png" alt="Logo" />
+        </div>
+      
+        <!-- Hamburger Menu Icon -->
+        <div class="hamburger-menu" onclick="toggleMenu()">
+          &#9776;
+        </div>
+      </header>
+      
+      <!-- Menu -->
+      <div id="nav-menu" class="nav-menu">
+        <ul>
+          <li><a href="../Admin_HTML/bv_adminhome.html">Home</a></li>
+          <div class="divider2"></div>
+          <li><a href="../Admin_HTML/bv_users.html">Users</a></li>
+          <div class="divider2"></div>
+          <li><a href="../Admin_HTML/bv_usersitinerary.html">User's Itinerary</a></li>
+          <div class="divider2"></div>
+          <li><a href="../Admin_HTML/bv_standard.html">Standard Itinerary</a></li>
+          <div class="divider2"></div>
+          <li><a href="../Admin_HTML/bv_placeguide.html">Place Guide</a></li>
+          <div class="divider2"></div>
+          <li><a href="../Admin_HTML/bv_adminlogin.html">Log Out</a></li>
+        </ul>
+      </div>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="../Images/bv_logo.png" alt="Logo" class="logo-img">
+            </div>
+            <ul class="menu">
+                <li><a href="../Admin_HTML/bv_adminhome.html"><img src="../Images/bv_home.png" alt="Home Icon"><span>Home</span></a></li>
+                <li class="active"><a href="../Admin_HTML/bv_users.html"><img src="../Images/bv_users.png" alt="Users Icon"><span>Users</span></a></li>
+                <li><a href="../Admin_HTML/bv_usersitinerary.html"><img src="../Images/bv_usersitinerary.png" alt="Users Itinerary Icon"><span>User's Itinerary</span></a></li>
+                <li><a href="../Admin_HTML/bv_standard.html"><img src="../Images/bv_standard.png" alt="Standard Itinerary Icon"><span>Standard Itinerary</span></a></li>
+                <li><a href="../Admin_HTML/bv_placeguide.html"><img src="../Images/bv_placeguide.png" alt="Place Guide Icon"><span>Place Guide</span></a></li>
+                <li><a href="../PHP/bv_adminlogout.php"><img src="../Images/bv_logout.png" alt="Log Out Icon" style="width: 33px; height: auto;"><span>Log Out</span></a></li>
+            </ul>            
+        </nav>
+        <main class="content">
+            <img src="../Images/users_title.png" alt="Users Title" class="users-img">
+            
+            <div class="table-container">
+                <div class="controls-container">
+                    <!-- Search section (left) -->
+                    <div class="search-section">
+                        <input type="text" id="search-input" placeholder="Search Users" onkeyup="searchUsers()">
+                        <i id="search-icon" class="fa fa-search"></i>
+                    </div>
+
+                    <div class="date-filter-container">
+                        <label for="start-date">Start Date:</label>
+                        <input type="date" id="start-date" name="start_date">
+                        
+                        <label for="end-date" style="margin-left: 5px;">End Date:</label>
+                        <input type="date" id="end-date" name="end_date">
+                        
+                        <button id="filter-btn" onclick="applyDateFilter()">Filter</button>
+                    </div>
+        
+                    <!-- Sort by section (right) -->
+                    <div class="sort-section">
+                        <select id="sort-select" onchange="sortUsers()">
+                            <option value="newest">Sort by Newest</option>
+                            <option value="oldest">Sort by Oldest</option>
+                        </select>
+                    </div>
+                </div>
+                <table id="users-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-data">
+                        <!-- Data will be inserted here -->
+                    </tbody>
+                </table>
+                <!-- Pagination section (center) -->
+                <div class="pagination-section">
+                    <div id="pagination">
+                        <!-- Pagination links will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get the current URL path
+            const currentPath = window.location.pathname;
+
+            // Select all <a> elements in the sidebar
+            const menuLinks = document.querySelectorAll('.menu a');
+
+            // Loop through the links and compare their href with the current path
+            menuLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    // Add the active class to the parent <li>
+                    link.parentElement.classList.add('active');
+                }
+            });
+        });
+
+        // Fetch and display user data with support for search and sorting
+        function fetchUsers(page = 1, searchQuery = '', sortOption = 'newest', startDate = '', endDate = '') {
+    const url = `../PHP/fetch_users.php?page=${page}&search=${searchQuery}&sort=${sortOption}&start_date=${startDate}&end_date=${endDate}`;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById('users-data');
+            tableBody.innerHTML = ''; // Clear existing data
+            
+            // Populate rows with fetched user data
+            data.users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.first_name}</td>
+                    <td>${user.last_name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.mobile}</td>
+                    <td>${user.created_at}</td> <!-- Display the created_at -->
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Update Pagination (unchanged)
+            const paginationDiv = document.getElementById('pagination');
+            paginationDiv.innerHTML = '';
+            for (let i = 1; i <= data.total_pages; i++) {
+                const pageLink = document.createElement('a');
+                pageLink.href = `#`;
+                pageLink.textContent = i;
+                pageLink.onclick = () => fetchUsers(i, searchQuery, sortOption, startDate, endDate);
+                if (i === page) {
+                    pageLink.classList.add('active');
+                }
+                paginationDiv.appendChild(pageLink);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user data:', error);
+        });
+}
+
+        function applyDateFilter() {
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+            const filterButton = document.getElementById('filter-btn');
+
+            // If the "Filter" button is clicked, change it to "Clear"
+            if (filterButton.textContent === 'Filter') {
+                filterButton.textContent = 'Clear';  // Change button text to "Clear"
+            } else {
+                // If "Clear" is clicked, reset the inputs and reload without filters
+                document.getElementById('start-date').value = '';
+                document.getElementById('end-date').value = '';
+                filterButton.textContent = 'Filter';  // Change button text back to "Filter"
+                fetchUsers(1, '', 'newest');  // Fetch users without date filter
+                return;
+            }
+
+            // Apply the date filter and fetch users
+            fetchUsers(1, '', 'newest', startDate, endDate); // Reset to page 1 and apply filter
+        }
+
+        // Search users based on input
+        function searchUsers() {
+            const searchQuery = document.getElementById('search-input').value;
+            const sortOption = document.getElementById('sort-select').value;
+            fetchUsers(1, searchQuery, sortOption); // Reset to first page when searching
+        }
+
+        // Sort users based on the selected option
+        function sortUsers() {
+            const searchQuery = document.getElementById('search-input').value;
+            const sortOption = document.getElementById('sort-select').value;
+            fetchUsers(1, searchQuery, sortOption); // Reset to first page when sorting
+        }
+
+        // Fetch users for the first page when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchUsers(); // Fetch with default values (no search, newest sort)
+        });
+
+        // Function to toggle the navigation menu
+        function toggleMenu() {
+        const menu = document.getElementById("nav-menu");
+        menu.classList.toggle("active");
+        }
+    </script>
+</body>
+</html>

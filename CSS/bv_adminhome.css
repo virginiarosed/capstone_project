@@ -1,0 +1,660 @@
+@font-face {
+    font-family: 'Montserrat-Regular';
+    src: url('../Fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Gusto-Bold';
+    src: url('../Fonts/Gusto-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-Medium';
+    src: url('../Fonts/Montserrat-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-Bold';
+    src: url('../Fonts/Montserrat-Bold.ttf') format('truetype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Montserrat-Regular', sans-serif;
+    overflow: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #585D27 #FFF0D9;
+}
+
+.header {
+    background-color: #f8fff0;
+    height: 60px;
+    position: relative;
+    display: none; /* Hide the header by default */
+    border-bottom: 3px solid #585D27;
+  }
+  
+  .logo1 img {
+    height: 40px; /* Adjust the logo height */
+    max-width: 100%;
+    object-fit: contain; /* Ensure it looks good in the space */
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  
+  /* Hamburger Menu Button */
+  .hamburger-menu {
+    font-size: 30px;
+    color: #585D27;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    display: none; /* Hide the hamburger menu by default */
+  }
+  
+  /* Navigation Menu */
+  .nav-menu {
+    display: none; /* Hide the navigation menu by default */
+    background-color: #585D27;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    padding-top: 50px;
+    margin-top: 57px;
+    text-align: center;
+  }
+  
+  .nav-menu ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .nav-menu ul li {
+    padding: 10px;
+  }
+  
+  .nav-menu ul li a {
+    color: #FFF0D9;
+    text-decoration: none;
+    display: block;
+    font-size: 20px;
+  }
+
+  .divider2 {
+    grid-column: 1 / -1; /* Span across all columns */
+    width: 80%;
+    height: 1px;
+    background-color: #FFF0D9; /* Set color for the divider */
+    margin: 10px auto; /* Center horizontally and add vertical spacing */
+}
+  
+  .nav-menu ul li a:hover {
+    background-color: #A3C585;
+    border-radius: 20px;
+  }
+  
+  /* Show the header and menu on small screens */
+  @media (max-width: 768px) {
+    .header {
+      display: block; /* Show header on small screens */
+    }
+  
+    .hamburger-menu {
+      display: block; /* Show hamburger menu */
+    }
+  
+    .nav-menu.active {
+      display: block; /* Show the navigation menu when active */
+    }
+  }
+  
+  /* Hide the header and hamburger menu on larger screens */
+  @media (min-width: 769px) {
+    .header {
+      display: none; /* Hide the header */
+    }
+  
+    .hamburger-menu {
+      display: none; /* Hide the hamburger menu */
+    }
+  
+    .nav-menu {
+      display: none; /* Hide the navigation menu */
+    }
+  }
+
+.container {
+    display: flex;
+    height: 100vh;
+    border: 3px solid #585D27;
+}
+
+.sidebar {
+    width: 8%;
+    background-color: #f8fff0;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 3px solid #585D27;
+}
+
+.logo {
+    margin-bottom: 1px;
+}
+
+.logo-img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.menu {
+    list-style-type: none;
+    width: 100%;
+}
+
+.menu li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.menu img {
+    max-width: 40px;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.menu span {
+    font-size: 14px;
+    text-align: center;
+    color: #585D27;
+    font-family: 'Montserrat-Bold', sans-serif;
+}
+
+.menu a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.menu a:hover {
+    opacity: 0.8;
+}
+
+.content {
+    width: 92%;
+    padding: 40px;
+    background-color: #FFF0D9;
+    background-image: url('../Images/bv_contentbg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.image-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; 
+    background-color: #f8fff0;
+    border: 4px solid #585D27;
+    border-radius: 15px;
+    height: 35vh; 
+    margin-bottom: 40px;
+}
+
+.left-part {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    padding: 10px;
+    height: 100%; 
+}
+
+.left-part img {
+    max-width: 85%;
+    height: auto;
+}
+
+.right-part {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    padding: 20px;
+    background-color: #585D27;
+    flex-grow: 1; 
+    height: 100%; 
+}
+
+.right-part img {
+    max-width: 100%;
+    height: auto;
+}
+
+.menu li.active {
+    background-color: #FFF0D9; 
+    border-radius: 8px; 
+    outline: 2px solid #585D27;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.menu li.active span {
+    color: #585D27; 
+}
+
+.menu li.active img {
+    filter: brightness(1.2); 
+}
+
+.menu li:hover {
+    background-color: #e0e5c1; 
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+}
+
+.menu li:focus-within {
+    outline: 2px solid #585D27; 
+    background-color: #e8f0d9; 
+    border-radius: 8px;
+    border-radius: 8px;
+}
+
+.button-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 20px;
+    column-gap: 20px;
+    justify-items: center;
+    align-items: center;
+}
+
+.button {
+    background-color: #f8fff0;
+    border: 4px solid #585D27;
+    border-radius: 20px;
+    width: 565px;
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat-Bold', sans-serif;
+    color: #585D27;
+    text-decoration: none;
+    overflow: hidden; /* Ensure content doesn't spill out */
+    padding: 10px;
+}
+
+.button a {
+    text-decoration: none;
+    color: inherit; /* Ensure link color matches the button */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Make the link fill the button */
+    height: 100%; /* Ensure it spans the full height */
+    padding: 10px; /* Add some spacing inside the button */
+}
+
+.button span {
+    font-size: 30px;
+    flex: 1; /* Ensures proper alignment */
+    text-align: left;
+}
+
+.button div {
+    font-size: 30px;
+    font-weight: bold;
+    flex-shrink: 0; /* Prevents shrinking */
+    text-align: right;
+}
+
+.button img {
+    margin: 10px;
+    margin-right: 10px;
+}
+
+.button:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+#usersItineraryButton img {
+    width: 48px;
+    height: auto;
+}
+
+@media screen and (max-width: 1280px) {
+.sidebar {
+        width: 100px;
+        display: block;  /* Show sidebar */
+    }
+    .container {
+        display: flex;  /* Use flexbox layout */
+    }
+    .content {
+        width: 100%;  /* Take 70% width for the content */
+        padding: 20px;  /* Adjust padding */
+        height: auto;  /* Allow content to expand based on its size */
+    }
+    .button-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 20px;
+        column-gap: 20px;
+        justify-items: center;
+        align-items: center;
+    }
+    
+    .button {
+        width: 550px;
+        height: 140px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Montserrat-Bold', sans-serif;
+        color: #585D27;
+        text-decoration: none;
+        overflow: hidden; /* Ensure content doesn't spill out */
+        padding: 10px;
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch; 
+        background-color: #f8fff0;
+        border: 4px solid #585D27;
+        border-radius: 15px;
+        height: 30vh; 
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    
+    .left-part {
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        padding: 10px;
+        height: 100%; 
+    }
+    
+    .left-part img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .right-part {
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        padding: 20px;
+        background-color: #585D27;
+        flex-grow: 1; 
+        height: 100%; 
+    }
+    
+    .right-part img {
+        max-width: 50%;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .sidebar {
+        width: 100px;
+        display: block;  /* Show sidebar */
+    }
+    .container {
+        display: flex;  /* Use flexbox layout */
+    }
+    .content {
+        width: 100%;  /* Take 70% width for the content */
+        padding: 20px;  /* Adjust padding */
+        height: auto;  /* Allow content to expand based on its size */
+    }
+    .button-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 20px;
+        column-gap: 20px;
+        justify-items: center;
+        align-items: center;
+    }
+    
+    .button {
+        width: 420px;
+        height: 140px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Montserrat-Bold', sans-serif;
+        color: #585D27;
+        text-decoration: none;
+        overflow: hidden; /* Ensure content doesn't spill out */
+        padding: 10px;
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch; 
+        background-color: #f8fff0;
+        border: 4px solid #585D27;
+        border-radius: 15px;
+        height: 20vh; 
+        margin-top: 30px;
+        margin-bottom: 50px;
+    }
+    
+    .left-part {
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        padding: 10px;
+        height: 100%; 
+    }
+    
+    .left-part img {
+        max-width: 90%;
+        height: auto;
+    }
+    
+    .right-part {
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        padding: 20px;
+        background-color: #585D27;
+        flex-grow: 1; 
+        height: 100%; 
+    }
+    
+    .right-part img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    body, html {
+        overflow: auto;
+    }
+
+    .sidebar {
+        width: 100px;
+        display: block;  /* Show sidebar */
+    }
+    .container {
+        display: flex;  /* Use flexbox layout */
+    }
+    .content {
+        width: 100%;  /* Take 70% width for the content */
+        padding: 20px;  /* Adjust padding */
+        height: auto;  /* Allow content to expand based on its size */
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch; 
+        background-color: #f8fff0;
+        border: 4px solid #585D27;
+        border-radius: 15px;
+        height: 10vh; 
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    
+    .left-part {
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        padding: 10px;
+        height: 100%; 
+    }
+    
+    .left-part img {
+        max-width: 110%;
+        height: auto;
+    }
+    
+    .right-part {
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        padding: 20px;
+        background-color: #585D27;
+        flex-grow: 1; 
+        height: 100%; 
+    }
+    
+    .right-part img {
+        max-width: 50%;
+        height: auto;
+    }
+
+    .button-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 20px;
+        column-gap: 20px;
+        justify-items: center;
+        align-items: center;
+    }
+    
+    .button {
+        width: 320px;
+        height: 140px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Montserrat-Bold', sans-serif;
+        color: #585D27;
+        text-decoration: none;
+        overflow: hidden; /* Ensure content doesn't spill out */
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    body, html {
+        overflow: auto;
+    }
+    .sidebar {
+        display: none;  /* Hide sidebar */
+    }
+    .container {
+        display: block;  /* Stack the content */
+        border: none;
+    }
+    .content {
+        width: 100%; /* Full width for content */
+        padding: 20px; /* Adjust padding if necessary */
+        height: 100vh;
+    }
+    .button-container {
+        display: block; /* Stacks the buttons vertically */
+        width: 100%; /* Ensure it uses full width */
+        row-gap: 20px; /* Add spacing between the buttons */
+        column-gap: 0; /* Remove horizontal gaps */
+        justify-items: stretch; /* Stretch buttons to full width */
+        margin-top: -20px;
+    }
+
+    .button {
+        width: 100%; /* Make each button take up full width */
+        margin: 0 auto; /* Center the buttons horizontally */
+        margin-bottom: 15px;
+        height: 70px;
+    }
+
+    .button span {
+        font-size: 20px;
+        flex: 1; /* Ensures proper alignment */
+        text-align: left;
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch; 
+        background-color: #f8fff0;
+        border: 4px solid #585D27;
+        border-radius: 15px;
+        height: 10vh;
+        margin-top: -1px;
+        margin-bottom: 40px;
+    }
+    
+    .left-part {
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        padding: 10px;
+        height: 100%; 
+    }
+    
+    .left-part img {
+        max-width: 120%;
+        height: auto;
+    }
+    
+    .right-part {
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        padding: 20px;
+        background-color: #585D27;
+        flex-grow: 1; 
+        height: 100%; 
+    }
+    
+    .right-part img {
+        max-width: 110%;
+        height: auto;
+    }
+}

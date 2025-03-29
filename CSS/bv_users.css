@@ -1,0 +1,708 @@
+@font-face {
+    font-family: 'Montserrat-Regular';
+    src: url('../Fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Gusto-Bold';
+    src: url('../Fonts/Gusto-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-Medium';
+    src: url('../Fonts/Montserrat-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-Bold';
+    src: url('../Fonts/Montserrat-Bold.ttf') format('truetype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Montserrat-Regular', sans-serif;
+    overflow: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #585D27 #FFF0D9;
+}
+
+.header {
+    background-color: #f8fff0;
+    height: 60px;
+    position: relative;
+    display: none; /* Hide the header by default */
+    border-bottom: 3px solid #585D27;
+  }
+  
+  .logo1 img {
+    height: 40px; /* Adjust the logo height */
+    max-width: 100%;
+    object-fit: contain; /* Ensure it looks good in the space */
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  
+  /* Hamburger Menu Button */
+  .hamburger-menu {
+    font-size: 30px;
+    color: #585D27;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    display: none; /* Hide the hamburger menu by default */
+  }
+  
+  /* Navigation Menu */
+  .nav-menu {
+    display: none; /* Hide the navigation menu by default */
+    background-color: #585D27;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    padding-top: 50px;
+    margin-top: 57px;
+    text-align: center;
+    z-index: 1000; 
+  }
+  
+  .nav-menu ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .nav-menu ul li {
+    padding: 10px;
+  }
+  
+  .nav-menu ul li a {
+    color: #FFF0D9;
+    text-decoration: none;
+    display: block;
+    font-size: 20px;
+  }
+
+  .divider2 {
+    grid-column: 1 / -1; /* Span across all columns */
+    width: 80%;
+    height: 1px;
+    background-color: #FFF0D9; /* Set color for the divider */
+    margin: 10px auto; /* Center horizontally and add vertical spacing */
+}
+  
+  .nav-menu ul li a:hover {
+    background-color: #A3C585;
+    border-radius: 20px;
+  }
+  
+  /* Show the header and menu on small screens */
+  @media (max-width: 768px) {
+    .header {
+      display: block; /* Show header on small screens */
+    }
+  
+    .hamburger-menu {
+      display: block; /* Show hamburger menu */
+    }
+  
+    .nav-menu.active {
+      display: block; /* Show the navigation menu when active */
+    }
+  }
+  
+  /* Hide the header and hamburger menu on larger screens */
+  @media (min-width: 769px) {
+    .header {
+      display: none; /* Hide the header */
+    }
+  
+    .hamburger-menu {
+      display: none; /* Hide the hamburger menu */
+    }
+  
+    .nav-menu {
+      display: none; /* Hide the navigation menu */
+    }
+  }
+
+.container {
+    display: flex;
+    height: 100vh;
+    border: 3px solid #585D27;
+}
+
+.sidebar {
+    width: 8%;
+    background-color: #f8fff0;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 3px solid #585D27;
+}
+
+.logo {
+    margin-bottom: 1px;
+}
+
+.logo-img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.menu {
+    list-style-type: none;
+    width: 100%;
+}
+
+.menu li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.menu img {
+    max-width: 40px;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.menu span {
+    font-size: 14px;
+    text-align: center;
+    color: #585D27;
+    font-family: 'Montserrat-Bold', sans-serif;
+}
+
+.menu a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.menu a:hover {
+    opacity: 0.8;
+}
+
+.content {
+    width: 92%;
+    padding: 30px;
+    background-color: #FFF0D9;
+    background-image: url('../Images/bv_contentbg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-y: auto;
+}
+
+.users-img {
+    max-width: 16%;
+    height: auto;
+    display: block;
+    margin-top: -10px;
+}
+
+.table-container {
+    overflow-x: auto;
+    background-color: #f8fff0;
+    border: 4px solid #585D27;
+    border-radius: 15px;
+    padding: 23px;
+    position: relative;
+    top: 20px;
+    height: 510px; 
+}
+
+#users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#users-table th, #users-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+#users-table th {
+    background-color: #585D27;
+    color: #f8fff0;
+    font-family: 'Montserrat-Bold', sans-serif;
+}
+
+#users-table tr:nth-child(even) {
+    background-color: #f4f4f4;
+}
+
+#users-table tr:hover {
+    background-color: #ddd;
+}
+
+.menu li.active {
+    background-color: #FFF0D9; 
+    border-radius: 8px; 
+    outline: 2px solid #585D27;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.menu li.active span {
+    color: #585D27; 
+}
+
+.menu li.active img {
+    filter: brightness(1.2);
+}
+
+.menu li:hover {
+    background-color: #e0e5c1;
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+}
+
+.menu li:focus-within {
+    outline: 2px solid #585D27; 
+    background-color: #e8f0d9; 
+    border-radius: 8px;
+    border-radius: 8px;
+}
+
+.controls-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-section {
+    flex: 1;
+    margin-right: 20px;
+    position: relative; 
+}
+
+#search-input {
+    width: 90%;
+    padding: 8px 30px 8px 10px; 
+    font-family: 'Montserrat-Regular', sans-serif;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    outline: none;
+}
+
+#search-input:focus {
+    border-color: #A3C585; 
+    box-shadow: 0 0 8px #A3C585;
+}
+
+#search-icon {
+    position: absolute;
+    right: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #585D27;
+    font-size: 16px;
+}
+
+.date-filter-container {
+    display: flex;
+    align-items: center;
+}
+
+.date-filter-container label {
+    margin-right: 10px;
+}
+
+.date-filter-container input {
+    padding: 5px;
+    font-family: 'Montserrat-Regular', sans-serif;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    outline: none;
+}
+
+.date-filter-container input:focus {
+    border-color: #A3C585; 
+    box-shadow: 0 0 8px #A3C585;
+}
+
+.date-filter-container button {
+    padding: 8px 10px;
+    font-family: 'Montserrat-Medium', sans-serif;
+    border-radius: 5px;
+    border: none;
+    background-color: #585D27;
+    color: #f8fff0;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.date-filter-container button:hover {
+    background-color: #A3C585;
+}
+
+#filter-btn {
+    padding: 8px 10px;
+    font-family: 'Montserrat-Medium', sans-serif;
+    border-radius: 5px;
+    border: none;
+    background-color: #585D27;
+    color: #f8fff0;
+    cursor: pointer;
+    outline: none;
+}
+
+#filter-btn:hover {
+    border-color: #A3C585; 
+    box-shadow: 0 0 8px #A3C585;
+}
+
+.pagination-section {
+    position: absolute; 
+    bottom: 25px; 
+    left: 50%;
+    transform: translateX(-50%); 
+    text-align: center;
+    width: 100%; 
+}
+
+.sort-section {
+    flex: 1;
+    text-align: right;
+}
+
+#sort-select {
+    padding: 8px;
+    font-family: 'Montserrat-Regular', sans-serif;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+#pagination {
+    text-align: center;
+}
+
+#pagination a {
+    padding: 5px 10px; 
+    font-size: 12px;
+    margin: 0 3px;
+    text-decoration: none;
+    background-color: #f8fff0;
+    color: #585D27;
+    border-radius: 4px; 
+    font-family: 'Montserrat-Regular', sans-serif;
+    border: 2px solid transparent; 
+}
+
+#pagination a:hover {
+    background-color: #e0e5c1; 
+}
+
+#pagination a:active {
+    background-color: #ddd; 
+}
+
+#pagination a.active {
+    background-color: #585D27; 
+    color: #f8fff0; 
+    border: 2px solid #585D27; 
+}
+
+#pagination a.inactive {
+    background-color: #f4f4f4;
+    color: #585D27;
+    border: 2px solid #ddd; 
+}
+
+#pagination a:hover:not(.active) {
+    background-color: #e0e5c1; 
+}
+
+@media screen and (max-width: 1024px) {
+    .sidebar {
+        width: 100px;
+        display: block;  /* Show sidebar */
+    }
+    .container {
+        display: flex;  /* Use flexbox layout */
+    }
+    .content {
+        width: 100%;  /* Take 70% width for the content */
+        padding: 20px;  /* Adjust padding */
+        height: auto;  /* Allow content to expand based on its size */
+    }
+    .users-img {
+        max-width: 25%;  
+        height: auto;    /* Maintain aspect ratio */
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .controls-container {
+        display: block; /* Stack the elements vertically */
+        width: 100%;
+    }
+
+    .search-section,
+    .sort-section {
+        width: 100%; /* Make each section take full width */
+        margin-bottom: 15px; /* Add spacing between the sections */
+    }
+
+    .search-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #search-input {
+        width: 75%; /* Make input take most of the width */
+    }
+
+    #search-icon {
+        right: 215px;
+    }
+
+    .date-filter-container {
+        display: block; /* Stack the items vertically */
+        width: 30%; /* Ensure the container takes the full width */
+        margin-bottom: 15px; /* Add spacing between stacked elements */
+    }
+
+    .date-filter-container label,
+    .date-filter-container input,
+    .date-filter-container button {
+        width: 100%; /* Ensure each item takes full width */
+        margin-bottom: 10px; /* Add spacing between each element */
+    }
+
+    .date-filter-container label {
+        margin-right: 0; /* Remove right margin from labels */
+    }
+
+    .date-filter-container button {
+        width: auto; /* Adjust the width of the button */
+        align-self: center; /* Center the button */
+    }
+
+    .sort-section {
+        display: flex;
+        justify-content: flex-end; /* Align it to the right */
+    }
+
+    #sort-select {
+        width: auto; /* Adjust width of the select box */
+    }
+    .table-container {
+        overflow-x: auto;
+        background-color: #f8fff0;
+        border: 4px solid #585D27;
+        border-radius: 15px;
+        padding: 23px;
+        position: relative;
+        top: 20px;
+        height: auto; 
+        margin-bottom: 20px;
+    }
+    #users-table {
+        margin-bottom: 50px;
+    }
+  }
+
+@media screen and (max-width: 900px) {
+    .sidebar {
+        width: 100px;
+        display: block;  /* Show sidebar */
+    }
+    .container {
+        display: flex;  /* Use flexbox layout */
+    }
+    .content {
+        width: 100%;  /* Take 70% width for the content */
+        padding: 20px;  /* Adjust padding */
+        height: auto;  /* Allow content to expand based on its size */
+    }
+    .users-img {
+        max-width: 35%;  
+        height: auto;    /* Maintain aspect ratio */
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .controls-container {
+        display: block; /* Stack the elements vertically */
+        width: 100%;
+    }
+
+    .search-section,
+    .sort-section {
+        width: 100%; /* Make each section take full width */
+        margin-bottom: 15px; /* Add spacing between the sections */
+    }
+
+    .search-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #search-input {
+        width: 75%; /* Make input take most of the width */
+    }
+
+    #search-icon {
+        right: 165px;
+    }
+
+    .date-filter-container {
+        display: block; /* Stack the items vertically */
+        width: 30%; /* Ensure the container takes the full width */
+        margin-bottom: 15px; /* Add spacing between stacked elements */
+    }
+
+    .date-filter-container label,
+    .date-filter-container input,
+    .date-filter-container button {
+        width: 100%; /* Ensure each item takes full width */
+        margin-bottom: 10px; /* Add spacing between each element */
+    }
+
+    .date-filter-container label {
+        margin-right: 0; /* Remove right margin from labels */
+    }
+
+    .date-filter-container button {
+        width: auto; /* Adjust the width of the button */
+        align-self: center; /* Center the button */
+    }
+
+    .sort-section {
+        display: flex;
+        justify-content: flex-end; /* Align it to the right */
+    }
+
+    #sort-select {
+        width: auto; /* Adjust width of the select box */
+    }
+
+    .table-container {
+        overflow-x: auto;
+        background-color: #f8fff0;
+        border: 4px solid #585D27;
+        border-radius: 15px;
+        padding: 23px;
+        position: relative;
+        top: 20px;
+        height: auto; 
+        margin-bottom: 20px;
+    }
+    #users-table {
+        margin-bottom: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    body, html {
+        overflow: auto;
+    }
+    .sidebar {
+        display: none;  /* Hide sidebar */
+    }
+    .container {
+        display: block;  /* Stack the content */
+        border: none; /* Removes the border on screens smaller than 768px */
+    }
+    .content {
+        width: 100%; /* Full width for content */
+        padding: 20px; /* Adjust padding if necessary */
+        height: 100vh;
+    }
+    .users-img {
+        max-width: 35%;  
+        height: auto;    /* Maintain aspect ratio */
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .controls-container {
+        display: block; /* Stack the elements vertically */
+        width: 100%;
+    }
+
+    .search-section,
+    .sort-section {
+        width: 100%; /* Make each section take full width */
+        margin-bottom: 15px; /* Add spacing between the sections */
+    }
+
+    .search-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #search-input {
+        width: 75%; /* Make input take most of the width */
+    }
+
+    #search-icon {
+        right: 80px;
+    }
+
+    .date-filter-container {
+        display: block; /* Stack the items vertically */
+        width: 100%; /* Ensure the container takes the full width */
+        margin-bottom: 15px; /* Add spacing between stacked elements */
+    }
+
+    .date-filter-container label,
+    .date-filter-container input,
+    .date-filter-container button {
+        width: 100%; /* Ensure each item takes full width */
+        margin-bottom: 10px; /* Add spacing between each element */
+    }
+
+    .date-filter-container label {
+        margin-right: 0; /* Remove right margin from labels */
+    }
+
+    .date-filter-container button {
+        width: auto; /* Adjust the width of the button */
+        align-self: center; /* Center the button */
+    }
+
+    .sort-section {
+        display: flex;
+        justify-content: flex-end; /* Align it to the right */
+    }
+
+    #sort-select {
+        width: auto; /* Adjust width of the select box */
+    }
+
+    .table-container {
+        overflow-x: auto;
+        background-color: #f8fff0;
+        border: 4px solid #585D27;
+        border-radius: 15px;
+        padding: 23px;
+        position: relative;
+        top: 20px;
+        height: auto; 
+        margin-bottom: 20px;
+    }
+    #users-table {
+        margin-bottom: 50px;
+    }
+}
