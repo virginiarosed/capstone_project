@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BondVoyage │ Forgot Password</title>
+    <link rel="stylesheet" href="../CSS/bv_forgotpass.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
+</head>
+<body>
+    <div class="forgot-form-container">
+        <div class="left-side">
+            <h1>Forgot Password</h1>
+            <p>
+                To reset your password, please follow these steps carefully:
+                <ul>
+                    <li>Enter the <strong>email address</strong> you used during the sign-up process. This is the email we will use to verify your identity.</li>
+                    <li>Next, select <strong>three security questions</strong> from the options provided. These are the same questions you chose when you created your account.</li>
+                    <li>Make sure to answer each question correctly. Your answers should match exactly what you provided during sign-up.</li>
+                </ul>
+                <p>
+                    This process is designed to ensure the security of your account. By verifying your email address and answering the security questions, we can confirm that it's really you requesting the password reset.
+                </p>
+            </p>
+        </div>
+
+        <div class="right-side">
+            
+            <form method="POST" action="../PHP/forgot_password_process.php">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required class="input-field">
+                </div>
+
+                <div class="form-group">
+                    <label for="security_question_1">Security Question 1</label>
+                    <select id="security_question_1" name="security_question_1" required class="input-field">
+                        <option value="" disabled selected>Select Security Question 1</option>
+                        <option value="movie">What was the first movie you watched in theater?</option>
+                        <option value="friend">What year did you meet your oldest friend?</option>
+                        <option value="purchase">What is the first thing you bought with your own money?</option>
+                        <option value="toy">What is the name of your favorite childhood toy?</option>
+                        <option value="pet">What is the name of your first pet that wasn’t a dog or cat?</option>
+                        <option value="book">What was the title of the first book you ever read by yourself?</option>
+                        <option value="character">What is the name of the first fictional character you admired?</option>
+                    </select>
+                    <input type="text" id="security_answer_1" name="security_answer_1" required class="input-field">
+                </div>
+
+                <div class="form-group">
+                    <label for="security_question_2">Security Question 2</label>
+                    <select id="security_question_2" name="security_question_2" required class="input-field">
+                        <option value="" disabled selected>Select Security Question 2</option>
+                        <option value="movie">What was the first movie you watched in theater?</option>
+                        <option value="friend">What year did you meet your oldest friend?</option>
+                        <option value="purchase">What is the first thing you bought with your own money?</option>
+                        <option value="toy">What is the name of your favorite childhood toy?</option>
+                        <option value="pet">What is the name of your first pet that wasn’t a dog or cat?</option>
+                        <option value="book">What was the title of the first book you ever read by yourself?</option>
+                        <option value="character">What is the name of the first fictional character you admired?</option>
+                    </select>
+                    <input type="text" id="security_answer_2" name="security_answer_2" required class="input-field">
+                </div>
+
+                <div class="form-group">
+                    <label for="security_question_3">Security Question 3</label>
+                    <select id="security_question_3" name="security_question_3" required class="input-field">
+                        <option value="" disabled selected>Select Security Question 3</option>
+                        <option value="movie">What was the first movie you watched in theater?</option>
+                        <option value="friend">What year did you meet your oldest friend?</option>
+                        <option value="purchase">What is the first thing you bought with your own money?</option>
+                        <option value="toy">What is the name of your favorite childhood toy?</option>
+                        <option value="pet">What is the name of your first pet that wasn’t a dog or cat?</option>
+                        <option value="book">What was the title of the first book you ever read by yourself?</option>
+                        <option value="character">What is the name of the first fictional character you admired?</option>
+                    </select>
+                    <input type="text" id="security_answer_3" name="security_answer_3" required class="input-field">
+                </div>
+
+                <div class="form-group">
+                    
+                    <div id="error-message-container">
+                        <!-- Error messages will be injected here using JS -->
+                    </div>
+                </div>
+
+                <button type="submit" name="submit" class="submit-button">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the email input field and the error message container
+            const emailInput = document.querySelector('input[name="email"]');
+            const errorMessageContainer = document.getElementById('error-message-container');
+
+            // If the user clicks into the email input, clear the error message
+            emailInput.addEventListener('focus', function() {
+                if (errorMessageContainer) {
+                    errorMessageContainer.innerHTML = ''; // Clear the error messages
+                }
+            });
+
+            // Check if there's an error message in the URL and display it
+            const urlParams = new URLSearchParams(window.location.search);
+            const errorMessage = urlParams.get('error'); // Get the error message from the query string
+
+            if (errorMessage) {
+                // Display the error message in the container
+                const errorMessageElement = document.createElement('p');
+                errorMessageElement.textContent = errorMessage;
+                errorMessageElement.style.color = 'red';
+                errorMessageElement.style.fontSize = '14px';
+                errorMessageElement.style.textAlign = 'center';
+                errorMessageElement.style.fontWeight = 'bold';
+                errorMessageContainer.appendChild(errorMessageElement);
+            }
+        });
+    </script>
+
+</body>
+</html>

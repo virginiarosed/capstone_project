@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BondVoyage │ Feedback</title>
+    <link rel="stylesheet" href="../CSS/bv_feedback.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="../Images/bv_logo.png" alt="Logo" class="logo-img">
+            </div>
+            <ul class="menu">
+                <li><a href="../User_HTML/bv_home.html"><img src="../Images/bv_home.png" alt="Home Icon"><span>Home</span></a></li>
+                <li><a href="../User_HTML/bv_travel.html"><img src="../Images/bv_travel.png" alt="Travel Icon"><span>Travel</span></a></li>
+                <li><a href="../User_HTML/bv_weather.html"><img src="../Images/bv_weather.png" alt="Weather Icon"><span>Weather</span></a></li>
+                <li><a href="../User_HTML/bv_translate.html"><img src="../Images/bv_translate.png" alt="Translate Icon"><span>Translate</span></a></li>
+                <li><a href="../User_HTML/bv_more.html"><img src="../Images/bv_more.png" alt="More Icon"><span>More</span></a></li>
+            </ul>            
+        </nav>
+        <main class="content">
+            <img src="../Images/feedback_title.png" alt="Feedback Title" class="feedback-img">
+
+            <div class="feedback-container">
+                <div class="text-section">
+                    <p>
+                        Hey Travelers,<br><br>
+                        Thank you for choosing 4B's Travel and Tours for your recent journey! We are delighted to have been a part of your travel experience. At 4B's, we strive to provide exceptional service, unforgettable destinations, and seamless travel experiences, and your satisfaction is at the heart of everything we do. Your feedback is incredibly valuable to us! We’d love to hear about your travel experience and any suggestions you may have to help us enhance our services. Your input allows us to continue creating unforgettable travel experiences for you and all our future clients.<br>
+                        <br>Safe travels and warm wishes,<br>
+                        4B's Travel and Tours
+                    </p>
+                </div>
+                
+                <div class="form-section">
+                    <form id="feedbackForm" action="../PHP/submit_feedback.php" method="post">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    
+                        <label for="feedback">Feedback</label>
+                        <textarea id="feedback" name="feedback" rows="4" required></textarea>
+                    
+                        <div id="responseMessage" style="color: green; align-items: center; text-align: center;"></div>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <script>
+            $(document).ready(function(){
+                // Handle form submission using AJAX
+                $('#feedbackForm').on('submit', function(e){
+                    e.preventDefault();  // Prevent default form submission
+                    
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        type: 'POST',
+                        data: $(this).serialize(),  // Serialize form data
+                        success: function(response){
+                            // Display the response (feedback message) above the submit button
+                            $('#responseMessage').html('<p>' + response + '</p>');
+                            
+                            // Clear the form fields after submission
+                            $('#feedbackForm')[0].reset();
+                            
+                            // Hide the responseMessage after 5 seconds
+                            setTimeout(function(){
+                                $('#responseMessage').fadeOut(); // Fades out the responseMessage
+                            }, 5000); // 5000 milliseconds = 5 seconds
+                        },
+                        error: function(){
+                            $('#responseMessage').html('<p>Error submitting feedback. Please try again later.</p>');
+                            
+                            // Hide the error message after 5 seconds
+                            setTimeout(function(){
+                                $('#responseMessage').fadeOut(); // Fades out the error message
+                            }, 5000); // 5000 milliseconds = 5 seconds
+                        }
+                    });
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>

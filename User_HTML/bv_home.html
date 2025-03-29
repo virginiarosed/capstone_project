@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BondVoyage │ Home</title>
+    <link rel="stylesheet" href="../CSS/bv_home.css">
+    <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="../Images/bv_logo.png" alt="Logo" class="logo-img">
+            </div>
+            <ul class="menu">
+                <li class="active"><a href="../User_HTML/bv_home.html"><img src="../Images/bv_home.png" alt="Home Icon"><span>Home</span></a></li>
+                <li><a href="../User_HTML/bv_travel.html"><img src="../Images/bv_travel.png" alt="Travel Icon"><span>Travel</span></a></li>
+                <li><a href="../User_HTML/bv_weather.html"><img src="../Images/bv_weather.png" alt="Weather Icon"><span>Weather</span></a></li>
+                <li><a href="../User_HTML/bv_translate.html"><img src="../Images/bv_translate.png" alt="Translate Icon"><span>Translate</span></a></li>
+                <li><a href="../User_HTML/bv_more.html"><img src="../Images/bv_more.png" alt="More Icon"><span>More</span></a></li>
+            </ul>           
+        </nav>
+        <main class="content">
+            <img src="../Images/welcome_title.png" alt="Welcome Title" class="welcome-img">
+            <div class="profile-container">
+                <div class="profile-left">
+                    <img src="../Images/bv_userprofile.png" alt="User Profile" class="profile-img">
+                </div>
+
+                <!-- Will modify this to display the user's data -->
+                <div class="profile-right">
+                    
+                </div>
+            </div>
+
+            <div class="info-containers">
+                <div class="first-container">
+                    <div class="travel-tip">
+                        <h1 style="font-family: 'Gusto-Bold', sans-serif;">Daily Travel Tips!</h1>
+                        <p id="tip-of-the-day">Loading Tip...</p>
+                    </div>
+                    <div class="quote-of-the-day">
+                        <h1 style="font-family: 'Gusto-Bold', sans-serif;">Daily Travel Quotes!</h1>
+                        <p id="quote-of-the-day">Loading Quote...</p>
+                    </div>
+                </div>
+            
+                <div class="second-container">
+                    <div class="packing-list">
+                        <h1 style="font-family: 'Gusto-Bold', sans-serif;">Generate Packing List</h1>
+                        <label for="destination-type">Select Trip Type:</label>
+                        <div class="select-button-container" style="margin-top: 5px;">
+                            <select id="destination-type">
+                                <option value="beach">Beach Trip</option>
+                                <option value="mountain">Mountain Trip</option>
+                                <option value="city">City Trip</option>
+                                <option value="adventure">Adventure Travel</option>
+                                <option value="business">Business Trip</option>
+                            </select>
+                            <button id="generate-packing-list">Generate List</button>
+                        </div>
+            
+                        <h4 style="margin-top: 5px;">Your Packing List:</h4>
+                        <ul id="packing-list" style="margin-left: 20px;">
+                            <!-- Packing items will be displayed here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get the current URL path
+            const currentPath = window.location.pathname;
+
+            // Select all <a> elements in the sidebar
+            const menuLinks = document.querySelectorAll('.menu a');
+
+            // Loop through the links and compare their href with the current path
+            menuLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    // Add the active class to the parent <li>
+                    link.parentElement.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fetch user data from the PHP endpoint
+            fetch('../PHP/get_user_data.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                    } else {
+                        // Populate the profile-right div with user data
+                        const profileRight = document.querySelector('.profile-right');
+                        profileRight.innerHTML = `
+                            <p class="profile-name">${data.first_name} ${data.last_name}</p>
+                            <p class="profile-email">${data.email}</p>
+                        `;
+                    }
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const travelTips = [
+        "Always pack a power bank!",
+        "Roll your clothes to save space!",
+        "Never forget a universal adapter!",
+        "Keep a photocopy of important documents!",
+        "Pack a reusable water bottle!",
+        "Use a money belt or neck pouch for security!",
+        "Learn basic phrases in the local language!",
+        "Take pictures of your luggage before you check it in!",
+        "Research local customs and etiquette!",
+        "Make sure you have travel insurance!"
+    ];
+
+    const today = new Date();
+    const dayOfYear = today.getDate();
+    const tipOfTheDay = travelTips[dayOfYear % travelTips.length];
+
+    // Insert the travel tip into the HTML
+    document.getElementById('tip-of-the-day').innerText = tipOfTheDay;
+});
+
+const travelQuotes = [
+    "The world is a book, and those who do not travel read only one page. \n\n– Saint Augustine",
+    "Not all those who wander are lost. \n\n– J.R.R. Tolkien",
+    "Travel far enough, you meet yourself. \n\n– David Mitchell",
+    "Life is either a daring adventure or nothing at all. \n\n– Helen Keller",
+    "The journey not the arrival matters. \n\n– T.S. Eliot",
+    "Travel makes one modest. You see what a tiny place you occupy in the world. \n\n– Gustave Flaubert",
+    "To travel is to live. \n\n– Hans Christian Andersen",
+    "We travel not to escape life, but for life not to escape us. \n\n– Anonymous",
+    "The best way to predict the future is to create it. \n\n– Abraham Lincoln",
+    "Once a year, go someplace you’ve never been before. \n\n– Dalai Lama"
+];
+// Get today's date (e.g., 2025-01-23)
+const today = new Date();
+
+// Use the day of the year (e.g., 23rd day of the year) as an index
+const dayOfYear = today.getDate();
+
+// Get the quote of the day based on the current day
+const quoteOfTheDay = travelQuotes[dayOfYear % travelQuotes.length];
+
+// Insert the quote into the HTML
+document.getElementById('quote-of-the-day').innerText = quoteOfTheDay;
+
+const packingLists = {
+    beach: [
+        'Sunscreen',
+        'Swimsuit',
+        'Sunglasses',
+        'Flip Flops',
+        'Beach Towel',
+        'Beach Bag',
+        'Snorkel Gear',
+        'Hat',
+        'Sunscreen Lip Balm'
+    ],
+    mountain: [
+        'Hiking Boots',
+        'Warm Clothes',
+        'Backpack',
+        'Water Bottle',
+        'First Aid Kit',
+        'Headlamp',
+        'Walking Stick',
+        'Weatherproof Jacket',
+        'Hiking Snacks'
+    ],
+    city: [
+        'Comfortable Shoes',
+        'Camera',
+        'Guidebook',
+        'Chargers',
+        'Water Bottle',
+        'City Map',
+        'Portable Charger',
+        'Travel Journal',
+        'Travel Adapter'
+    ],
+    adventure: [
+        'Backpack',
+        'Climbing Gear',
+        'Camping Stove',
+        'Tent',
+        'Sleeping Bag',
+        'Headlamp',
+        'Weatherproof Gear',
+        'Energy Bars',
+        'Portable Water Filter'
+    ],
+    business: [
+        'Business Cards',
+        'Laptop',
+        'Charger',
+        'Formal Clothes',
+        'Notebook',
+        'Pens',
+        'Portable Wi-Fi',
+        'Travel Pillow',
+        'Phone Charger'
+    ]
+};
+
+// Function to generate packing list
+document.getElementById('generate-packing-list').addEventListener('click', () => {
+    const destination = document.getElementById('destination-type').value;
+    const list = packingLists[destination];
+
+    // Clear the previous list
+    const packingListElement = document.getElementById('packing-list');
+    packingListElement.innerHTML = '';
+
+    // Add the new list items
+    list.forEach(item => {
+        const listItem = document.createElement('li');
+        listItem.innerText = item;
+        packingListElement.appendChild(listItem);
+    });
+});
+    </script>
+
+</body>
+</html>

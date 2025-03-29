@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BondVoyage │ More</title>
+    <link rel="stylesheet" href="../CSS/bv_more.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="../images/favicon-32x32.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="../Images/bv_logo.png" alt="Logo" class="logo-img">
+            </div>
+            <ul class="menu">
+                <li><a href="../User_HTML/bv_home.html"><img src="../Images/bv_home.png" alt="Home Icon"><span>Home</span></a></li>
+                <li><a href="../User_HTML/bv_travel.html"><img src="../Images/bv_travel.png" alt="Travel Icon"><span>Travel</span></a></li>
+                <li><a href="../User_HTML/bv_weather.html"><img src="../Images/bv_weather.png" alt="Weather Icon"><span>Weather</span></a></li>
+                <li><a href="../User_HTML/bv_translate.html"><img src="../Images/bv_translate.png" alt="Translate Icon"><span>Translate</span></a></li>
+                <li class="active"><a href="../User_HTML/bv_more.html"><img src="../Images/bv_more.png" alt="More Icon"><span>More</span></a></li>
+            </ul>            
+        </nav>
+        <main class="content">
+            <img src="../Images/more_title.png" alt="More Title" class="more-img">
+
+            <div class="widget-container">
+                
+                    <div class="widget">
+                        <a href="../User_HTML/bv_spin.html">
+                            <img src="../Images/spin.png" alt="Spin Icon" class="widget-icon1">
+                            <p>Spin the Wheel</p>
+                        </a>
+                    </div>
+                
+                    <div class="widget">
+                        <a href="../User_HTML/bv_feedback.html">
+                            <img src="../Images/feedback.png" alt="Feedback Icon" class="widget-icon2">
+                            <p>Feedback</p>
+                        </a>
+                    </div>
+                
+                    <div class="widget">
+                        <a href="#" onclick="logoutFunction()">
+                            <img src="../Images/logout.png" alt="Log Out Icon" class="widget-icon3">
+                            <p>Log Out</p>
+                        </a>
+                    </div>
+                </div>                
+            </div>
+            
+            <script>
+                function logoutFunction() {
+                    // Terminate session logic here
+                    alert('You have logged out.');
+                    window.location.href = '../User_HTML/bv_login.html'; // Redirect to login or home page
+                }
+            
+                document.addEventListener('DOMContentLoaded', () => {
+                    // Get the current URL path
+                    const currentPath = window.location.pathname;
+        
+                    // Select all <a> elements in the sidebar
+                    const menuLinks = document.querySelectorAll('.menu a');
+        
+                    // Loop through the links and compare their href with the current path
+                    menuLinks.forEach(link => {
+                        if (link.getAttribute('href') === currentPath) {
+                            // Add the active class to the parent <li>
+                            link.parentElement.classList.add('active');
+                        }
+                    });
+                });
+            </script>
+</body>
+</html>

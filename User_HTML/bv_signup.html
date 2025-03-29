@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BondVoyage │ Sign Up</title>
+    <link rel="stylesheet" href="../CSS/bv_signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <div class="signup-form-container">
+        <form class="signup-form" action="../PHP/bv_signup_process.php" method="POST">
+            <div id="initial-questions">
+                
+                <div class="form-header">
+                    <div class="logo-container">
+                        <img src="../Images/bv_logo.png" alt="Logo" class="logo">
+                    </div>
+                    <div class="title-container">
+                        <img src="../Images/signup_title.png" alt="Create an Account" class="title-image">
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <input type="text" name="first_name" placeholder="First Name" class="input-field half-width" required>
+                    <input type="text" name="last_name" placeholder="Last Name" class="input-field half-width" required>
+                </div>
+                <div class="form-group email-group">
+                    <input type="email" name="email" id="email" placeholder="Email" class="input-field full-width" required>
+                    <i class="fas fa-envelope email-icon"></i>
+                </div>                
+                <div class="form-group row">
+                    <input type="text" name="mobile" placeholder="Mobile Number (09*********)" class="input-field half-width" required>
+                    <input type="date" name="birthday" id="birthday" placeholder="Birthday" class="input-field half-width" required>
+                </div>
+                <div class="form-group row">
+                    <div class="password-container">
+                        <input type="password" name="password" id="password" placeholder="Password" class="input-field half-width" required>
+                        <i class="fas fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+                    </div>
+                    <div class="password-container">
+                        <input type="password" name="password_confirmation" placeholder="Confirm Password" id="password_confirmation" class="input-field half-width" required>
+                        <i class="fas fa-eye" id="togglePasswordConfirmation" style="cursor: pointer;"></i>
+                    </div>                   
+                </div>
+                <div id="password-requirements" class="password-requirements" style="display: none;">
+                    <p>Password must contain:</p>
+                    <ul class="requirement-list">
+                        <li>
+                            <i class="fa-solid fa-circle"></i>
+                            <span>At least 8 characters length</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle"></i>
+                            <span>At least 1 number (0-9)</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle"></i>
+                            <span>At least 1 lowercase letter (a-z)</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle"></i>
+                            <span>At least 1 special symbol (!, $, etc.)</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle"></i>
+                            <span>At least 1 uppercase letter (A-Z)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div id="password-error" style="color: red; display: none; font-size: 15px; text-align: center; margin: 0 auto; margin-bottom: -10px;">
+                    <p>Passwords do not match</p>
+                </div>
+                <div id="birthday-error" style="color: red; display: none; font-size: 15px; text-align: center; margin: 0 auto; margin-bottom: 10px;">
+                    <p>Invalid date. You must be at least 15 years old.</p>
+                </div>         
+                <div id="email-error" style="color: red; display: none; font-size: 15px; text-align: center; margin: 0 auto; margin-bottom: 10px;">
+                    <p>This email is already in use. Please choose another one.</p>
+                </div>     
+                <div id="mobile-error" style="color: red; display: none; font-size: 15px; text-align: center; margin: 0 auto; margin-bottom: 10px;">
+                    <p>Invalid mobile number format.<br>
+                        Please enter it as 09********* (e.g. 09123456789)</p>
+                </div>  
+                <div class="form-group">
+                    <button type="button" class="next-button" onclick="showSecurityQuestions()">Next</button>
+                </div>
+                <p class="login-text">Already have an account? <a href="../User_HTML/bv_login.html">Log In</a></p>
+            </div>
+    
+            <!-- Security Questions Section (Initially Hidden) -->
+            <div id="security-questions" style="display: none;">
+                <div class="form-wrapper">
+                    
+                    <div class="left-section">
+                        <button type="button" class="back-button" onclick="goBackToInitial()">Back</button>
+                        <h1>Security Questions</h1>
+                        <p>To help secure your account, we ask you to select and answer three security questions. These questions will assist you in recovering your account if you forget your password in the future.</p>
+                    </div>
+                    
+                    <div class="right-section">
+                        <!-- Security Question 1 -->
+                        <div class="form-group security-question-container">
+                            <label for="security_question_1" class="security-label">Security Question 1</label>
+                            <select name="security_question_1" id="security_question_1" class="input-field" required onchange="toggleSecurityQuestionInput(1)">
+                                <option value="" disabled selected>Select Security Question 1</option>
+                                <option value="movie">What was the first movie you watched in theater?</option>
+                                <option value="friend">What year did you meet your oldest friend?</option>
+                                <option value="purchase">What is the first thing you bought with your own money?</option>
+                                <option value="toy">What is the name of your favorite childhood toy?</option>
+                                <option value="pet">What is the name of your first pet that wasn’t a dog or cat?</option>
+                                <option value="book">What was the title of the first book you ever read by yourself?</option>
+                                <option value="character">What is the name of the first fictional character you admired?</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="security_answer_1_container">
+                            <input type="text" name="security_answer_1" placeholder="Answer" id="security_answer_1" class="input-field" style="display: none;" required>
+                        </div>
+                        <!-- Security Question 2 -->
+                        <div class="form-group security-question-container">
+                            <label for="security_question_2" class="security-label">Security Question 2</label>
+                            <select name="security_question_2" id="security_question_2" class="input-field" required onchange="toggleSecurityQuestionInput(2)">
+                                <option value="" disabled selected>Select Security Question 2</option>
+                                <option value="movie">What was the first movie you watched in theater?</option>
+                                <option value="friend">What year did you meet your oldest friend?</option>
+                                <option value="purchase">What is the first thing you bought with your own money?</option>
+                                <option value="toy">What is the name of your favorite childhood toy?</option>
+                                <option value="pet">What is the name of your first pet that wasn’t a dog or cat?</option>
+                                <option value="book">What was the title of the first book you ever read by yourself?</option>
+                                <option value="character">What is the name of the first fictional character you admired?</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="security_answer_2_container">
+                            <input type="text" name="security_answer_2" placeholder="Answer" id="security_answer_2" class="input-field" style="display: none;" required>
+                        </div>
+                        <!-- Security Question 3 -->
+                        <div class="form-group security-question-container">
+                            <label for="security_question_3" class="security-label">Security Question 3</label>
+                            <select name="security_question_3" id="security_question_3" class="input-field" required onchange="toggleSecurityQuestionInput(3)">
+                                <option value="" disabled selected>Select Security Question 3</option>
+                                <option value="movie">What was the first movie you watched in theater?</option>
+                                <option value="friend">What year did you meet your oldest friend?</option>
+                                <option value="purchase">What is the first thing you bought with your own money?</option>
+                                <option value="toy">What is the name of your favorite childhood toy?</option>
+                                <option value="pet">What is the name of your first pet that wasn’t a dog or cat?</option>
+                                <option value="book">What was the title of the first book you ever read by yourself?</option>
+                                <option value="character">What is the name of the first fictional character you admired?</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="security_answer_3_container">
+                            <input type="text" name="security_answer_3" placeholder="Answer" id="security_answer_3" class="input-field" style="display: none;" required>
+                        </div>
+                        <div class="form-group recaptcha-container">
+                            <div class="g-recaptcha" data-sitekey="6LdzmHcqAAAAACfqAFQK4QyibPiL2IOkMflLFbVT"></div>
+                        </div>
+                        <div id="security-question-error" style="color: red; display: none; font-size: 15px; text-align: center; margin: 0 auto; margin-bottom: -10px;">
+                            <p>Please select unique security questions</p>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="signup-button">Sign Up</button>
+                        </div>
+                        <p class="login-text">Already have an account? <a href="../User_HTML/bv_login.html">Log In</a></p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="../JS/bv_signup.js"></script>
+</body>
+</html>

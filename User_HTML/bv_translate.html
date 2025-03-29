@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BondVoyage │ Translator</title>
+    <link rel="stylesheet" href="../CSS/bv_translate.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
+</head>
+<body>
+  <header class="header">
+    <!-- Logo Image -->
+    <div class="logo1">
+      <img src="../Images/logo_title.png" alt="Logo" />
+    </div>
+  
+    <!-- Hamburger Menu Icon -->
+    <div class="hamburger-menu" onclick="toggleMenu()">
+      &#9776;
+    </div>
+  </header>
+  
+  <!-- Menu -->
+  <div id="nav-menu" class="nav-menu">
+    <ul>
+      <li><a href="../User_HTML/bv_home.html">Home</a></li>
+      <div class="divider2"></div>
+      <li><a href="../User_HTML/bv_travel.html">Travel</a></li>
+      <div class="divider2"></div>
+      <li><a href="../User_HTML/bv_weather.html">Weather</a></li>
+      <div class="divider2"></div>
+      <li><a href="../User_HTML/bv_translate.html">Translate</a></li>
+      <div class="divider2"></div>
+      <li><a href="../User_HTML/bv_more.html">More</a></li>
+    </ul>
+  </div>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="../Images/bv_logo.png" alt="Logo" class="logo-img">
+            </div>
+            <ul class="menu">
+                <li><a href="../User_HTML/bv_home.html"><img src="../Images/bv_home.png" alt="Home Icon"><span>Home</span></a></li>
+                <li><a href="../User_HTML/bv_travel.html"><img src="../Images/bv_travel.png" alt="Travel Icon"><span>Travel</span></a></li>
+                <li><a href="../User_HTML/bv_weather.html"><img src="../Images/bv_weather.png" alt="Weather Icon"><span>Weather</span></a></li>
+                <li class="active"><a href="../User_HTML/bv_translate.html"><img src="../Images/bv_translate.png" alt="Translate Icon"><span>Translate</span></a></li>
+                <li><a href="../User_HTML/bv_more.html"><img src="../Images/bv_more.png" alt="More Icon"><span>More</span></a></li>
+            </ul>            
+        </nav>
+        <main class="content">
+            <img src="../Images/translator_title.png" alt="Translate Title" class="translate-img">
+            <div class="container2">
+                <div class="wrapper">
+                  <div class="text-input">
+                    <textarea spellcheck="false" class="from-text" placeholder="Enter text"></textarea>
+                    <textarea spellcheck="false" readonly disabled class="to-text" placeholder="Translation"></textarea>
+                  </div>
+                  <ul class="controls">
+                    <li class="row from">
+                      <div class="icons">
+                        <i id="from-volume" class="fas fa-volume-up"></i>
+                        <i id="from-copy" class="fas fa-copy"></i>
+                      </div>                      
+                      <select></select>
+                    </li>
+                    <li class="exchange"><i class="fas fa-exchange-alt"></i></li>
+                    <li class="row to">
+                      <select></select>
+                      <div class="icons">
+                        <i id="to-volume" class="fas fa-volume-up"></i>
+                        <i id="to-copy" class="fas fa-copy"></i>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <button>Translate</button>
+              </div>
+
+              <div id="toast" class="toast">Text copied to clipboard!</div>
+        </main>
+
+    <script src="../JS/bv_translate.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get the current URL path
+            const currentPath = window.location.pathname;
+
+            // Select all <a> elements in the sidebar
+            const menuLinks = document.querySelectorAll('.menu a');
+
+            // Loop through the links and compare their href with the current path
+            menuLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    // Add the active class to the parent <li>
+                    link.parentElement.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

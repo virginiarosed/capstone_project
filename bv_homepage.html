@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BondVoyage │ Homepage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="CSS/bv_homepage.css">
+    <link rel="icon" href="Images/favicon-32x32.png" type="image/png">
+  <body>
+    <header>
+      <nav class="navbar">
+        <a href="#" class="nav-logo">
+          <img src="Images/logo_title.png" alt="BondVoyage Title" class="logo-img" style="margin-top: 10px;">
+      </a>
+
+        <ul class="nav-menu">
+          <button id="menu-close-button" class="fas fa-times"></button>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#about" class="nav-link">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="#dev" class="nav-link">Team</a>
+          </li>
+          <li class="nav-item">
+            <a href="#contact" class="nav-link">Contact</a>
+          </li>
+        </ul>
+
+        <button id="menu-open-button" class="fas fa-bars"></button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Open section -->
+      <section class="open-section">
+        <div class="section-content">
+          <div class="open-details">
+            <h3 class="subtitle">BondVoyage<br>travel smarter</h3>
+            <p class="description">Make every plan as fun as the destination! Turning travel dreams into well-planned realities!</p>
+
+            <div class="buttons">
+              <a href="User_HTML/bv_login.html" class="button login">User Log In</a>
+              <a href="Admin_HTML/bv_adminlogin.html" class="button admin-login">Admin Log In</a>
+            </div>
+
+          </div>
+          <div class="open-image-wrapper">
+            <img src="Images/bv_logo.png" alt="Logo" class="open-image">
+          </div>
+        </div>
+      </section>
+
+      <!-- About section -->
+      <section class="about-section" id="about">
+        <div class="section-content">
+          <div class="about-image-wrapper">
+            <img src="Images/about.jpg" alt="About" class="about-image" />
+          </div>
+          <div class="about-details">
+            <h2 class="section-title">About Us</h2>
+            <p class="text">
+              BondVoyage, a user-friendly e-Travel system, was designed to revolutionize travel planning by making it simpler and more organized. With a centralized task management system, it streamlines the process of creating, managing, and executing travel plans while enhancing customer interactions. The system transforms the travel experience by offering personalized features, including customized itineraries tailored to individual preferences and interests. It integrates advanced tools such as translation support, real-time weather updates, joining a group travel via code for seamless access to essential travel information, and a client feedback management system to ensure satisfaction at every step. With a focus on innovation and convenience, it guarantees a smooth and enjoyable journey from start to finish.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="dev-section" id="dev">
+        <h2 class="section-title" style="margin-bottom: -30px;">Team</h2>
+        <div class="dev-widgets">
+          <div class="dev-widget">
+            <div class="dev-photo">
+              <img src="Images/dichoso.svg" alt="Dev" />
+            </div>
+            <p class="dev-name">Virginia Rose Dichoso</p>
+            <p style="font-family: 'Montserrat-Regular', sans-serif; margin-top: 5px;">virginiarosedichoso@gmail.com</p>
+          </div>
+          <div class="dev-widget">
+            <div class="dev-photo">
+              <img src="Images/hidalgo.PNG" alt="Dev" />
+            </div>
+            <p class="dev-name">Ayumi Hidalgo</p>
+            <p style="font-family: 'Montserrat-Regular', sans-serif; margin-top: 5px;">hidalgoayumi0613@gmail.com</p>
+          </div>
+          <div class="dev-widget">
+            <div class="dev-photo">
+              <img src="Images/lacsa.jpg" alt="Dev" />
+            </div>
+            <p class="dev-name">Fara Katrina Lacsa</p>
+            <p style="font-family: 'Montserrat-Regular', sans-serif; margin-top: 5px;">fawakatwina@gmail.com</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact section -->
+      <section class="contact-section" id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="section-content">
+          <ul class="contact-info-list">
+            <li class="contact-info">
+              <i class="fa-solid fa-location-crosshairs"></i>
+              <p>Polytechnic University of the Philippines, Santa Rosa Campus</p>
+            </li>
+            <li class="contact-info">
+              <i class="fa-regular fa-envelope"></i>
+              <p>bondvoyage.system@gmail.com</p>
+            </li>
+            <li class="contact-info">
+              <i class="fa-solid fa-globe"></i>
+              <p>www.bondvoyage.com</p>
+            </li>
+          </ul>
+
+          <form action="send_email.php" method="POST" class="contact-form">
+            <input type="text" name="name" placeholder="Name" class="form-input" required />
+            <input type="email" name="email" placeholder="Email" class="form-input" required />
+            <textarea name="message" placeholder="Message" class="form-input" required></textarea>
+            <div id="loading-spinner" class="loading-spinner" style="display: none;"></div>
+            <div id="form-feedback" class="form-feedback"></div>
+            <button type="submit" class="button submit-button">Submit</button>
+          </form>
+          
+        </div>
+      </section>
+
+      <!-- Footer section -->
+      <footer class="footer-section">
+        <div class="section-content">
+          <p class="copyright-text">© 2024 BondVoyage</p>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Linking Swiper script -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Linking custom script -->
+    <script src="bv_homepage.js"></script>
+  </body>
+</html>

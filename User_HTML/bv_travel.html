@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BondVoyage │ Travel</title>
+    <link rel="stylesheet" href="../CSS/bv_travel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
+</head>
+<body>
+    <header class="header">
+        <!-- Logo Image -->
+        <div class="logo1">
+          <img src="../Images/logo_title.png" alt="Logo" />
+        </div>
+      
+        <!-- Hamburger Menu Icon -->
+        <div class="hamburger-menu" onclick="toggleMenu()">
+          &#9776;
+        </div>
+      </header>
+      
+      <!-- Menu -->
+      <div id="nav-menu" class="nav-menu">
+        <ul>
+          <li><a href="../User_HTML/bv_home.html">Home</a></li>
+          <div class="divider2"></div>
+          <li><a href="../User_HTML/bv_travel.html">Travel</a></li>
+          <div class="divider2"></div>
+          <li><a href="../User_HTML/bv_weather.html">Weather</a></li>
+          <div class="divider2"></div>
+          <li><a href="../User_HTML/bv_translate.html">Translate</a></li>
+          <div class="divider2"></div>
+          <li><a href="../User_HTML/bv_more.html">More</a></li>
+        </ul>
+      </div>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="../Images/bv_logo.png" alt="Logo" class="logo-img">
+            </div>
+            <ul class="menu">
+                <li><a href="../User_HTML/bv_home.html"><img src="../Images/bv_home.png" alt="Home Icon"><span>Home</span></a></li>
+                <li class="active"><a href="../User_HTML/bv_travel.html"><img src="../Images/bv_travel.png" alt="Travel Icon"><span>Travel</span></a></li>
+                <li><a href="../User_HTML/bv_weather.html"><img src="../Images/bv_weather.png" alt="Weather Icon"><span>Weather</span></a></li>
+                <li><a href="../User_HTML/bv_translate.html"><img src="../Images/bv_translate.png" alt="Translate Icon"><span>Translate</span></a></li>
+                <li><a href="../User_HTML/bv_more.html"><img src="../Images/bv_more.png" alt="More Icon"><span>More</span></a></li>
+            </ul>            
+        </nav>
+        <main class="content">
+            <img src="../Images/travel_title.png" alt="Travel Title" class="travel-img">
+            <div class="travel-container" style="margin-bottom: 20px;">
+                <h1>My Travels</h1>
+                <div class="travel-widgets">
+                    
+                    <div class="travel-widget add-travel" id="add-travel">
+                        <i class="fa fa-plus"></i>
+                        <span>Add Travel</span>
+                    </div>
+                    
+                    <div class="modal" id="add-travel-modal" style="display: none;">
+                        <div class="modal-content2">
+                            <span class="close-btn" id="close-modal-btn">&times;</span>
+                            <h2 style="text-align: center;">Select Option</h2>
+                            <div class="button-row">
+                                <button id="create-travel-btn" style="font-family: 'Montserrat-Medium', sans-serif;">Add a New Travel</button>
+                                <button id="join-travel-btn" style="font-family: 'Montserrat-Medium', sans-serif;">Join with a Code</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Modal for Join with Code -->
+                    <div class="modal" id="join-travel-modal" style="display: none;">
+                        <div class="modal-content2">
+                            <span class="close-btn" id="close-modal-btn2">&times;</span> <!-- Close button -->
+                            <h2 style="text-align: center;">Join a Travel</h2>
+                            
+                            <div id="join-code-modal">
+                                <h3 style="text-align: center;"Enter Share Code</h3>
+                                <input type="text" id="share-code-input" placeholder="Enter Share Code">
+                                <button id="submit-share-code-btn" style="font-family: 'Montserrat-Medium', sans-serif;">Join Travel</button>
+                                <span id="join-error" style="color: red; display: none;">Invalid Share Code</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Form for Adding New Travel -->
+                    <div class="modal" id="new-travel-modal" style="display: none;">
+                        <div class="modal-content2">
+                            <h2 style="text-align: center; margin-bottom: 10px;">Create a New Travel</h2>
+                            <form id="new-travel-form">
+                                <label for="travel-name">Travel Name:</label>
+                                <input type="text" id="travel-name" name="travel_name" required placeholder="Enter travel name">
+                                
+                                <label for="share-code">Share Code:</label>
+                                <input type="text" id="share-code" name="share_code" readonly>
+                                
+                                <div class="button-row">
+                                <button type="submit" style="font-family: 'Montserrat-Medium', sans-serif;">Create Travel</button>
+                                <button type="button" id="cancel-travel-btn" style="font-family: 'Montserrat-Medium', sans-serif;">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="edit-travel-modal" class="modal">
+                        <div class="modal-content2">
+                            <h2 style="text-align: center;">Edit Travel Name</h2>
+                            <form id="edit-travel-form">
+                                <input type="text" id="edit-travel-name" name="travel_name" required>
+                                <input type="hidden" id="edit-travel-id">
+                                <div class="button-row">
+                                <button type="submit" style="font-family: 'Montserrat-Medium', sans-serif;">Save</button>
+                                <button type="button" onclick="document.getElementById('edit-travel-modal').style.display='none'" style="font-family: 'Montserrat-Medium', sans-serif;">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div id="confirmation-modal" class="modal">
+                        <div class="modal-content2">
+                            <h3 style="text-align: center;">Are you sure you want to delete this travel?</h3>
+                            <div class="modal-actions">
+                                <div class="button-row">
+                                <button id="confirm-delete-btn" style="font-family: 'Montserrat-Medium', sans-serif;">Yes, Delete</button>
+                                <button id="cancel-delete-btn" style="font-family: 'Montserrat-Medium', sans-serif;">Cancel</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="share-code-modal" class="modal">
+                        <div class="modal-content2" style="width: 25%; top: 30%;">
+                            <span id="close-share-code-modal" class="close">&times;</span>
+                            <h2 style="text-align: center; margin-bottom: 20px;">Share Code</h2>
+                            <div class="share-code-container">
+                                <p id="share-code-display" style="font-size: 20px; font-family: 'Montserrat-Bold', sans-serif; background-color: #f8fff0; padding: 10px 40px 10px 40px; border: 1px solid #585D27;"></p>
+                                <button id="copy-share-code-btn" class="copy-btn">
+                                    <i class="fa fa-clipboard" style="margin-left: 5px;"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="toast" class="toast">
+                        Share code copied to clipboard!
+                    </div>
+
+                    <div id="response-modal" class="modal">
+                        <div class="modal-content2"
+                        <p id="response-modal-message" style="margin: 0; font-size: 20px; text-align: center;"></p>
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </div>
+
+            <div class="travel-container">
+                <h1 style="font-size: 48px;">Standard Travels and Itineraries by 4B's Travel and Tours</h1>
+                    <div id="itinerary-buttons" class="button-grid"></div>
+                        <!-- Buttons will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+            <div id="itinerary-modal" class="modal2">
+                <div id="modal-content" class="modal-content">
+                    <!-- Modal content will be populated here -->
+                    <button id="modal-close" class="modal-close">&times;</button> <!-- Close button with times symbol -->
+                </div>
+            </div>
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Get the current URL path
+                const currentPath = window.location.pathname;
+    
+                // Select all <a> elements in the sidebar
+                const menuLinks = document.querySelectorAll('.menu a');
+    
+                // Loop through the links and compare their href with the current path
+                menuLinks.forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        // Add the active class to the parent <li>
+                        link.parentElement.classList.add('active');
+                    }
+                });
+            });
+
+            // Function to toggle the navigation menu
+            function toggleMenu() {
+            const menu = document.getElementById("nav-menu");
+            menu.classList.toggle("active");
+            } 
+        </script>
+
+    <script src="../JS/bv_travel.js"></script>
+</body>
+</html>

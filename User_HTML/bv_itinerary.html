@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BondVoyage │ Itinerary</title>
+    <link rel="stylesheet" href="../CSS/bv_itinerary.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="../Images/bv_logo.png" alt="Logo" class="logo-img">
+            </div>
+            <ul class="menu">
+                <li><a href="../User_HTML/bv_home.html"><img src="../Images/bv_home.png" alt="Home Icon"><span>Home</span></a></li>
+                <li><a href="../User_HTML/bv_travel.html"><img src="../Images/bv_travel.png" alt="Travel Icon"><span>Travel</span></a></li>
+                <li><a href="../User_HTML/bv_weather.html"><img src="../Images/bv_weather.png" alt="Weather Icon"><span>Weather</span></a></li>
+                <li><a href="../User_HTML/bv_translate.html"><img src="../Images/bv_translate.png" alt="Translate Icon"><span>Translate</span></a></li>
+                <li><a href="../User_HTML/bv_more.html"><img src="../Images/bv_more.png" alt="More Icon"><span>More</span></a></li>
+            </ul>            
+        </nav>
+        <main class="content">
+            <img src="../Images/itinerary_title.png" alt="Itinerary Title" class="itinerary-img">
+
+            <div class="itinerary-container">
+                <form id="itinerary-form" method="POST" action="../PHP/submit_customized_itinerary.php" onsubmit="enableDisabledFields(this)"> 
+                    <!-- I stiil don't have submit_customized_itinerary.php file -->
+                    <!-- Itinerary Form -->
+                    <div class="itinerary-form">
+                        <h1>Itinerary</h1>
+                        
+                        <input hidden type="text" id="travel-id" name="travel_id" required>
+
+                        <div class="form-group">
+                            <label for="client-name">Client's Name:</label>
+                            <textarea id="client-name" name="client_name" placeholder="Enter client's name" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="destination">Destination:</label>
+                            <textarea id="destination" name="destination" placeholder="Enter destination here" required></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="start-date">Start Date:</label>
+                                <input type="date" id="start-date" name="start_date" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="end-date">End Date:</label>
+                                <input type="date" id="end-date" name="end_date" required>
+                            </div>
+                        </div>                    
+
+                        <div class="form-group">
+                            <label for="lodging">Lodging:</label>
+                            <textarea id="lodging" name="lodging" placeholder="Enter lodging details" required></textarea>
+                        </div>
+
+                        <input hidden type="number" id="duration-days" name="duration_days"  min="1" required>
+                        <input hidden type="number" id="duration-nights" name="duration_nights" min="0" required>
+
+                        <p id="duration-text"><b>Duration:</b> 0 Days, 0 Nights</p>
+                
+                        <div class="itinerary-day">
+                            <!-- Day container -->
+                            <div id="main-day-container">
+                                <!-- Dynamic day containers will be inserted here -->
+                            </div>
+                    
+                            <div class="form-group">
+                                <button style="margin: 0 auto;" type="submit" id="save-btn" class="add-itinerary-btn">Save</button>
+                                <button style="margin: 0 auto;" type="button" id="edit-btn" class="add-itinerary-btn">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="guide-section">
+                    <h1>PLACE GUIDE OFFERED BY<br>4B's Travel and Tours</h1>
+                        <div class="destination-buttons">
+                            <div id="destination-buttons" class="button-container">
+                                <!-- Dynamically generated destination buttons will appear here -->
+                            </div>
+                        </div>
+                        <div id="search-container" style="display: none;">
+                            <input type="text" id="search-input" placeholder="Search places..." />
+                            <i id="search-icon" class="fa fa-search"></i>
+                        </div>
+                        <div id="destination-data" class="data-container">
+                            <!-- Dynamically loaded destination data will appear here -->
+                        </div>
+                </div>     
+            </div>
+
+            <!-- Modal for Success Message -->
+            <div id="modal-popup" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p id="modal-message"></p>
+                </div>
+            </div>  
+        </main>
+    </div>
+
+    <script src="../JS/bv_itinerary.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Function to get a query parameter value by its name
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param); // Returns null if param does not exist
+        }
+
+        // Get the value from the 'example' query param
+        const valueFromQuery = getQueryParam('travel_id');
+
+        // Set the value into the input field if it exists
+        if (valueFromQuery) {
+            document.getElementById('travel-id').value = valueFromQuery;
+        }
+
+
+        function enableDisabledFields(form) {
+            // Select all disabled inputs and textareas in the form
+            const disabledFields = form.querySelectorAll('input:disabled, textarea:disabled');
+            
+            // Enable each disabled field
+            disabledFields.forEach(field => {
+                field.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
