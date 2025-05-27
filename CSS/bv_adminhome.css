@@ -435,8 +435,6 @@ body, html {
     padding: 5px;
     border: 1px solid var(--border-color);
     border-radius: 5px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
 }
 
 .form-group {

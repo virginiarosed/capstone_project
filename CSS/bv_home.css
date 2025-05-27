@@ -460,6 +460,8 @@ body, html {
 .modal input {
     font-family: 'Montserrat-Regular', sans-serif;
     padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
 }
 
 .form-group {
