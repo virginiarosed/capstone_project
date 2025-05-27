@@ -14,8 +14,8 @@ if (!isset($_SESSION['user_id'])) {
 // Fetch user ID from session
 $user_id = $_SESSION['user_id'];
 
-// Query to fetch user details
-$sql = "SELECT first_name, last_name, email FROM users WHERE id = ?";
+// Query to fetch user details including profile image
+$sql = "SELECT first_name, last_name, email, profile_image FROM users WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();

@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if all fields are filled
     if (empty($email) || empty($security_answer_1) || empty($security_answer_2) || empty($security_answer_3)) {
         $error_message = "All fields are required!";
-        header("Location: /for_project/User_HTML/bv_forgotpass.html?error=" . urlencode($error_message));
+        header("Location: /capstone_project/User_HTML/bv_forgotpass.html?error=" . urlencode($error_message));
         exit;
     }
 
@@ -87,12 +87,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </html>';
         } else {
             $error_message = "Incorrect answers to the security questions. Please try again.";
-            header("Location: /for_project/User_HTML/bv_forgotpass.html?error=" . urlencode($error_message));
+            header("Location: /capstone_project/User_HTML/bv_forgotpass.html?error=" . urlencode($error_message));
             exit;
         }
     } else {
         $error_message = "Email not found. Please check your email and try again.";
-        header("Location: /for_project/User_HTML/bv_forgotpass.html?error=" . urlencode($error_message));
+        header("Location: /capstone_project/User_HTML/bv_forgotpass.html?error=" . urlencode($error_message));
         exit;
     }
 

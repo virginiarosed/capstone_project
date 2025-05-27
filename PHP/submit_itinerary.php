@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Redirect to a success page or show a success message
-    header("Location: /for_project/Admin_HTML/bv_standard.html");
+    header("Location: /capstone_project/Admin_HTML/bv_standard.html");
     exit();
 }
 ?>

@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "UPDATE users SET password = '$hashed_password' WHERE email = '$email'";
 
         if ($conn->query($sql) === TRUE) {
-            $message = 'Password has been reset successfully. <br> You can now <a href="/for_project/User_HTML/bv_login.html">log in</a> with your new password.';
+            $message = 'Password has been reset successfully. <br> You can now <a href="/capstone_project/User_HTML/bv_login.html">log in</a> with your new password.';
             $button_text = 'Log In';
-            $button_link = '/for_project/User_HTML/bv_login.html';
+            $button_link = '/capstone_project/User_HTML/bv_login.html';
         } else {
             $message = 'Error updating password: ' . $conn->error;
             $button_text = 'Try Again';

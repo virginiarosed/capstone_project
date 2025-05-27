@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BondVoyage │ Admin Home</title>
     <link rel="stylesheet" href="../CSS/bv_adminhome.css">
+    <link rel="stylesheet" href="../CSS/themes.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
 </head>
 <body>
     <header class="header">
-        <!-- Logo Image -->
         <div class="logo1">
           <img src="../Images/logo_title.png" alt="Logo" />
         </div>
-      
-        <!-- Hamburger Menu Icon -->
         <div class="hamburger-menu" onclick="toggleMenu()">
           &#9776;
         </div>
       </header>
       
-      <!-- Menu -->
       <div id="nav-menu" class="nav-menu">
         <ul>
           <li><a href="../Admin_HTML/bv_adminhome.html">Home</a></li>
@@ -37,64 +37,280 @@
           <li><a href="../Admin_HTML/bv_adminlogin.html">Log Out</a></li>
         </ul>
       </div>
+
     <div class="container">
         <nav class="sidebar">
-            <div class="logo">
-                <img src="../Images/bv_logo.png" alt="Logo" class="logo-img">
-            </div>
             <ul class="menu">
-                <li class="active"><a href="../Admin_HTML/bv_adminhome.html"><img src="../Images/bv_home.png" alt="Home Icon"><span>Home</span></a></li>
-                <li><a href="../Admin_HTML/bv_users.html"><img src="../Images/bv_users.png" alt="Users Icon"><span>Users</span></a></li>
-                <li><a href="../Admin_HTML/bv_usersitinerary.html"><img src="../Images/bv_usersitinerary.png" alt="Users Itinerary Icon"><span>User's Itinerary</span></a></li>
-                <li><a href="../Admin_HTML/bv_standard.html"><img src="../Images/bv_standard.png" alt="Standard Itinerary Icon"><span>Standard Itinerary</span></a></li>
-                <li><a href="../Admin_HTML/bv_placeguide.html"><img src="../Images/bv_placeguide.png" alt="Place Guide Icon"><span>Place Guide</span></a></li>
-                <li><a href="../PHP/bv_adminlogout.php"><img src="../Images/bv_logout.png" alt="Log Out Icon" style="width: 33px; height: auto;"><span>Log Out</span></a></li>
-            </ul>            
+                <li class="active"><a href="../Admin_HTML/bv_adminhome.html">
+                        <svg width="45" height="45" viewBox="0 0 512 512">
+                            <path d="M80,212V448a16,16,0,0,0,16,16h96V328a24,24,0,0,1,24-24h80a24,24,0,0,1,24,24V464h96a16,16,0,0,0,16-16V212" 
+                                style="fill:none; stroke: var(--svg-color); stroke-linecap:round; stroke-linejoin:round; stroke-width:45px"/>
+                            <path d="M480,256,266.89,52c-5-5.28-16.69-5.34-21.78,0L32,256" 
+                                style="fill:none; stroke: var(--svg-color); stroke-linecap:round; stroke-linejoin:round; stroke-width:45px"/>
+                            <polyline points="400 179 400 64 352 64 352 133" 
+                                    style="fill:none; stroke: var(--svg-color); stroke-linecap:round; stroke-linejoin:round; stroke-width:45px"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Home</span>
+                    </a>
+                </li>
+                <li><a href="../Admin_HTML/bv_users.html">
+                        <svg width="45" height="45" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <style>
+                                .users-stroke {
+                                    fill: none;
+                                    stroke: var(--svg-color);
+                                    stroke-width: 2;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                }
+                            </style>
+                            <path class="users-stroke" d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle class="users-stroke" cx="12" cy="7" r="4"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Users</span>
+                    </a>
+                </li>
+                <li><a href="../Admin_HTML/bv_usersitinerary.html">
+                        <svg width="45" height="45" viewBox="0 0 32 32">
+                            <path d="M27,27H5c-1.1,0-2-0.9-2-2V12c0-1.1,0.9-2,2-2h22c1.1,0,2,0.9,2,2v13C29,26.1,28.1,27,27,27z"
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <line x1="9" y1="10" x2="9" y2="27" 
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <line x1="23" y1="10" x2="23" y2="27" 
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <path d="M21,10H11V8c0-1.1,0.9-2,2-2h6c1.1,0,2,0.9,2,2V10z"
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <line x1="5" y1="28" x2="5" y2="27" 
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <line x1="27" y1="28" x2="27" y2="27" 
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">User's Itinerary</span>
+                    </a>
+                </li>
+                <li><a href="../Admin_HTML/bv_standard.html">
+                        <svg width="45" height="45" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <style>
+                                .standard-stroke {
+                                    fill: none;
+                                    stroke: var(--svg-color);
+                                    stroke-width: 2;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                }
+                            </style>
+                            <path class="standard-stroke" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline class="standard-stroke" points="14,2 14,8 20,8"/>
+                            <line class="standard-stroke" x1="16" y1="13" x2="8" y2="13"/>
+                            <line class="standard-stroke" x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline class="standard-stroke" points="10,9 9,9 8,9"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Standard Itinerary</span>
+                    </a>
+                </li>
+                <li><a href="../Admin_HTML/bv_placeguide.html">
+                        <svg width="45" height="45" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <style>
+                                .place-stroke {
+                                    fill: none;
+                                    stroke: var(--svg-color);
+                                    stroke-width: 2;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                }
+                            </style>
+                            <path class="place-stroke" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle class="place-stroke" cx="12" cy="10" r="3"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Place Guide</span>
+                    </a>
+                </li>
+                <li><a href="../Admin_HTML/bv_feedbackrecord.html">
+                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <style type="text/css">
+                                .feedback-fill {
+                                    fill: var(--svg-color);
+                                }
+                                .feedback-stroke {
+                                    fill: none;
+                                    stroke: var(--svg-color);
+                                    stroke-width: 1.5;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                }
+                            </style>
+                            <path class="feedback-fill" d="M16 1C17.6569 1 19 2.34315 19 4C19 4.55228 18.5523 5 18 5C17.4477 5 17 4.55228 17 4C17 3.44772 16.5523 3 16 3H4C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21H16C16.5523 21 17 20.5523 17 20V19C17 18.4477 17.4477 18 18 18C18.5523 18 19 18.4477 19 19V20C19 21.6569 17.6569 23 16 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H16Z"/>
+                            <path class="feedback-fill" fill-rule="evenodd" clip-rule="evenodd" d="M20.7991 8.20087C20.4993 7.90104 20.0132 7.90104 19.7133 8.20087L11.9166 15.9977C11.7692 16.145 11.6715 16.3348 11.6373 16.5404L11.4728 17.5272L12.4596 17.3627C12.6652 17.3285 12.855 17.2308 13.0023 17.0835L20.7991 9.28666C21.099 8.98682 21.099 8.5007 20.7991 8.20087ZM18.2991 6.78666C19.38 5.70578 21.1325 5.70577 22.2134 6.78665C23.2942 7.86754 23.2942 9.61999 22.2134 10.7009L14.4166 18.4977C13.9744 18.9398 13.4052 19.2327 12.7884 19.3355L11.8016 19.5C10.448 19.7256 9.2744 18.5521 9.50001 17.1984L9.66448 16.2116C9.76728 15.5948 10.0602 15.0256 10.5023 14.5834L18.2991 6.78666Z"/>
+                            <path class="feedback-stroke" d="M5 7C5 6.44772 5.44772 6 6 6H14C14.5523 6 15 6.44772 15 7C15 7.55228 14.5523 8 14 8H6C5.44772 8 5 7.55228 5 7Z"/>
+                            <path class="feedback-stroke" d="M5 11C5 10.4477 5.44772 10 6 10H10C10.5523 10 11 10.4477 11 11C11 11.5523 10.5523 12 10 12H6C5.44772 12 5 11.5523 5 11Z"/>    
+                            <path class="feedback-stroke" d="M5 15C5 14.4477 5.44772 14 6 14H7C7.55228 14 8 14.4477 8 15C8 15.5523 7.55228 16 7 16H6C5.44772 16 5 15.5523 5 15Z"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Feedback</span>
+                    </a>
+                </li>
+                <li><a href="../PHP/bv_adminlogout.php">
+                        <svg width="45" height="45" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <style>
+                                .logout-stroke {
+                                    fill: none;
+                                    stroke: var(--svg-color);
+                                    stroke-width: 2;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                }
+                            </style>
+                            <path class="logout-stroke" d="M21 12L13 12"/>
+                            <path class="logout-stroke" d="M18 15L20.913 12.087C20.961 12.039 20.961 11.961 20.913 11.913L18 9"/>
+                            <path class="logout-stroke" d="M16 5V4.5C16 3.67157 15.3284 3 14.5 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H14.5C15.3284 21 16 20.3284 16 19.5V19"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Logout</span>
+                    </a>
+                </li>
+            </ul>           
         </nav>
-        <main class="content">
 
-            <div class="image-container">
-                
-                <div class="left-part">
-                    <img src="../Images/client_logo.png" alt="Client Logo">
+        <main class="content">
+            <div class="header-container">
+                <div class="header-left">
+                    <div class="logo">
+                        <img src="../Images/bv_logo.png" alt="Logo" class="logo-img" id="main-logo">
+                    </div>
                 </div>
 
-                <div class="right-part">
-                    <img src="../Images/admin_title.png" alt="Admin Title">
+                <div class="header-center">
+                    <h1>Admin Dashboard</h1>
+                </div>
+
+                <div class="header-right">
+                    <div class="theme-selector">
+                        <label for="theme-select">Mood:</label>
+                        <select id="theme-select">
+                            <option value="daylight">Daylight</option>
+                            <option value="midnight">Midnight</option>
+                            <option value="summer">Summer</option>
+                            <option value="rain">Rain</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="header-divider">
+
+            <div class="profile-container">
+                <div class="profile-left">
+                    <div class="profile-picture-container">
+                        <div class="profile-image-wrapper">
+                            <img src="../uploads/profile_images/profile.svg" alt="Profile Picture" id="profile-image" class="profile-img">
+                            <div class="profile-upload-overlay">
+                                <label for="profile-upload">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                        <circle cx="12" cy="13" r="4"></circle>
+                                    </svg>
+                                </label>
+                            </div>
+                        </div>
+                        <input type="file" id="profile-upload" name="profile-upload" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="profile-middle">
+                    <div class="profile-info">
+                        <div class="profile-right"></div>
+                    </div>
+                </div>
+
+                <div class="profile-edit">
+                    <button style="color: var(--svg-color);">Edit profile</button>
                 </div>
             </div>
 
-            <div class="button-container">
-                <div class="button" id="usersButton">
-                    <a href="../Admin_HTML/bv_users.html">
-                        <img src="../Images/bv_users.png" alt="Users Icon">
-                        <span>Users</span>
-                        <div id="usersCount"></div>
-                    </a>
+            <!-- New main container with single column buttons and chart -->
+            <div class="new-main-container">
+                <!-- Left section with buttons in single column -->
+                <div class="buttons-section">
+                    <div class="button-single-column" id="usersButton">
+                        <a href="../Admin_HTML/bv_users.html">
+                            <img src="../Images/bv_users.png" alt="Users Icon">
+                            <span>Users</span>
+                            <div id="usersCount">0</div>
+                        </a>
+                    </div>
+
+                    <div class="button-single-column" id="usersItineraryButton">
+                        <a href="../Admin_HTML/bv_usersitinerary.html">
+                            <img src="../Images/bv_usersitinerary.png" alt="Users Itinerary Icon">
+                            <span>User's Itinerary</span>
+                            <div id="usersItineraryCount">0</div>
+                        </a>
+                    </div>
+
+                    <div class="button-single-column" id="standardItineraryButton">
+                        <a href="../Admin_HTML/bv_standard.html">
+                            <img src="../Images/bv_standard.png" alt="Standard Itinerary Icon">
+                            <span>Standard Itinerary</span>
+                            <div id="standardItineraryCount">0</div>
+                        </a>
+                    </div>
+
+                    <div class="button-single-column" id="feedbackButton">
+                        <a href="../Admin_HTML/bv_feedbackrecord.html">
+                            <img src="../Images/bv_feedback.png" alt="Feedback Icon">
+                            <span>Feedback</span>
+                            <div id="feedbackCount">0</div>
+                        </a>
+                    </div>
                 </div>
-                <div class="button" id="usersItineraryButton">
-                    <a href="../Admin_HTML/bv_usersitinerary.html">
-                        <img src="../Images/bv_usersitinerary.png" alt="Users Itinerary Icon">
-                        <span>User's Itinerary</span>
-                        <div id="usersItineraryCount"></div>
-                    </a>
-                </div>
-                <div class="button" id="standardItineraryButton">
-                    <a href="../Admin_HTML/bv_standard.html">
-                        <img src="../Images/bv_standard.png" alt="Standard Itinerary Icon">
-                        <span>Standard Itinerary</span>
-                        <div id="standardItineraryCount"></div>
-                    </a>
-                </div>
-                <div class="button" id="feedbackButton">
-                    <a href="../Admin_HTML/bv_feedbackrecord.html">
-                        <img src="../Images/bv_feedback.png" alt="Feedback Icon">
-                        <span>Feedback</span>
-                        <div id="feedbackCount"></div>
-                    </a>
+
+                <!-- Right section with chart -->
+                <div class="chart-section">
+                    <div class="chart-title">Monthly User Activity</div>
+                    <div class="chart-container">
+                        <canvas id="userActivityChart"></canvas>
+                    </div>
                 </div>
             </div>
         </main>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h1>Edit Admin Profile</h1>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label>Company Name:</label>
+                    <input type="text" id="company-name" name="company_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div id="message-container" style="display: none; padding: 8px; border-radius: 4px;">
+                <!-- Message will be displayed here -->
+                </div>
+
+                <button type="submit" id="save-changes-btn">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Crop Profile Picture Modal -->
+    <div id="cropProfileModal" class="modal" style="display:none;">
+        <div class="modal-content crop-modal-content">
+            <span class="close-button">&times;</span>
+            <h1>Crop Your Profile Picture</h1>
+            <div class="crop-container">
+                <img id="crop-image" src="" alt="Image to crop">
+            </div>
+            <div class="crop-controls">
+                <button id="rotate-btn">Rotate</button>
+                <button id="crop-btn">Crop & Save</button>
+                <button id="cancel-crop-btn">Cancel</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -108,11 +324,91 @@
         }
     
         window.onload = function() {
+            // Fetch counts for the main buttons
             fetchCounts('../PHP/fetch_users_count.php', 'usersCount');
             fetchCounts('../PHP/fetch_users_itinerary_count.php', 'usersItineraryCount');
             fetchCounts('../PHP/fetch_standard_itinerary_count.php', 'standardItineraryCount');
             fetchCounts('../PHP/fetch_feedback_count.php', 'feedbackCount');
+            
+            // Initialize the chart
+            initializeChart();
         };
+
+        // Chart initialization function
+        function initializeChart() {
+    const ctx = document.getElementById('userActivityChart').getContext('2d');
+
+    Promise.all([
+        fetch('../PHP/fetch_monthly_users.php').then(res => res.json()),
+        fetch('../PHP/fetch_monthly_itineraries.php').then(res => res.json())
+    ])
+    .then(([userData, itineraryData]) => {
+        const labels = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        const chartData = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'New Users',
+                    data: userData,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 2,
+                    barThickness: 20
+                },
+                {
+                    label: 'Itineraries Created',
+                    data: itineraryData,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 2,
+                    barThickness: 20
+                }
+            ]
+        };
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: chartData,
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 5
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 0
+                        }
+                    }
+                },
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                }
+            }
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching chart data:', error);
+    });
+}
     </script>    
 
     <script>
@@ -137,6 +433,286 @@
         const menu = document.getElementById("nav-menu");
         menu.classList.toggle("active");
         }
+    </script>
+
+    <!-- Theme handler script -->
+    <script src="../JS/theme-handler.js"></script>
+
+    <!-- Profile Data Loading Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fetch admin data from the PHP endpoint
+            fetch('../PHP/get_admin_data.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                        // Fallback to generic admin data if specific endpoint doesn't exist
+                        const profileRight = document.querySelector('.profile-right');
+                        profileRight.innerHTML = `
+                            <p class="profile-name">BondVoyage Admin</p>
+                            <p class="profile-email">admin@bondvoyage.com</p>
+                        `;
+                    } else {
+                        // Populate the profile-right div with admin data (using company_name)
+                        const profileRight = document.querySelector('.profile-right');
+                        profileRight.innerHTML = `
+                            <p class="profile-name">${data.company_name}</p>
+                            <p class="profile-email">${data.email}</p>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching admin data:', error);
+                    // Fallback display
+                    const profileRight = document.querySelector('.profile-right');
+                    profileRight.innerHTML = `
+                        <p class="profile-name">BondVoyage Admin</p>
+                        <p class="profile-email">admin@bondvoyage.com</p>
+                    `;
+                });
+        });
+    </script>
+
+    <!-- Profile Edit Modal Script -->
+    <script>
+        document.querySelector(".profile-edit button").addEventListener("click", function () {
+            document.getElementById("editProfileModal").style.display = "flex";
+
+            // Prefill current data
+            fetch('../PHP/get_admin_data.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (!data.error) {
+                        document.querySelector('[name="company_name"]').value = data.company_name;
+                        document.querySelector('[name="email"]').value = data.email;
+                        
+                        // Store initial values for comparison
+                        document.getElementById('company-name').dataset.initial = data.company_name;
+                        document.getElementById('email').dataset.initial = data.email;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching admin data for editing:', error);
+                });
+        });
+
+        document.querySelectorAll(".close-button").forEach(button => {
+            button.addEventListener("click", function () {
+                document.getElementById("editProfileModal").style.display = "none";
+                document.getElementById("cropProfileModal").style.display = "none";
+                document.getElementById('message-container').style.display = 'none';
+            });
+        });
+
+        // Form submission handler
+        document.getElementById("editProfileForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('../PHP/update_admin_data.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    setTimeout(() => {
+                        location.reload();
+                    }, 3000);
+                } else {
+                    const messageContainer = document.getElementById('message-container');
+                    messageContainer.textContent = 'Update failed: ' + data.message;
+                    messageContainer.style.color = '#c82333';
+                    messageContainer.style.backgroundColor = '#f8d7da';
+                    messageContainer.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error updating admin data:', error);
+            });
+        });
+
+        // Save changes button handler
+        document.getElementById('save-changes-btn').addEventListener('click', function (event) {
+            // Get current values
+            const companyName = document.getElementById('company-name').value;
+            const email = document.getElementById('email').value;
+
+            // Get initial values from data attributes
+            const initialCompanyName = document.getElementById('company-name').dataset.initial;
+            const initialEmail = document.getElementById('email').dataset.initial;
+
+            // Check if any changes were made
+            const changesMade = companyName !== initialCompanyName || email !== initialEmail;
+
+            const messageContainer = document.getElementById('message-container');
+
+            if (changesMade) {
+                messageContainer.textContent = 'Profile updated successfully!';
+                messageContainer.style.color = '#28a745';
+            } else {
+                messageContainer.textContent = 'No changes were made';
+                messageContainer.style.color = '#c82333';
+            }
+
+            messageContainer.style.display = 'block';
+
+            setTimeout(function () {
+                messageContainer.style.display = 'none';
+            }, 5000);
+        });
+    </script>
+
+    <!-- Profile Picture Upload Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Elements
+            const profileUpload = document.getElementById('profile-upload');
+            const profileImage = document.getElementById('profile-image');
+            const cropModal = document.getElementById('cropProfileModal');
+            const cropImage = document.getElementById('crop-image');
+            const cropBtn = document.getElementById('crop-btn');
+            const rotateBtn = document.getElementById('rotate-btn');
+            const cancelCropBtn = document.getElementById('cancel-crop-btn');
+            
+            let cropper = null;
+            
+            // Fetch the admin's current profile image
+            fetchAdminProfileImage();
+            
+            // Set up the file upload event listener
+            profileUpload.addEventListener('change', function(event) {
+                if (event.target.files && event.target.files[0]) {
+                    const file = event.target.files[0];
+                    
+                    // Basic validation
+                    if (!file.type.match('image.*')) {
+                        alert('Please select an image file');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        // Show the crop modal with the selected image
+                        cropImage.src = e.target.result;
+                        cropModal.style.display = 'flex';
+                        
+                        // Initialize cropper
+                        if (cropper) {
+                            cropper.destroy();
+                        }
+                        
+                        // Initialize Cropper.js
+                        if (typeof Cropper !== 'undefined') {
+                            cropper = new Cropper(cropImage, {
+                                aspectRatio: 1,
+                                viewMode: 1,
+                                autoCropArea: 0.8,
+                                responsive: true,
+                                guides: true,
+                                center: true,
+                                highlight: false,
+                                background: false,
+                                cropBoxMovable: true,
+                                cropBoxResizable: true,
+                                toggleDragModeOnDblclick: false
+                            });
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Rotate button functionality
+            rotateBtn.addEventListener('click', function() {
+                if (cropper) {
+                    cropper.rotate(90);
+                }
+            });
+            
+            // Crop and save button functionality
+            cropBtn.addEventListener('click', function() {
+                if (cropper) {
+                    const canvas = cropper.getCroppedCanvas({
+                        width: 300,
+                        height: 300,
+                        minWidth: 100,
+                        minHeight: 100,
+                        maxWidth: 1000,
+                        maxHeight: 1000,
+                        fillColor: '#fff',
+                        imageSmoothingQuality: 'high'
+                    });
+                    
+                    if (canvas) {
+                        canvas.toBlob(function(blob) {
+                            const formData = new FormData();
+                            formData.append('profile_image', blob, 'profile.jpg');
+                            
+                            // Send to admin-specific upload endpoint
+                            fetch('../PHP/upload_admin_profile_image.php', {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    profileImage.src = data.image_path + '?t=' + new Date().getTime();
+                                    cropModal.style.display = 'none';
+                                    cropper.destroy();
+                                    cropper = null;
+                                    
+                                    const messageContainer = document.getElementById('message-container');
+                                    messageContainer.textContent = 'Profile picture updated successfully!';
+                                    messageContainer.style.color = '#28a745';
+                                    messageContainer.style.backgroundColor = '#d4edda';
+                                    messageContainer.style.border = '1px solid #c3e6cb';
+                                    messageContainer.style.display = 'block';
+                                    
+                                    setTimeout(() => {
+                                        messageContainer.style.display = 'none';
+                                    }, 3000);
+                                } else {
+                                    alert('Error: ' + data.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error uploading image:', error);
+                                alert('An error occurred while uploading the image');
+                            });
+                        }, 'image/jpeg', 0.9);
+                    }
+                }
+            });
+            
+            // Cancel crop button
+            cancelCropBtn.addEventListener('click', function() {
+                if (cropper) {
+                    cropper.destroy();
+                    cropper = null;
+                }
+                cropModal.style.display = 'none';
+                profileUpload.value = '';
+            });
+            
+            // Function to fetch the admin's current profile image
+            function fetchAdminProfileImage() {
+                fetch('../PHP/get_admin_data.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.error && data.profile_image) {
+                            profileImage.src = '../Uploads/admin_profile_images/' + data.profile_image + '?t=' + new Date().getTime();
+                        } else {
+                            profileImage.src = '../uploads/profile_images/profile.svg';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching admin profile image:', error);
+                        profileImage.src = '../uploads/profile_images/profile.svg';
+                    });
+            }
+        });
     </script>
 
 </body>

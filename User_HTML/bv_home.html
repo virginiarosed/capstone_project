@@ -5,72 +5,267 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BondVoyage │ Home</title>
     <link rel="stylesheet" href="../CSS/bv_home.css">
+    <link rel="stylesheet" href="../CSS/themes.css">
     <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 </head>
 <body>
     <div class="container">
         <nav class="sidebar">
-            <div class="logo">
-                <img src="../Images/bv_logo.png" alt="Logo" class="logo-img">
-            </div>
             <ul class="menu">
-                <li class="active"><a href="../User_HTML/bv_home.html"><img src="../Images/bv_home.png" alt="Home Icon"><span>Home</span></a></li>
-                <li><a href="../User_HTML/bv_travel.html"><img src="../Images/bv_travel.png" alt="Travel Icon"><span>Travel</span></a></li>
-                <li><a href="../User_HTML/bv_weather.html"><img src="../Images/bv_weather.png" alt="Weather Icon"><span>Weather</span></a></li>
-                <li><a href="../User_HTML/bv_translate.html"><img src="../Images/bv_translate.png" alt="Translate Icon"><span>Translate</span></a></li>
-                <li><a href="../User_HTML/bv_more.html"><img src="../Images/bv_more.png" alt="More Icon"><span>More</span></a></li>
+                <li class="active"><a href="../User_HTML/bv_home.html">
+                        <svg width="45" height="45" viewBox="0 0 512 512">
+                            <path d="M80,212V448a16,16,0,0,0,16,16h96V328a24,24,0,0,1,24-24h80a24,24,0,0,1,24,24V464h96a16,16,0,0,0,16-16V212" 
+                                style="fill:none; stroke: var(--svg-color); stroke-linecap:round; stroke-linejoin:round; stroke-width:45px"/>
+                            <path d="M480,256,266.89,52c-5-5.28-16.69-5.34-21.78,0L32,256" 
+                                style="fill:none; stroke: var(--svg-color); stroke-linecap:round; stroke-linejoin:round; stroke-width:45px"/>
+                            <polyline points="400 179 400 64 352 64 352 133" 
+                                    style="fill:none; stroke: var(--svg-color); stroke-linecap:round; stroke-linejoin:round; stroke-width:45px"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Home</span>
+                    </a>
+                </li>
+                <li><a href="../User_HTML/bv_travel.html">
+                        <svg width="45" height="45" viewBox="0 0 32 32">
+                            <path d="M27,27H5c-1.1,0-2-0.9-2-2V12c0-1.1,0.9-2,2-2h22c1.1,0,2,0.9,2,2v13C29,26.1,28.1,27,27,27z"
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <line x1="9" y1="10" x2="9" y2="27" 
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <line x1="23" y1="10" x2="23" y2="27" 
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <path d="M21,10H11V8c0-1.1,0.9-2,2-2h6c1.1,0,2,0.9,2,2V10z"
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <line x1="5" y1="28" x2="5" y2="27" 
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <line x1="27" y1="28" x2="27" y2="27" 
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Travel</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../User_HTML/bv_weather.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="45px" height="45px">
+                            <path d="M 14 4 C 8.4886661 4 4 8.4886661 4 14 L 4 36 C 4 41.511334 8.4886661 46 14 46 L 36 46 C 41.511334 46 46 41.511334 46 36 L 46 14 C 46 8.4886661 41.511334 4 36 4 L 14 4 z M 14 6 L 36 6 C 40.430666 6 44 9.5693339 44 14 L 44 36 C 44 40.430666 40.430666 44 36 44 L 14 44 C 9.5693339 44 6 40.430666 6 36 L 6 14 C 6 9.5693339 9.5693339 6 14 6 z M 32 13 C 28.831784 13 26.093824 14.857597 24.800781 17.542969 C 23.930607 17.204848 22.994154 17 22 17 C 18.123426 17 14.964148 19.810473 14.240234 23.484375 C 11.781965 24.412405 10 26.726427 10 29.5 C 10 32.718409 12.384447 35.338203 15.466797 35.845703 A 1.0001 1.0001 0 0 0 16 36 L 29 36 C 32.854334 36 36 32.854334 36 29 C 36 28.649611 35.964536 28.308532 35.914062 27.972656 C 38.35241 26.598868 40 23.987031 40 21 C 40 16.593562 36.406438 13 32 13 z M 32 15 C 35.325562 15 38 17.674438 38 21 C 38 23.097192 36.923196 24.925909 35.302734 25.998047 C 34.2169 23.769612 31.968849 22.20826 29.351562 22.070312 C 28.772052 20.623167 27.795654 19.380075 26.558594 18.484375 C 27.510509 16.431049 29.578254 15 32 15 z M 22 19 C 24.731835 19 27.016987 20.816348 27.75 23.298828 A 1.0001 1.0001 0 0 0 28.761719 24.013672 C 28.893652 24.006871 28.970027 24 29 24 C 31.773666 24 34 26.226334 34 29 C 34 31.773666 31.773666 34 29 34 L 16.886719 34 L 16.990234 34.855469 A 1.0001 1.0001 0 0 0 16.087891 33.978516 C 13.792805 33.769573 12 31.85754 12 29.5 C 12 27.416545 13.406241 25.684769 15.3125 25.164062 A 1.0001 1.0001 0 0 0 16.042969 24.3125 C 16.384344 21.319894 18.907735 19 22 19 z" style="fill: none; stroke: var(--svg-color); stroke-width: 2.5;"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Weather</span>
+                    </a>
+                </li>
+                <li><a href="../User_HTML/bv_translate.html">
+                        <svg version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve" height="40" width="40">
+                            <style type="text/css">
+                                .st0 {
+                                    fill: none;
+                                    stroke: var(--svg-color); /* Use CSS variable for dynamic color change */
+                                    stroke-width: 2.5; /* Thinner stroke width */
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                    stroke-miterlimit: 10;
+                                }
+                            </style>
+                            <rect x="3" y="3" class="st0" width="15" height="15"/>
+                            <polyline class="st0" points="13,19 13,29 29,29 29,13 20,13 "/>
+                            <line class="st0" x1="11" y1="6" x2="11" y2="8"/>
+                            <line class="st0" x1="7" y1="9" x2="15" y2="9"/>
+                            <path class="st0" d="M13,9c0,3.3-2.7,6-6,6"/>
+                            <path class="st0" d="M9,9c0,3.3,2.7,6,6,6"/>
+                            <polyline class="st0" points="17,25 21,17 25,25 "/>
+                            <line class="st0" x1="19" y1="23" x2="23" y2="23"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Translate</span>
+                    </a>
+                </li>
+                <li><a href="../User_HTML/bv_feedback.html">
+                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <style type="text/css">
+                                .feedback-fill {
+                                    fill: var(--svg-color); /* Dynamic fill color */
+                                }
+                                .feedback-stroke {
+                                    fill: none;
+                                    stroke: var(--svg-color); /* Dynamic stroke color */
+                                    stroke-width: 1.5; /* Slightly thinner stroke */
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                }
+                            </style>
+                            <path class="feedback-fill" d="M16 1C17.6569 1 19 2.34315 19 4C19 4.55228 18.5523 5 18 5C17.4477 5 17 4.55228 17 4C17 3.44772 16.5523 3 16 3H4C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21H16C16.5523 21 17 20.5523 17 20V19C17 18.4477 17.4477 18 18 18C18.5523 18 19 18.4477 19 19V20C19 21.6569 17.6569 23 16 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H16Z"/>
+                            <path class="feedback-fill" fill-rule="evenodd" clip-rule="evenodd" d="M20.7991 8.20087C20.4993 7.90104 20.0132 7.90104 19.7133 8.20087L11.9166 15.9977C11.7692 16.145 11.6715 16.3348 11.6373 16.5404L11.4728 17.5272L12.4596 17.3627C12.6652 17.3285 12.855 17.2308 13.0023 17.0835L20.7991 9.28666C21.099 8.98682 21.099 8.5007 20.7991 8.20087ZM18.2991 6.78666C19.38 5.70578 21.1325 5.70577 22.2134 6.78665C23.2942 7.86754 23.2942 9.61999 22.2134 10.7009L14.4166 18.4977C13.9744 18.9398 13.4052 19.2327 12.7884 19.3355L11.8016 19.5C10.448 19.7256 9.2744 18.5521 9.50001 17.1984L9.66448 16.2116C9.76728 15.5948 10.0602 15.0256 10.5023 14.5834L18.2991 6.78666Z"/>
+                            <path class="feedback-stroke" d="M5 7C5 6.44772 5.44772 6 6 6H14C14.5523 6 15 6.44772 15 7C15 7.55228 14.5523 8 14 8H6C5.44772 8 5 7.55228 5 7Z"/>
+                            <path class="feedback-stroke" d="M5 11C5 10.4477 5.44772 10 6 10H10C10.5523 10 11 10.4477 11 11C11 11.5523 10.5523 12 10 12H6C5.44772 12 5 11.5523 5 11Z"/>    
+                            <path class="feedback-stroke" d="M5 15C5 14.4477 5.44772 14 6 14H7C7.55228 14 8 14.4477 8 15C8 15.5523 7.55228 16 7 16H6C5.44772 16 5 15.5523 5 15Z"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Feedback</span>
+                    </a>
+                </li>
+                <li><a href="../User_HTML/bv_more.html">
+                        <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <style>
+                                .more-stroke {
+                                    fill: none;
+                                    stroke: var(--svg-color); /* Dynamic stroke color */
+                                    stroke-width: 1.5; /* Consistent stroke thickness */
+                                    stroke-linecap: round;
+                                    stroke-linejoin: bevel;
+                                }
+                            </style>
+
+                            <g id="ic-actions-more-1">
+                                <circle class="more-stroke" cx="4.19" cy="11.98" r="2"/>
+                                <circle class="more-stroke" cx="12" cy="12.02" r="2"/>
+                                <circle class="more-stroke" cx="19.81" cy="11.98" r="2"/>
+                            </g>
+                        </svg>
+                        <span style="color: var(--svg-color);">More</span>
+                    </a>
+                </li>
+                <li><a href="#" onclick="logoutFunction()"><svg width="45" height="45" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <style>
+                                .logout-stroke {
+                                    fill: none;
+                                    stroke: var(--svg-color); /* Dynamic stroke color */
+                                    stroke-width: 2;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                }
+                            </style>
+
+                            <path class="logout-stroke" d="M21 12L13 12"/>
+                            <path class="logout-stroke" d="M18 15L20.913 12.087C20.961 12.039 20.961 11.961 20.913 11.913L18 9"/>
+                            <path class="logout-stroke" d="M16 5V4.5C16 3.67157 15.3284 3 14.5 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H14.5C15.3284 21 16 20.3284 16 19.5V19"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Logout</span>
+                    </a>
+                </li>
             </ul>           
         </nav>
         <main class="content">
-            <img src="../Images/welcome_title.png" alt="Welcome Title" class="welcome-img">
-            <div class="profile-container">
-                <div class="profile-left">
-                    <img src="../Images/bv_userprofile.png" alt="User Profile" class="profile-img">
+            <div class="header-container">
+                <div class="header-left">
+                    <div class="logo">
+                        <img src="../Images/bv_logo.png" alt="Logo" class="logo-img" id="main-logo">
+                    </div>
                 </div>
 
-                <!-- Will modify this to display the user's data -->
-                <div class="profile-right">
-                    
+                <div class="header-center">
+                    <h1>Welcome aboard BondVoyage!</h1>
+                </div>
+
+                <div class="header-right">
+                    <div class="theme-selector">
+                        <label for="theme-select">Mood:</label>
+                        <select id="theme-select">
+                            <option value="daylight">Daylight</option>
+                            <option value="midnight">Midnight</option>
+                            <option value="summer">Summer</option>
+                            <option value="rain">Rain</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="header-divider">
+            <div class="profile-container">
+                <div class="profile-left">
+                    <div class="profile-picture-container">
+                        <div class="profile-image-wrapper">
+                            <img src="../uploads/profile_images/profile.svg" alt="Profile Picture" id="profile-image" class="profile-img">
+                            <div class="profile-upload-overlay">
+                                <label for="profile-upload">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                        <circle cx="12" cy="13" r="4"></circle>
+                                    </svg>
+                                </label>
+                            </div>
+                        </div>
+                        <input type="file" id="profile-upload" name="profile-upload" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="profile-middle">
+                <div class="profile-info">
+                <div class="profile-right"></div>
+                </div>
+
+                <!-- Lower section: travel stats -->
+                <div class="profile-stats">
+                    <div class="stat total-travels"><span class="stat-number">0</span> Travels</div>
+                    <div class="stat-divider">┃</div>
+                    <div class="stat created-travels"><span class="stat-number">0</span> Owned</div>
+                    <div class="stat-divider">┃</div>
+                    <div class="stat joined-travels"><span class="stat-number">0</span> Collaborated</div>
+                </div>
+            </div>
+
+                <div class="profile-edit">
+                    <button style="color: var(--svg-color);">Edit profile</button>
                 </div>
             </div>
 
             <div class="info-containers">
                 <div class="first-container">
                     <div class="travel-tip">
-                        <h1 style="font-family: 'Gusto-Bold', sans-serif;">Daily Travel Tips!</h1>
+                        <h1 style="font-family: 'Pogonia-extrabold', sans-serif;">Daily Travel Tips!</h1>
                         <p id="tip-of-the-day">Loading Tip...</p>
                     </div>
                     <div class="quote-of-the-day">
-                        <h1 style="font-family: 'Gusto-Bold', sans-serif;">Daily Travel Quotes!</h1>
+                        <h1 style="font-family: 'Pogonia-extrabold', sans-serif;">Daily Travel Quotes!</h1>
                         <p id="quote-of-the-day">Loading Quote...</p>
                     </div>
                 </div>
             
                 <div class="second-container">
-                    <div class="packing-list">
-                        <h1 style="font-family: 'Gusto-Bold', sans-serif;">Generate Packing List</h1>
-                        <label for="destination-type">Select Trip Type:</label>
-                        <div class="select-button-container" style="margin-top: 5px;">
-                            <select id="destination-type">
-                                <option value="beach">Beach Trip</option>
-                                <option value="mountain">Mountain Trip</option>
-                                <option value="city">City Trip</option>
-                                <option value="adventure">Adventure Travel</option>
-                                <option value="business">Business Trip</option>
-                            </select>
-                            <button id="generate-packing-list">Generate List</button>
-                        </div>
-            
-                        <h4 style="margin-top: 5px;">Your Packing List:</h4>
-                        <ul id="packing-list" style="margin-left: 20px;">
-                            <!-- Packing items will be displayed here -->
-                        </ul>
-                    </div>
+                    
                 </div>
             </div>
             
         </main>
     </div>
+
+    <div id="editProfileModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h1>Edit profile</h1>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label>First Name:</label>
+                    <input type="text" id="first-name" name="first_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Last Name:</label>
+                    <input type="text" id="last-name" name="last_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div id="message-container" style="display: none; padding: 8px; border-radius: 4px;">
+                <!-- Message will be displayed here -->
+                </div>
+
+                <button type="submit" id="save-changes-btn">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="cropProfileModal" class="modal" style="display:none;">
+    <div class="modal-content crop-modal-content">
+        <span class="close-button">&times;</span>
+        <h1>Crop Your Profile Picture</h1>
+        <div class="crop-container">
+            <img id="crop-image" src="" alt="Image to crop">
+        </div>
+        <div class="crop-controls">
+            <button id="rotate-btn">Rotate</button>
+            <button id="crop-btn">Crop & Save</button>
+            <button id="cancel-crop-btn">Cancel</button>
+        </div>
+    </div>
+</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -111,126 +306,348 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-    const travelTips = [
-        "Always pack a power bank!",
-        "Roll your clothes to save space!",
-        "Never forget a universal adapter!",
-        "Keep a photocopy of important documents!",
-        "Pack a reusable water bottle!",
-        "Use a money belt or neck pouch for security!",
-        "Learn basic phrases in the local language!",
-        "Take pictures of your luggage before you check it in!",
-        "Research local customs and etiquette!",
-        "Make sure you have travel insurance!"
-    ];
+            const travelTips = [
+                "Always pack a power bank!",
+                "Roll your clothes to save space!",
+                "Never forget a universal adapter!",
+                "Keep a photocopy of important documents!",
+                "Pack a reusable water bottle!",
+                "Use a money belt or neck pouch for security!",
+                "Learn basic phrases in the local language!",
+                "Take pictures of your luggage before you check it in!",
+                "Research local customs and etiquette!",
+                "Make sure you have travel insurance!"
+            ];
 
-    const today = new Date();
-    const dayOfYear = today.getDate();
-    const tipOfTheDay = travelTips[dayOfYear % travelTips.length];
+            const today = new Date();
+            const dayOfYear = today.getDate();
+            const tipOfTheDay = travelTips[dayOfYear % travelTips.length];
 
-    // Insert the travel tip into the HTML
-    document.getElementById('tip-of-the-day').innerText = tipOfTheDay;
-});
+            // Insert the travel tip into the HTML
+            document.getElementById('tip-of-the-day').innerText = tipOfTheDay;
+        });
 
-const travelQuotes = [
-    "The world is a book, and those who do not travel read only one page. \n\n– Saint Augustine",
-    "Not all those who wander are lost. \n\n– J.R.R. Tolkien",
-    "Travel far enough, you meet yourself. \n\n– David Mitchell",
-    "Life is either a daring adventure or nothing at all. \n\n– Helen Keller",
-    "The journey not the arrival matters. \n\n– T.S. Eliot",
-    "Travel makes one modest. You see what a tiny place you occupy in the world. \n\n– Gustave Flaubert",
-    "To travel is to live. \n\n– Hans Christian Andersen",
-    "We travel not to escape life, but for life not to escape us. \n\n– Anonymous",
-    "The best way to predict the future is to create it. \n\n– Abraham Lincoln",
-    "Once a year, go someplace you’ve never been before. \n\n– Dalai Lama"
-];
-// Get today's date (e.g., 2025-01-23)
-const today = new Date();
+        const travelQuotes = [
+            "The world is a book, and those who do not travel read only one page. \n\n– Saint Augustine",
+            "Not all those who wander are lost. \n\n– J.R.R. Tolkien",
+            "Travel far enough, you meet yourself. \n\n– David Mitchell",
+            "Life is either a daring adventure or nothing at all. \n\n– Helen Keller",
+            "The journey not the arrival matters. \n\n– T.S. Eliot",
+            "Travel makes one modest. You see what a tiny place you occupy in the world. \n\n– Gustave Flaubert",
+            "To travel is to live. \n\n– Hans Christian Andersen",
+            "We travel not to escape life, but for life not to escape us. \n\n– Anonymous",
+            "The best way to predict the future is to create it. \n\n– Abraham Lincoln",
+            "Once a year, go someplace you've never been before. \n\n– Dalai Lama"
+        ];
+        // Get today's date (e.g., 2025-01-23)
+        const today = new Date();
 
-// Use the day of the year (e.g., 23rd day of the year) as an index
-const dayOfYear = today.getDate();
+        // Use the day of the year (e.g., 23rd day of the year) as an index
+        const dayOfYear = today.getDate();
 
-// Get the quote of the day based on the current day
-const quoteOfTheDay = travelQuotes[dayOfYear % travelQuotes.length];
+        // Get the quote of the day based on the current day
+        const quoteOfTheDay = travelQuotes[dayOfYear % travelQuotes.length];
 
-// Insert the quote into the HTML
-document.getElementById('quote-of-the-day').innerText = quoteOfTheDay;
-
-const packingLists = {
-    beach: [
-        'Sunscreen',
-        'Swimsuit',
-        'Sunglasses',
-        'Flip Flops',
-        'Beach Towel',
-        'Beach Bag',
-        'Snorkel Gear',
-        'Hat',
-        'Sunscreen Lip Balm'
-    ],
-    mountain: [
-        'Hiking Boots',
-        'Warm Clothes',
-        'Backpack',
-        'Water Bottle',
-        'First Aid Kit',
-        'Headlamp',
-        'Walking Stick',
-        'Weatherproof Jacket',
-        'Hiking Snacks'
-    ],
-    city: [
-        'Comfortable Shoes',
-        'Camera',
-        'Guidebook',
-        'Chargers',
-        'Water Bottle',
-        'City Map',
-        'Portable Charger',
-        'Travel Journal',
-        'Travel Adapter'
-    ],
-    adventure: [
-        'Backpack',
-        'Climbing Gear',
-        'Camping Stove',
-        'Tent',
-        'Sleeping Bag',
-        'Headlamp',
-        'Weatherproof Gear',
-        'Energy Bars',
-        'Portable Water Filter'
-    ],
-    business: [
-        'Business Cards',
-        'Laptop',
-        'Charger',
-        'Formal Clothes',
-        'Notebook',
-        'Pens',
-        'Portable Wi-Fi',
-        'Travel Pillow',
-        'Phone Charger'
-    ]
-};
-
-// Function to generate packing list
-document.getElementById('generate-packing-list').addEventListener('click', () => {
-    const destination = document.getElementById('destination-type').value;
-    const list = packingLists[destination];
-
-    // Clear the previous list
-    const packingListElement = document.getElementById('packing-list');
-    packingListElement.innerHTML = '';
-
-    // Add the new list items
-    list.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.innerText = item;
-        packingListElement.appendChild(listItem);
-    });
-});
+        // Insert the quote into the HTML
+        document.getElementById('quote-of-the-day').innerText = quoteOfTheDay;
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeSelect = document.getElementById('theme-select');
+
+            // Load saved theme from localStorage
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                themeSelect.value = savedTheme;
+            }
+
+            themeSelect.addEventListener('change', function() {
+                const selectedTheme = this.value;
+                document.documentElement.setAttribute('data-theme', selectedTheme);
+                localStorage.setItem('selectedTheme', selectedTheme);
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch('../PHP/fetch_travel_stats.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.querySelector(".total-travels span").textContent = data.total;
+                        document.querySelector(".created-travels span").textContent = data.created;
+                        document.querySelector(".joined-travels span").textContent = data.joined;
+                    } else {
+                        console.error(data.message);
+                    }
+                })
+                .catch(error => console.error('Error fetching travel stats:', error));
+        });
+    </script>
+
+    <script>
+        document.querySelector(".profile-edit button").addEventListener("click", function () {
+            document.getElementById("editProfileModal").style.display = "flex";
+
+            // Prefill current data
+            fetch('../PHP/get_user_data.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (!data.error) {
+                        document.querySelector('[name="first_name"]').value = data.first_name;
+                        document.querySelector('[name="last_name"]').value = data.last_name;
+                        document.querySelector('[name="email"]').value = data.email;
+                        
+                        // Store initial values for comparison
+                        document.getElementById('first-name').dataset.initial = data.first_name;
+                        document.getElementById('last-name').dataset.initial = data.last_name;
+                        document.getElementById('email').dataset.initial = data.email;
+                    }
+                });
+        });
+
+        document.querySelector(".close-button").addEventListener("click", function () {
+            document.getElementById("editProfileModal").style.display = "none";
+            document.getElementById('message-container').style.display = 'none';
+        });
+
+        // Original form handler (keep this to handle the actual form submission)
+        document.getElementById("editProfileForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('../PHP/update_user_data.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    // The save-changes-btn event handler below will now handle the message display
+                    // Just reload after a short delay to show updated info
+                    setTimeout(() => {
+                        location.reload();
+                    }, 3000);
+                } else {
+                    const messageContainer = document.getElementById('message-container');
+                    messageContainer.textContent = 'Update failed: ' + data.message;
+                    messageContainer.style.color = '#c82333';
+                    messageContainer.style.backgroundColor = '#f8d7da';
+                    messageContainer.style.display = 'block';
+                }
+            });
+        });
+
+        // Added event handler for the save changes button
+        document.getElementById('save-changes-btn').addEventListener('click', function (event) {
+            // Note: The form's submit event will handle the actual submission
+            // This handler is just for showing the message
+
+            // Get current values
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const email = document.getElementById('email').value;
+
+            // Get initial values from data attributes
+            const initialFirstName = document.getElementById('first-name').dataset.initial;
+            const initialLastName = document.getElementById('last-name').dataset.initial;
+            const initialEmail = document.getElementById('email').dataset.initial;
+
+            // Check if any changes were made
+            const changesMade = firstName !== initialFirstName || lastName !== initialLastName || email !== initialEmail;
+
+            const messageContainer = document.getElementById('message-container');
+
+            if (changesMade) {
+                // Display success message
+                messageContainer.textContent = 'Profile updated successfully!';
+                messageContainer.style.color = '#28a745';
+            } else {
+                // Display no changes message
+                messageContainer.textContent = 'No changes were made';
+                messageContainer.style.color = '#c82333';
+            }
+
+            // Show the message
+            messageContainer.style.display = 'block';
+
+            // Hide the message after 5 seconds
+            setTimeout(function () {
+                messageContainer.style.display = 'none';
+            }, 5000);
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Elements
+            const profileUpload = document.getElementById('profile-upload');
+            const profileImage = document.getElementById('profile-image');
+            const cropModal = document.getElementById('cropProfileModal');
+            const cropImage = document.getElementById('crop-image');
+            const cropBtn = document.getElementById('crop-btn');
+            const rotateBtn = document.getElementById('rotate-btn');
+            const cancelCropBtn = document.getElementById('cancel-crop-btn');
+            const closeButton = cropModal.querySelector('.close-button');
+            
+            let cropper = null;
+            
+            // Fetch the user's current profile image
+            fetchUserProfileImage();
+            
+            // Set up the file upload event listener
+            profileUpload.addEventListener('change', function(event) {
+                if (event.target.files && event.target.files[0]) {
+                    const file = event.target.files[0];
+                    
+                    // Basic validation
+                    if (!file.type.match('image.*')) {
+                        alert('Please select an image file');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        // Show the crop modal with the selected image
+                        cropImage.src = e.target.result;
+                        cropModal.style.display = 'flex';
+                        
+                        // Initialize cropper
+                        if (cropper) {
+                            cropper.destroy();
+                        }
+                        
+                        // Initialize Cropper.js
+                        cropper = new Cropper(cropImage, {
+                            aspectRatio: 1, // Square aspect ratio for profile picture
+                            viewMode: 1,    // Restrict the crop box to not exceed the size of the canvas
+                            autoCropArea: 0.8, // Define the automatic cropping area size
+                            responsive: true,
+                            guides: true,
+                            center: true,
+                            highlight: false,
+                            background: false,
+                            cropBoxMovable: true,
+                            cropBoxResizable: true,
+                            toggleDragModeOnDblclick: false
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Rotate button functionality
+            rotateBtn.addEventListener('click', function() {
+                if (cropper) {
+                    cropper.rotate(90);
+                }
+            });
+            
+            // Crop and save button functionality
+            cropBtn.addEventListener('click', function() {
+                if (cropper) {
+                    // Get the cropped canvas data
+                    const canvas = cropper.getCroppedCanvas({
+                        width: 300,   // Output width
+                        height: 300,  // Output height
+                        minWidth: 100,
+                        minHeight: 100,
+                        maxWidth: 1000,
+                        maxHeight: 1000,
+                        fillColor: '#fff',
+                        imageSmoothingQuality: 'high'
+                    });
+                    
+                    if (canvas) {
+                        // Convert canvas to Blob
+                        canvas.toBlob(function(blob) {
+                            // Create a form data object
+                            const formData = new FormData();
+                            formData.append('profile_image', blob, 'profile.jpg');
+                            
+                            // Send the data to the server
+                            fetch('../PHP/upload_profile_image.php', {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Update the profile image with the new one (with a cache-busting query parameter)
+                                    profileImage.src = data.image_path + '?t=' + new Date().getTime();
+                                    cropModal.style.display = 'none';
+                                    cropper.destroy();
+                                    cropper = null;
+                                    
+                                    // Show success message
+                                    const messageContainer = document.getElementById('message-container');
+                                    messageContainer.textContent = 'Profile picture updated successfully!';
+                                    messageContainer.style.color = '#28a745';
+                                    messageContainer.style.backgroundColor = '#d4edda';
+                                    messageContainer.style.border = '1px solid #c3e6cb';
+                                    messageContainer.style.display = 'block';
+                                    
+                                    // Hide the message after 3 seconds
+                                    setTimeout(() => {
+                                        messageContainer.style.display = 'none';
+                                    }, 3000);
+                                } else {
+                                    alert('Error: ' + data.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error uploading image:', error);
+                                alert('An error occurred while uploading the image');
+                            });
+                        }, 'image/jpeg', 0.9); // JPEG format with 90% quality
+                    }
+                }
+            });
+            
+            // Cancel crop button
+            cancelCropBtn.addEventListener('click', function() {
+                if (cropper) {
+                    cropper.destroy();
+                    cropper = null;
+                }
+                cropModal.style.display = 'none';
+                profileUpload.value = ''; // Clear the file input
+            });
+            
+            // Close modal button
+            closeButton.addEventListener('click', function() {
+                if (cropper) {
+                    cropper.destroy();
+                    cropper = null;
+                }
+                cropModal.style.display = 'none';
+                profileUpload.value = ''; // Clear the file input
+            });
+            
+            // Function to fetch the user's current profile image
+            function fetchUserProfileImage() {
+                fetch('../PHP/get_user_data.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.error) {
+                            if (data.profile_image) {
+                                // Set the profile image source
+                                profileImage.src = '../Uploads/profile_images/' + data.profile_image + '?t=' + new Date().getTime();
+                            } else {
+                                // Use default image if no profile image is set
+                                profileImage.src = '../uploads/profile_images/profile.svg';
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error fetching user profile image:', error));
+            }
+        });
+    </script>
+
+    <script src="../JS/theme-handler.js"></script>
 
 </body>
 </html>

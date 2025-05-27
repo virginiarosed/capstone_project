@@ -1,3 +1,18 @@
+// Function to get the correct logo based on current theme
+function getThemeLogo() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'daylight';
+    switch (currentTheme) {
+        case 'summer':
+            return '../Images/bv_logo_summer.png';
+        case 'midnight':
+            return '../Images/bv_logo_midnight.png';
+        case 'rain':
+            return '../Images/bv_logo_rain.png';
+        default:
+            return '../Images/bv_logo.png';
+    }
+}
+
 // Show the modal when 'Add Travel' is clicked
 document.getElementById('add-travel').addEventListener('click', function() {
     document.getElementById('add-travel-modal').style.display = 'block';
@@ -101,9 +116,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     travelWidget.classList.add('created-travel');
                     travelWidget.dataset.id = travel.id;
                     
-                    // Create the travel widget content (name, logo)
+                    // Create the travel widget content with theme-aware logo
                     travelWidget.innerHTML = `
-                        <img src="../Images/bv_logo.png" alt="Travel Logo" class="travel-logo">
+                        <img src="${getThemeLogo()}" alt="Travel Logo" class="travel-logo">
                         <span class="travel-name">${travel.travel_name}</span>
                     `;  
 

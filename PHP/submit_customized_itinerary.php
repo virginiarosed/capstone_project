@@ -219,7 +219,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     // Redirect to a success page or show a success message
-    header("Location: /for_project/User_HTML/bv_itinerary.html?travel_id=" . $travel_id);
+    header("Location: /capstone_project/User_HTML/bv_itinerary.html?travel_id=" . $travel_id);
     exit();
 }
 ?>

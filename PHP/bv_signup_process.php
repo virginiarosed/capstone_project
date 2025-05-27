@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Execute query and check if successful
         if ($conn->query($sql) === TRUE) {
             // Redirect to success page with a message
-            header("Location: /for_project/User_HTML/bv_success_signup_page.html");
+            header("Location: /capstone_project/User_HTML/bv_success_signup_page.html");
             exit();
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;

@@ -5,32 +5,199 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BondVoyage │ Feedback</title>
     <link rel="stylesheet" href="../CSS/bv_feedback.css">
+    <link rel="stylesheet" href="../CSS/themes.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <header class="header">
+        <!-- Logo Image -->
+        <div class="logo1">
+          <img src="../Images/logo_title.png" alt="Logo" />
+        </div>
+      
+        <!-- Hamburger Menu Icon -->
+        <div class="hamburger-menu" onclick="toggleMenu()">
+          &#9776;
+        </div>
+    </header>
+      
+    <!-- Menu -->
+    <div id="nav-menu" class="nav-menu">
+        <ul>
+          <li><a href="../User_HTML/bv_home.html">Home</a></li>
+          <div class="divider2"></div>
+          <li><a href="../User_HTML/bv_travel.html">Travel</a></li>
+          <div class="divider2"></div>
+          <li><a href="../User_HTML/bv_weather.html">Weather</a></li>
+          <div class="divider2"></div>
+          <li><a href="../User_HTML/bv_translate.html">Translate</a></li>
+          <div class="divider2"></div>
+          <li><a href="../User_HTML/bv_more.html">More</a></li>
+        </ul>
+    </div>
+
     <div class="container">
         <nav class="sidebar">
-            <div class="logo">
-                <img src="../Images/bv_logo.png" alt="Logo" class="logo-img">
-            </div>
             <ul class="menu">
-                <li><a href="../User_HTML/bv_home.html"><img src="../Images/bv_home.png" alt="Home Icon"><span>Home</span></a></li>
-                <li><a href="../User_HTML/bv_travel.html"><img src="../Images/bv_travel.png" alt="Travel Icon"><span>Travel</span></a></li>
-                <li><a href="../User_HTML/bv_weather.html"><img src="../Images/bv_weather.png" alt="Weather Icon"><span>Weather</span></a></li>
-                <li><a href="../User_HTML/bv_translate.html"><img src="../Images/bv_translate.png" alt="Translate Icon"><span>Translate</span></a></li>
-                <li><a href="../User_HTML/bv_more.html"><img src="../Images/bv_more.png" alt="More Icon"><span>More</span></a></li>
-            </ul>            
+                <li><a href="../User_HTML/bv_home.html">
+                        <svg width="45" height="45" viewBox="0 0 512 512">
+                            <path d="M80,212V448a16,16,0,0,0,16,16h96V328a24,24,0,0,1,24-24h80a24,24,0,0,1,24,24V464h96a16,16,0,0,0,16-16V212" 
+                                style="fill:none; stroke: var(--svg-color); stroke-linecap:round; stroke-linejoin:round; stroke-width:45px"/>
+                            <path d="M480,256,266.89,52c-5-5.28-16.69-5.34-21.78,0L32,256" 
+                                style="fill:none; stroke: var(--svg-color); stroke-linecap:round; stroke-linejoin:round; stroke-width:45px"/>
+                            <polyline points="400 179 400 64 352 64 352 133" 
+                                    style="fill:none; stroke: var(--svg-color); stroke-linecap:round; stroke-linejoin:round; stroke-width:45px"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Home</span>
+                    </a>
+                </li>
+                <li><a href="../User_HTML/bv_travel.html">
+                        <svg width="45" height="45" viewBox="0 0 32 32">
+                            <path d="M27,27H5c-1.1,0-2-0.9-2-2V12c0-1.1,0.9-2,2-2h22c1.1,0,2,0.9,2,2v13C29,26.1,28.1,27,27,27z"
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <line x1="9" y1="10" x2="9" y2="27" 
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <line x1="23" y1="10" x2="23" y2="27" 
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <path d="M21,10H11V8c0-1.1,0.9-2,2-2h6c1.1,0,2,0.9,2,2V10z"
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <line x1="5" y1="28" x2="5" y2="27" 
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                            <line x1="27" y1="28" x2="27" y2="27" 
+                                style="fill:none; stroke: var(--svg-color); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:10"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Travel</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../User_HTML/bv_weather.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="45px" height="45px">
+                            <path d="M 14 4 C 8.4886661 4 4 8.4886661 4 14 L 4 36 C 4 41.511334 8.4886661 46 14 46 L 36 46 C 41.511334 46 46 41.511334 46 36 L 46 14 C 46 8.4886661 41.511334 4 36 4 L 14 4 z M 14 6 L 36 6 C 40.430666 6 44 9.5693339 44 14 L 44 36 C 44 40.430666 40.430666 44 36 44 L 14 44 C 9.5693339 44 6 40.430666 6 36 L 6 14 C 6 9.5693339 9.5693339 6 14 6 z M 32 13 C 28.831784 13 26.093824 14.857597 24.800781 17.542969 C 23.930607 17.204848 22.994154 17 22 17 C 18.123426 17 14.964148 19.810473 14.240234 23.484375 C 11.781965 24.412405 10 26.726427 10 29.5 C 10 32.718409 12.384447 35.338203 15.466797 35.845703 A 1.0001 1.0001 0 0 0 16 36 L 29 36 C 32.854334 36 36 32.854334 36 29 C 36 28.649611 35.964536 28.308532 35.914062 27.972656 C 38.35241 26.598868 40 23.987031 40 21 C 40 16.593562 36.406438 13 32 13 z M 32 15 C 35.325562 15 38 17.674438 38 21 C 38 23.097192 36.923196 24.925909 35.302734 25.998047 C 34.2169 23.769612 31.968849 22.20826 29.351562 22.070312 C 28.772052 20.623167 27.795654 19.380075 26.558594 18.484375 C 27.510509 16.431049 29.578254 15 32 15 z M 22 19 C 24.731835 19 27.016987 20.816348 27.75 23.298828 A 1.0001 1.0001 0 0 0 28.761719 24.013672 C 28.893652 24.006871 28.970027 24 29 24 C 31.773666 24 34 26.226334 34 29 C 34 31.773666 31.773666 34 29 34 L 16.886719 34 L 16.990234 34.855469 A 1.0001 1.0001 0 0 0 16.087891 33.978516 C 13.792805 33.769573 12 31.85754 12 29.5 C 12 27.416545 13.406241 25.684769 15.3125 25.164062 A 1.0001 1.0001 0 0 0 16.042969 24.3125 C 16.384344 21.319894 18.907735 19 22 19 z" style="fill: none; stroke: var(--svg-color); stroke-width: 2.5;"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Weather</span>
+                    </a>
+                </li>
+                <li><a href="../User_HTML/bv_translate.html">
+                        <svg version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve" height="40" width="40">
+                            <style type="text/css">
+                                .st0 {
+                                    fill: none;
+                                    stroke: var(--svg-color); /* Use CSS variable for dynamic color change */
+                                    stroke-width: 2.5; /* Thinner stroke width */
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                    stroke-miterlimit: 10;
+                                }
+                            </style>
+                            <rect x="3" y="3" class="st0" width="15" height="15"/>
+                            <polyline class="st0" points="13,19 13,29 29,29 29,13 20,13 "/>
+                            <line class="st0" x1="11" y1="6" x2="11" y2="8"/>
+                            <line class="st0" x1="7" y1="9" x2="15" y2="9"/>
+                            <path class="st0" d="M13,9c0,3.3-2.7,6-6,6"/>
+                            <path class="st0" d="M9,9c0,3.3,2.7,6,6,6"/>
+                            <polyline class="st0" points="17,25 21,17 25,25 "/>
+                            <line class="st0" x1="19" y1="23" x2="23" y2="23"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Translate</span>
+                    </a>
+                </li>
+                <li class="active"><a href="../User_HTML/bv_feedback.html">
+                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <style type="text/css">
+                                .feedback-fill {
+                                    fill: var(--svg-color); /* Dynamic fill color */
+                                }
+                                .feedback-stroke {
+                                    fill: none;
+                                    stroke: var(--svg-color); /* Dynamic stroke color */
+                                    stroke-width: 1.5; /* Slightly thinner stroke */
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                }
+                            </style>
+                            <path class="feedback-fill" d="M16 1C17.6569 1 19 2.34315 19 4C19 4.55228 18.5523 5 18 5C17.4477 5 17 4.55228 17 4C17 3.44772 16.5523 3 16 3H4C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21H16C16.5523 21 17 20.5523 17 20V19C17 18.4477 17.4477 18 18 18C18.5523 18 19 18.4477 19 19V20C19 21.6569 17.6569 23 16 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H16Z"/>
+                            <path class="feedback-fill" fill-rule="evenodd" clip-rule="evenodd" d="M20.7991 8.20087C20.4993 7.90104 20.0132 7.90104 19.7133 8.20087L11.9166 15.9977C11.7692 16.145 11.6715 16.3348 11.6373 16.5404L11.4728 17.5272L12.4596 17.3627C12.6652 17.3285 12.855 17.2308 13.0023 17.0835L20.7991 9.28666C21.099 8.98682 21.099 8.5007 20.7991 8.20087ZM18.2991 6.78666C19.38 5.70578 21.1325 5.70577 22.2134 6.78665C23.2942 7.86754 23.2942 9.61999 22.2134 10.7009L14.4166 18.4977C13.9744 18.9398 13.4052 19.2327 12.7884 19.3355L11.8016 19.5C10.448 19.7256 9.2744 18.5521 9.50001 17.1984L9.66448 16.2116C9.76728 15.5948 10.0602 15.0256 10.5023 14.5834L18.2991 6.78666Z"/>
+                            <path class="feedback-stroke" d="M5 7C5 6.44772 5.44772 6 6 6H14C14.5523 6 15 6.44772 15 7C15 7.55228 14.5523 8 14 8H6C5.44772 8 5 7.55228 5 7Z"/>
+                            <path class="feedback-stroke" d="M5 11C5 10.4477 5.44772 10 6 10H10C10.5523 10 11 10.4477 11 11C11 11.5523 10.5523 12 10 12H6C5.44772 12 5 11.5523 5 11Z"/>    
+                            <path class="feedback-stroke" d="M5 15C5 14.4477 5.44772 14 6 14H7C7.55228 14 8 14.4477 8 15C8 15.5523 7.55228 16 7 16H6C5.44772 16 5 15.5523 5 15Z"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Feedback</span>
+                    </a>
+                </li>
+                <li><a href="../User_HTML/bv_more.html">
+                        <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <style>
+                                .more-stroke {
+                                    fill: none;
+                                    stroke: var(--svg-color); /* Dynamic stroke color */
+                                    stroke-width: 1.5; /* Consistent stroke thickness */
+                                    stroke-linecap: round;
+                                    stroke-linejoin: bevel;
+                                }
+                            </style>
+
+                            <g id="ic-actions-more-1">
+                                <circle class="more-stroke" cx="4.19" cy="11.98" r="2"/>
+                                <circle class="more-stroke" cx="12" cy="12.02" r="2"/>
+                                <circle class="more-stroke" cx="19.81" cy="11.98" r="2"/>
+                            </g>
+                        </svg>
+                        <span style="color: var(--svg-color);">More</span>
+                    </a>
+                </li>
+                <li><a href="#" onclick="logoutFunction()"><svg width="45" height="45" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <style>
+                                .logout-stroke {
+                                    fill: none;
+                                    stroke: var(--svg-color); /* Dynamic stroke color */
+                                    stroke-width: 2;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                }
+                            </style>
+
+                            <path class="logout-stroke" d="M21 12L13 12"/>
+                            <path class="logout-stroke" d="M18 15L20.913 12.087C20.961 12.039 20.961 11.961 20.913 11.913L18 9"/>
+                            <path class="logout-stroke" d="M16 5V4.5C16 3.67157 15.3284 3 14.5 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H14.5C15.3284 21 16 20.3284 16 19.5V19"/>
+                        </svg>
+                        <span style="color: var(--svg-color);">Logout</span>
+                    </a>
+                </li>
+            </ul>           
         </nav>
         <main class="content">
-            <img src="../Images/feedback_title.png" alt="Feedback Title" class="feedback-img">
+            <div class="header-container">
+                <div class="header-left">
+                    <div class="logo">
+                        <img src="../Images/bv_logo.png" alt="Logo" class="logo-img" id="main-logo">
+                    </div>
+                </div>
+
+                <div class="header-center">
+                    <h1>Share your travel experience!</h1>
+                </div>
+
+                <div class="header-right">
+                    <div class="theme-selector">
+                        <label for="theme-select">Mood:</label>
+                        <select id="theme-select">
+                            <option value="daylight">Daylight</option>
+                            <option value="midnight">Midnight</option>
+                            <option value="summer">Summer</option>
+                            <option value="rain">Rain</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
             <div class="feedback-container">
                 <div class="text-section">
                     <p>
                         Hey Travelers,<br><br>
-                        Thank you for choosing 4B's Travel and Tours for your recent journey! We are delighted to have been a part of your travel experience. At 4B's, we strive to provide exceptional service, unforgettable destinations, and seamless travel experiences, and your satisfaction is at the heart of everything we do. Your feedback is incredibly valuable to us! We’d love to hear about your travel experience and any suggestions you may have to help us enhance our services. Your input allows us to continue creating unforgettable travel experiences for you and all our future clients.<br>
+                        Thank you for choosing 4B's Travel and Tours for your recent journey! We are delighted to have been a part of your travel experience. At 4B's, we strive to provide exceptional service, unforgettable destinations, and seamless travel experiences, and your satisfaction is at the heart of everything we do. Your feedback is incredibly valuable to us! We'd love to hear about your travel experience and any suggestions you may have to help us enhance our services. Your input allows us to continue creating unforgettable travel experiences for you and all our future clients.<br>
                         <br>Safe travels and warm wishes,<br>
                         4B's Travel and Tours
                     </p>
@@ -53,41 +220,65 @@
                 </div>
             </div>
         </main>
+    </div>
 
-        <script>
-            $(document).ready(function(){
-                // Handle form submission using AJAX
-                $('#feedbackForm').on('submit', function(e){
-                    e.preventDefault();  // Prevent default form submission
-                    
-                    $.ajax({
-                        url: $(this).attr('action'),
-                        type: 'POST',
-                        data: $(this).serialize(),  // Serialize form data
-                        success: function(response){
-                            // Display the response (feedback message) above the submit button
-                            $('#responseMessage').html('<p>' + response + '</p>');
-                            
-                            // Clear the form fields after submission
-                            $('#feedbackForm')[0].reset();
-                            
-                            // Hide the responseMessage after 5 seconds
-                            setTimeout(function(){
-                                $('#responseMessage').fadeOut(); // Fades out the responseMessage
-                            }, 5000); // 5000 milliseconds = 5 seconds
-                        },
-                        error: function(){
-                            $('#responseMessage').html('<p>Error submitting feedback. Please try again later.</p>');
-                            
-                            // Hide the error message after 5 seconds
-                            setTimeout(function(){
-                                $('#responseMessage').fadeOut(); // Fades out the error message
-                            }, 5000); // 5000 milliseconds = 5 seconds
-                        }
-                    });
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get the current URL path
+            const currentPath = window.location.pathname;
+
+            // Select all <a> elements in the sidebar
+            const menuLinks = document.querySelectorAll('.menu a');
+
+            // Loop through the links and compare their href with the current path
+            menuLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    // Add the active class to the parent <li>
+                    link.parentElement.classList.add('active');
+                }
+            });
+        });
+
+        // Function to toggle the navigation menu
+        function toggleMenu() {
+            const menu = document.getElementById("nav-menu");
+            menu.classList.toggle("active");
+        } 
+
+        $(document).ready(function(){
+            // Handle form submission using AJAX
+            $('#feedbackForm').on('submit', function(e){
+                e.preventDefault();  // Prevent default form submission
+                
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: $(this).serialize(),  // Serialize form data
+                    success: function(response){
+                        // Display the response (feedback message) above the submit button
+                        $('#responseMessage').html('<p>' + response + '</p>');
+                        
+                        // Clear the form fields after submission
+                        $('#feedbackForm')[0].reset();
+                        
+                        // Hide the responseMessage after 5 seconds
+                        setTimeout(function(){
+                            $('#responseMessage').fadeOut(); // Fades out the responseMessage
+                        }, 5000); // 5000 milliseconds = 5 seconds
+                    },
+                    error: function(){
+                        $('#responseMessage').html('<p>Error submitting feedback. Please try again later.</p>');
+                        
+                        // Hide the error message after 5 seconds
+                        setTimeout(function(){
+                            $('#responseMessage').fadeOut(); // Fades out the error message
+                        }, 5000); // 5000 milliseconds = 5 seconds
+                    }
                 });
             });
-        </script>
-    </div>
+        });
+    </script>
+
+    <script src="../JS/theme-handler.js"></script>
 </body>
 </html>

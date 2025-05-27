@@ -1,0 +1,125 @@
+:root {
+    --bg-color: #FCFCF7;
+    --text-color: #585D27;
+    --accent-color: #585D27;
+    --border-color: #585D27;
+    --button-bg-color: #585D27;
+    --button-hover-bg-color: #3c4f19;
+    --menu-hover-bg-color: #e0e5c1;
+    --h1-color: #585D27;
+    --svg-color: #FCFCF7;
+    --modal-color: #FCFCF7;
+}
+
+[data-theme="daylight"] {
+    --bg-color: #FCFCF7;
+    --text-color: #585D27;
+    --accent-color: #585D27;
+    --border-color: #585D27;
+    --button-bg-color: #585D27;
+    --button-hover-bg-color: #3c4f19;
+    --menu-hover-bg-color: #e0e5c1;
+    --h1-color: #585D27;
+    --svg-color: #FCFCF7;
+    --modal-color: #FCFCF7;
+}
+
+[data-theme="midnight"] {
+    --bg-color: #061919;
+    --text-color: #B0BEC5;
+    --accent-color: #212C52;
+    --border-color:  #212C52;
+    --button-bg-color:  #212C52;
+    --button-hover-bg-color: #034078;
+    --menu-hover-bg-color: #034078;
+    --h1-color:  #B0BEC5;
+    --svg-color: #B0BEC5;
+    --modal-color: #061919;
+}
+
+[data-theme="summer"] {
+    --bg-color: #fefae0;
+    --text-color: #bc6c25;
+    --accent-color: #bc6c25;
+    --border-color: #bc6c25;
+    --button-bg-color: #bc6c25;
+    --button-hover-bg-color: #dda15e;
+    --menu-hover-bg-color: #dda15e;
+    --h1-color: #bc6c25;
+    --svg-color: #fefae0;
+    --modal-color: #fefae0;
+}
+
+[data-theme="rain"] {
+    --bg-color: #e5ecf4;
+    --text-color: #2c3e50;
+    --accent-color: #2c3e50;
+    --border-color: #2c3e50;
+    --button-bg-color: #2c3e50;
+    --button-hover-bg-color: #357ABD;
+    --menu-hover-bg-color: #357ABD;
+    --h1-color: #2c3e50;
+    --svg-color: #e5ecf4;
+    --modal-color: #e5ecf4;
+}
+
+/* Apply theme variables */
+body, html {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.container {
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+}
+
+h1 {
+    color: var(--h1-color);
+}
+
+.sidebar {
+    background-color: var(--accent-color);
+    border-color: var(--border-color);
+}
+
+.menu a, .menu span {
+    color: var(--text-color);
+}
+
+.menu li.active {
+    background-color: var(--button-bg-color);
+    border-color: var(--border-color);
+}
+
+.menu li.active span {
+    color: var(--text-color);
+}
+
+.menu li.active img {
+    filter: brightness(1.2);
+}
+
+.profile-edit button, .select-button-container button {
+    background-color: var(--button-bg-color);
+    color: var(--text-color);
+}
+
+.profile-edit button:hover, .select-button-container button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+.profile-container {
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+}
+
+.travel-tip, .quote-of-the-day, .packing-list {
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.second-container {
+    border-color: var(--border-color);
+}

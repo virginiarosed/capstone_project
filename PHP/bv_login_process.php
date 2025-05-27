@@ -29,18 +29,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['email'] = $user['email']; // Store the user's email in session
             
             // Redirect to the home page (bv_home.html)
-            header("Location: /for_project/User_HTML/bv_home.html");
+            header("Location: /capstone_project/User_HTML/bv_home.html");
             exit();
         } else {
             // Incorrect password
             $_SESSION['error_message'] = "Wrong password. Try again.";
-            header("Location: /for_project/User_HTML/bv_login.html?error=" . urlencode($_SESSION['error_message']) . "&password_incorrect=true&email=" . urlencode($email));
+            header("Location: /capstone_project/User_HTML/bv_login.html?error=" . urlencode($_SESSION['error_message']) . "&password_incorrect=true&email=" . urlencode($email));
             exit();
         }
     } else {
         // Email not found in the database
         $_SESSION['error_message'] = "Invalid email.";
-        header("Location: /for_project/User_HTML/bv_login.html?error=" . urlencode($_SESSION['error_message']) . "&email=" . urlencode($email));
+        header("Location: /capstone_project/User_HTML/bv_login.html?error=" . urlencode($_SESSION['error_message']) . "&email=" . urlencode($email));
         exit();
     }
 
@@ -48,6 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->close();
 } else {
     // Redirect to the login page if the form is not submitted
-    header("Location: /for_project/User_HTML/bv_login.html");
+    header("Location: /capstone_project/User_HTML/bv_login.html");
     exit();
 }
