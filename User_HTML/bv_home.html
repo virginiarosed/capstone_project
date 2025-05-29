@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../CSS/themes.css">
     <link rel="icon" href="../Images/favicon-32x32.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 </head>
 <body>
@@ -223,6 +224,79 @@
         </main>
     </div>
 
+    <!-- AI Chatbot -->
+    <div id="chatbot-container">
+        <!-- Floating Chat Button -->
+        <div id="chatbot-toggle" class="chatbot-toggle">
+            <i class="fas fa-comments"></i>
+            <div class="chatbot-notification" id="chatbot-notification">1</div>
+        </div>
+
+        <!-- Chat Window -->
+        <div id="chatbot-window" class="chatbot-window">
+            <div class="chatbot-header">
+                <div class="chatbot-header-info">
+                    <div class="chatbot-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chatbot-title">
+                        <h4>Navi</h4>
+                        <span class="chatbot-status">Online</span>
+                    </div>
+                </div>
+                <div class="chatbot-header-actions">
+                    <button id="chatbot-clear" class="chatbot-action-btn" title="Clear conversation">
+                        <i class="fas fa-broom"></i>
+                    </button>
+                    <button id="chatbot-close" class="chatbot-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="chatbot-messages" id="chatbot-messages">
+                <!-- Messages will be loaded from localStorage or default welcome message -->
+            </div>
+
+            <div class="chatbot-quick-replies">
+                <button class="quick-reply-btn" data-message="What services does 4B's Travel and Tours offer?">Our Services</button>
+                <button class="quick-reply-btn" data-message="How can I book a travel package?">Book Travel</button>
+                <button class="quick-reply-btn" data-message="How can I contact 4B's Travel and Tours?">Contact Us</button>
+                <button class="quick-reply-btn" data-message="What are your operating hours?">Hours</button>
+            </div>
+
+            <div class="chatbot-input-container">
+                <input 
+                    type="text" 
+                    id="chatbot-input" 
+                    class="chatbot-input" 
+                    placeholder="Type your message..."
+                    autocomplete="off"
+                >
+                <button id="chatbot-send" class="chatbot-send">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clear Conversation Confirmation Modal -->
+    <div id="clearChatModal" class="modal" style="display: none;">
+        <div class="modal-content clear-chat-modal">
+            <h2>Clear Conversation</h2>
+            <p>Are you sure you want to clear your entire chat history with Navi? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button id="confirmClearChat" class="confirm-btn">
+                    <i class="fas fa-check"></i> Yes, Clear All
+                </button>
+                <button id="cancelClearChat" class="cancel-btn">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Existing Modals -->
     <div id="editProfileModal" class="modal" style="display:none;">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -267,6 +341,7 @@
     </div>
 </div>
 
+    <!-- All existing scripts... -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Get the current URL path
@@ -644,6 +719,415 @@
                     })
                     .catch(error => console.error('Error fetching user profile image:', error));
             }
+        });
+    </script>
+
+    <!-- AI Chatbot Script with Persistent History -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Chatbot Elements
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            const chatbotWindow = document.getElementById('chatbot-window');
+            const chatbotClose = document.getElementById('chatbot-close');
+            const chatbotClear = document.getElementById('chatbot-clear');
+            const chatbotInput = document.getElementById('chatbot-input');
+            const chatbotSend = document.getElementById('chatbot-send');
+            const chatbotMessages = document.getElementById('chatbot-messages');
+            const chatbotNotification = document.getElementById('chatbot-notification');
+            const quickReplyBtns = document.querySelectorAll('.quick-reply-btn');
+            const clearChatModal = document.getElementById('clearChatModal');
+            const confirmClearChat = document.getElementById('confirmClearChat');
+            const cancelClearChat = document.getElementById('cancelClearChat');
+
+            let isOpen = false;
+            let chatHistory = [];
+            let sessionId = generateSessionId();
+            let userProfileImage = null; // Store user's profile image
+
+            // Initialize chatbot
+            initializeChatbot();
+
+            function generateSessionId() {
+                return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            }
+
+            async function initializeChatbot() {
+                // Load chat history from database
+                await loadChatHistory();
+                
+                // If no history exists, show welcome message
+                if (chatHistory.length === 0) {
+                    await showWelcomeMessage();
+                } else {
+                    // Render existing chat history
+                    renderChatHistory();
+                }
+            }
+
+            async function loadChatHistory() {
+                try {
+                    const response = await fetch('../PHP/get_chatbot_messages.php');
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        chatHistory = data.messages;
+                        userProfileImage = data.user_profile_image; // Store user's profile image
+                    } else {
+                        console.error('Error loading chat history:', data.error);
+                        chatHistory = [];
+                    }
+                } catch (error) {
+                    console.error('Error loading chat history:', error);
+                    chatHistory = [];
+                }
+            }
+
+            async function saveChatMessage(message, sender) {
+                try {
+                    const response = await fetch('../PHP/save_chatbot_message.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            message: message,
+                            sender: sender,
+                            session_id: sessionId
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    if (!data.success) {
+                        console.error('Error saving message:', data.error);
+                    }
+                } catch (error) {
+                    console.error('Error saving message:', error);
+                }
+            }
+
+            async function showWelcomeMessage() {
+                const welcomeMessage = {
+                    message: "Hey there, traveler! I'm Navi — your adventure sidekick from 4B's Travel and Tours!<br>(Navi = Navigation... get it? 😄)<br><br>I'm here to help you with:<ul><li>Info on 4B's Travel and Tours services</li><li>Travel tips, hacks, and must-knows</li><li>Answers to your wildest travel questions</li></ul><p>Ready to explore? Just ask away — I've got the map, the facts, and maybe a few cheesy jokes too. 😎</p><p>Let's get your journey started!</p>",
+                    sender: 'bot',
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Save to database
+                await saveChatMessage(welcomeMessage.message, 'bot');
+                
+                // Add to local array and render
+                chatHistory.push(welcomeMessage);
+                renderMessage(welcomeMessage);
+            }
+
+            function renderChatHistory() {
+                chatbotMessages.innerHTML = '';
+                chatHistory.forEach(messageData => {
+                    renderMessage(messageData);
+                });
+                scrollToBottom();
+            }
+
+            function getUserAvatarHTML() {
+                if (userProfileImage && userProfileImage !== 'profile.svg') {
+                    return `<img src="../uploads/profile_images/${userProfileImage}" alt="User Avatar" class="user-avatar-img">`;
+                } else {
+                    return `<img src="../uploads/profile_images/profile.svg" alt="User Avatar" class="user-avatar-img">`;
+                }
+            }
+
+            function renderMessage(messageData) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chatbot-message ${messageData.sender}-message`;
+                
+                const messageTime = new Date(messageData.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                
+                if (messageData.sender === 'bot') {
+                    messageDiv.innerHTML = `
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-wrapper">
+                            <div class="message-content">
+                                <p>${messageData.message}</p>
+                            </div>
+                            <div class="message-time">${messageTime}</div>
+                        </div>
+                    `;
+                } else {
+                    messageDiv.innerHTML = `
+                        <div class="message-avatar">
+                            ${getUserAvatarHTML()}
+                        </div>
+                        <div class="message-wrapper">
+                            <div class="message-content">
+                                <p>${messageData.message}</p>
+                            </div>
+                            <div class="message-time">${messageTime}</div>
+                        </div>
+                    `;
+                }
+
+                chatbotMessages.appendChild(messageDiv);
+            }
+
+            function scrollToBottom() {
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+
+            // Toggle chatbot window
+            chatbotToggle.addEventListener('click', () => {
+                isOpen = !isOpen;
+                chatbotWindow.style.display = isOpen ? 'flex' : 'none';
+                chatbotNotification.style.display = 'none';
+                
+                if (isOpen) {
+                    chatbotInput.focus();
+                    scrollToBottom();
+                }
+            });
+
+            // Close chatbot
+            chatbotClose.addEventListener('click', () => {
+                isOpen = false;
+                chatbotWindow.style.display = 'none';
+            });
+
+            // Clear conversation button
+            chatbotClear.addEventListener('click', () => {
+                clearChatModal.style.display = 'flex';
+            });
+
+            // Confirm clear conversation
+            confirmClearChat.addEventListener('click', async () => {
+                await clearConversation();
+                clearChatModal.style.display = 'none';
+            });
+
+            // Cancel clear conversation
+            cancelClearChat.addEventListener('click', () => {
+                clearChatModal.style.display = 'none';
+            });
+
+            // Clear conversation function
+            async function clearConversation() {
+                try {
+                    const response = await fetch('../PHP/clear_chatbot_messages.php', {
+                        method: 'POST'
+                    });
+                    
+                    const data = await response.json();
+                    if (data.success) {
+                        chatHistory = [];
+                        chatbotMessages.innerHTML = '';
+                        await showWelcomeMessage();
+                        
+                        // Show confirmation message
+                        setTimeout(async () => {
+                            const clearConfirmation = {
+                                message: "✨ Conversation cleared! Ready for a fresh start? What can I help you with today?",
+                                sender: 'bot',
+                                timestamp: new Date().toISOString()
+                            };
+                            
+                            await saveChatMessage(clearConfirmation.message, 'bot');
+                            chatHistory.push(clearConfirmation);
+                            renderMessage(clearConfirmation);
+                            scrollToBottom();
+                        }, 500);
+                    } else {
+                        console.error('Error clearing conversation:', data.error);
+                    }
+                } catch (error) {
+                    console.error('Error clearing conversation:', error);
+                }
+            }
+
+            // Send message function
+            async function sendMessage(message, isUser = true) {
+                if (!message.trim()) return;
+
+                // Add user message
+                if (isUser) {
+                    const userMessage = {
+                        message: message.trim(),
+                        sender: 'user',
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    // Save to database
+                    await saveChatMessage(userMessage.message, 'user');
+                    
+                    // Add to local array and render
+                    chatHistory.push(userMessage);
+                    renderMessage(userMessage);
+                    chatbotInput.value = '';
+                }
+
+                // Show typing indicator
+                showTypingIndicator();
+
+                // Simulate AI response delay
+                setTimeout(async () => {
+                    removeTypingIndicator();
+                    const response = getAIResponse(message);
+                    
+                    const botMessage = {
+                        message: response,
+                        sender: 'bot',
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    // Save to database
+                    await saveChatMessage(botMessage.message, 'bot');
+                    
+                    // Add to local array and render
+                    chatHistory.push(botMessage);
+                    renderMessage(botMessage);
+                    scrollToBottom();
+                }, Math.random() * 2000 + 1000); // 1-3 second delay
+            }
+
+            // Show typing indicator
+            function showTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'chatbot-message bot-message typing-indicator';
+                typingDiv.id = 'typing-indicator';
+                typingDiv.innerHTML = `
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-wrapper">
+                        <div class="message-content">
+                            <div class="typing-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                chatbotMessages.appendChild(typingDiv);
+                scrollToBottom();
+            }
+
+            // Remove typing indicator
+            function removeTypingIndicator() {
+                const typingIndicator = document.getElementById('typing-indicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+
+            // AI Response Logic (keep your existing getAIResponse function here)
+            function getAIResponse(message) {
+                const lowerMessage = message.toLowerCase();
+                
+                // Company Information Responses
+                if (lowerMessage.includes('service') || lowerMessage.includes('offer')) {
+                    return "4B's Travel and Tours is a DTI- and BIR-registered travel agency based in the Philippines, offering a wide range of services with no hidden charges.<br><br> 🚐 <b>Van Rental Services:</b> Comfortable and convenient options for group travel.<br> 🏝️ <b>Tour Packages:</b> Joiner and exclusive packages to various Philippine destinations.<br> 🗺️ <b>Customized Itineraries:</b> Personalized travel plans tailored to your preferences and budget.<br><br> Make every moment count, travel with 4B's Travel and Tour!";
+                }
+                
+                if (lowerMessage.includes('book') || lowerMessage.includes('reservation')) {
+                    return `To book with 4B's Travel and Tours: <br> 📞 <b>Call/Text us (Globe):</b><br>0995 322 4300 <br>📧 <b>Email us:</b><br> <a href="mailto:4bstravelandtours@gmail.com" style="color: inherit; text-decoration: underline;">4bstravelandtours@gmail.com</a><br>
+                💬 <b>Message us on Facebook:</b><br> <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fm.me%2F4BsTravelandTours%3Ffbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExUUZmZ0poeUltTFBwc0RzVwEewGxs_C4QWnW_uchbpqwc9dvsrRWD_612r1m4Ugl2CUluTjrKUvt3ik_2Pb4_aem_ApcIdSu2pn0eBASitt_ygQ&h=AT3L5XgCKN4rnuzmuAzaGu9VSSNXmvmx9tbCzu2arHh-EbbP0VPmpIu7A6KA8xl2IafoNiWtqpBzn9SHNwwwuL4iVQ3kwI91awTFKnVdif-lxiIr_GcjhwuemIuKIehLhCIX" 
+                style="color: inherit; text-decoration: underline;" target="_blank" rel="noopener noreferrer">Click here to chat</a><br>
+                📍<b>Address:</b><br> <a href="https://www.google.com/maps/dir/14.3592999,121.0330068/14.3642496,121.0503006/@14.3635349,121.0318797,15z/data=!3m1!4b1!4m4!4m3!1m1!4e1!1m0?entry=ttu&g_ep=EgoyMDI1MDUyNi4wIKXMDSoASAFQAw%3D%3D" 
+                style="color: inherit; text-decoration: underline;" target="_blank" rel="noopener noreferrer">View on Google Maps</a>`;
+                }
+                
+                if (lowerMessage.includes('hour') || lowerMessage.includes('time') || lowerMessage.includes('open')) {
+                    return "Our office hours are: 🕘 Monday-Sunday: 7:00 AM - 8:00 PM. For urgent inquiries outside business hours, you can leave us a message and we'll get back to you first thing in the morning!";
+                }
+                
+                if (lowerMessage.includes('contact') || lowerMessage.includes('phone') || lowerMessage.includes('email')) { 
+                    return `📞 <b>Call/Text us (Globe):</b><br>0995 322 4300 <br>📧 <b>Email us:</b><br> <a href="mailto:4bstravelandtours@gmail.com" style="color: inherit; text-decoration: underline;">4bstravelandtours@gmail.com</a><br>
+                💬 <b>Message us on Facebook:</b><br> <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fm.me%2F4BsTravelandTours%3Ffbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExUUZmZ0poeUltTFBwc0RzVwEewGxs_C4QWnW_uchbpqwc9dvsrRWD_612r1m4Ugl2CUluTjrKUvt3ik_2Pb4_aem_ApcIdSu2pn0eBASitt_ygQ&h=AT3L5XgCKN4rnuzmuAzaGu9VSSNXmvmx9tbCzu2arHh-EbbP0VPmpIu7A6KA8xl2IafoNiWtqpBzn9SHNwwwuL4iVQ3kwI91awTFKnVdif-lxiIr_GcjhwuemIuKIehLhCIX" 
+                style="color: inherit; text-decoration: underline;" target="_blank" rel="noopener noreferrer">Click here to chat</a><br>
+                📍<b>Address:</b><br> <a href="https://www.google.com/maps/dir/14.3592999,121.0330068/14.3642496,121.0503006/@14.3635349,121.0318797,15z/data=!3m1!4b1!4m4!4m3!1m1!4e1!1m0?entry=ttu&g_ep=EgoyMDI1MDUyNi4wIKXMDSoASAFQAw%3D%3D" 
+                style="color: inherit; text-decoration: underline;" target="_blank" rel="noopener noreferrer">View on Google Maps</a>`;
+                }
+                
+                // Travel Tips and Advice
+                if (lowerMessage.includes('tip') || lowerMessage.includes('advice') || lowerMessage.includes('suggest')) {
+                    const tips = [
+                        "💡 Pack light and bring versatile clothing that can be mixed and matched!",
+                        "💡 Always keep copies of important documents in separate locations!",
+                        "💡 Research local customs and basic phrases before traveling!",
+                        "💡 Book flights and accommodations in advance for better deals!",
+                        "💡 Pack a first-aid kit and any necessary medications!",
+                        "💡 Use travel-sized toiletries to save space and weight!",
+                        "💡 Keep emergency contacts and embassy information handy!"
+                    ];
+                    return tips[Math.floor(Math.random() * tips.length)];
+                }
+                
+                if (lowerMessage.includes('budget') || lowerMessage.includes('cheap') || lowerMessage.includes('save')) {
+                    return "💰 Budget Travel Tips: Travel during off-peak seasons, book flights in advance, consider staying in hostels or vacation rentals, eat like a local, use public transportation, and look for free activities like hiking or visiting public beaches. We can help you create an amazing trip within your budget!";
+                }
+                
+                if (lowerMessage.includes('packing') || lowerMessage.includes('luggage') || lowerMessage.includes('suitcase')) {
+                    return "🧳 Packing Tips: Roll clothes instead of folding, use packing cubes, wear heavy items on the plane, pack a change of clothes in carry-on, bring a universal adapter, pack chargers and power banks, and don't forget travel-sized toiletries. Always check airline baggage restrictions!";
+                }
+                
+                if (lowerMessage.includes('safety') || lowerMessage.includes('secure') || lowerMessage.includes('safe')) {
+                    return "🛡️ Travel Safety Tips: Register with your embassy, share itinerary with family, keep valuables in hotel safe, use hotel transportation, avoid displaying expensive items, trust your instincts, and always have travel insurance. Stay connected with local emergency numbers!";
+                }
+                
+                // Weather and Seasonal Advice
+                if (lowerMessage.includes('weather') || lowerMessage.includes('season') || lowerMessage.includes('climate')) {
+                    return "🌦️ Always check weather forecasts before traveling and pack accordingly! Tropical destinations need rain gear and sunscreen, cold climates require warm layers, and high altitudes need sun protection. We can advise you on the best time to visit your destination based on weather patterns!";
+                }
+                
+                // Documentation
+                if (lowerMessage.includes('passport') || lowerMessage.includes('visa') || lowerMessage.includes('document')) {
+                    return "📋 Travel Documents: Ensure your passport is valid for at least 6 months, check visa requirements for your destination, carry copies of important documents, and consider travel insurance. We offer visa assistance services to make the process easier for you!";
+                }
+                
+                // General Greetings and Farewells
+                if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                    return "Hello! 👋 Welcome to 4B's Travel and Tours! I'm here to help you with any travel-related questions or information about our services. How can I assist you today?";
+                }
+                
+                if (lowerMessage.includes('thanks') || lowerMessage.includes('thank you')) {
+                    return "You're very welcome! 😊 If you have any more questions about travel or our services at 4B's Travel and Tours, feel free to ask. Have a wonderful day and happy travels!";
+                }
+                
+                if (lowerMessage.includes('bye') || lowerMessage.includes('goodbye')) {
+                    return "Goodbye! 👋 Thank you for chatting with us. Remember, 4B's Travel and Tours is here whenever you're ready to plan your next adventure. Safe travels!";
+                }
+                
+                // Default response for unrecognized queries
+                return "I'm here to help with travel-related questions and information about 4B's Travel and Tours! You can ask me about our services, booking process, travel tips, or general travel advice. What would you like to know? 😊";
+            }
+
+            // Send message on button click
+            chatbotSend.addEventListener('click', () => {
+                sendMessage(chatbotInput.value);
+            });
+
+            // Send message on Enter key
+            chatbotInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage(chatbotInput.value);
+                }
+            });
+
+            // Quick reply buttons
+            quickReplyBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const message = btn.getAttribute('data-message');
+                    sendMessage(message);
+                });
+            });
+
+            // Show notification after page load (only if no recent activity)
+            setTimeout(() => {
+                if (!isOpen && chatHistory.length <= 1) {
+                    chatbotNotification.style.display = 'block';
+                }
+            }, 3000);
         });
     </script>
 

@@ -4,11 +4,6 @@
 }
 
 @font-face {
-  font-family: 'Gusto-Bold';
-  src: url('../Fonts/Gusto-Bold.ttf') format('truetype');
-}
-
-@font-face {
   font-family: 'Montserrat-Medium';
   src: url('../Fonts/Montserrat-Medium.ttf') format('truetype');
 }
@@ -334,11 +329,11 @@
 }
 
 .itinerary-form h1 {
-  font-size: 60px;
+  font-size: 50px;
   margin-bottom: 10px;
   text-align: center;
   color: var(--h1-color);
-  font-family: 'Gusto-Bold', sans-serif;
+  font-family: 'Pogonia-extrabold', sans-serif;
 }
 
 .form-row {
@@ -581,11 +576,11 @@ input[type="number"] {
 }
 
 .guide-section h1 {
-font-size: 45px;
+font-size: 40px;
 margin-bottom: 10px;
 text-align: center;
 color: var(--h1-color);
-font-family: 'Gusto-Bold', sans-serif;
+font-family: 'Pogonia-extrabold', sans-serif;
 }
 
 .placeguide-display {
