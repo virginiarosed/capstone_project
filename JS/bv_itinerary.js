@@ -441,27 +441,84 @@ function toggleEditMode(isEditMode) {
     saveBtn.style.display = "block";
     editBtn.style.display = "none";
   }
-
-  //   // Store values in localStorage when in Save Mode, or restore them in Edit Mode
-  //   if (!isEditable) {
-  //     // Save the current values for both standard and dynamic inputs to localStorage
-  //     inputs.forEach((input, index) => {
-  //       localStorage.setItem(`input-${index}`, input.value);
-  //     });
-
-  //     // Also save time slot values
-  //     timeSlotInputs.forEach((input, index) => {
-  //       localStorage.setItem(`timeSlot-${index}`, input.value);
-  //     });
-  //   } else {
-  //     // Restore values from localStorage when switching to Edit Mode
-  //     inputs.forEach((input, index) => {
-  //       input.value = localStorage.getItem(`input-${index}`) || "";
-  //     });
-
-  //     // Restore time slot values from localStorage
-  //     timeSlotInputs.forEach((input, index) => {
-  //       input.value = localStorage.getItem(`timeSlot-${index}`) || "";
-  //     });
-  //   }
 }
+
+// Theme functionality - load and persist theme without session dependency
+document.addEventListener('DOMContentLoaded', function() {
+  const themeSelect = document.getElementById('theme-select');
+  const logoImg = document.getElementById('main-logo');
+
+  function updateLogo(theme) {
+    if (!logoImg) return;
+    switch (theme) {
+        case 'summer':
+            logoImg.src = '../Images/bv_logo_summer.png';
+            break;
+        case 'midnight':
+            logoImg.src = '../Images/bv_logo_midnight.png';
+            break;
+        case 'rain':
+            logoImg.src = '../Images/bv_logo_rain.png';
+            break;
+        default:
+            logoImg.src = '../Images/bv_logo.png';
+    }
+  }
+
+  function updateFavicon(theme) {
+    // Get the current favicon link element
+    let faviconLink = document.querySelector("link[rel*='icon']");
+    
+    // If no favicon link exists, create one
+    if (!faviconLink) {
+        faviconLink = document.createElement('link');
+        faviconLink.rel = 'icon';
+        faviconLink.type = 'image/png';
+        document.head.appendChild(faviconLink);
+    }
+
+    // Update favicon based on theme
+    switch (theme) {
+        case 'summer':
+            faviconLink.href = '../Images/favicon-summer-32x32.png';
+            break;
+        case 'midnight':
+            faviconLink.href = '../Images/favicon-midnight-32x32.png';
+            break;
+        case 'rain':
+            faviconLink.href = '../Images/favicon-rain-32x32.png';
+            break;
+        default:
+            faviconLink.href = '../Images/favicon-daylight-32x32.png';
+    }
+
+    // Force browser to reload favicon by adding timestamp
+    faviconLink.href += '?v=' + new Date().getTime();
+  }
+
+  // Load saved theme from localStorage (persistent across sessions)
+  const savedTheme = localStorage.getItem('selectedTheme');
+  if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      if (themeSelect) {
+          themeSelect.value = savedTheme;
+      }
+      updateLogo(savedTheme);
+      updateFavicon(savedTheme);
+  } else {
+      // Set default theme and favicon for daylight theme
+      document.documentElement.setAttribute('data-theme', 'daylight');
+      updateFavicon('daylight');
+  }
+
+  // Update theme on change and save to localStorage
+  if (themeSelect) {
+      themeSelect.addEventListener('change', function () {
+          const selectedTheme = this.value;
+          document.documentElement.setAttribute('data-theme', selectedTheme);
+          localStorage.setItem('selectedTheme', selectedTheme);
+          updateLogo(selectedTheme);
+          updateFavicon(selectedTheme);
+      });
+  }
+});
