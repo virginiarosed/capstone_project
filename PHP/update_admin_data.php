@@ -64,7 +64,7 @@ try {
         
         echo json_encode(['success' => true, 'message' => 'Profile updated successfully']);
     } else {
-        echo json_encode(['success' => false, 'message' => 'No changes made or admin not found']);
+        echo json_encode(['success' => false, 'message' => 'No changes were made']);
     }
     
 } catch(PDOException $e) {

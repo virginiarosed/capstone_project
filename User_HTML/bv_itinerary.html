@@ -20,22 +20,22 @@
         <div class="hamburger-menu" onclick="toggleMenu()">
           &#9776;
         </div>
-      </header>
+    </header>
       
-      <!-- Menu -->
-      <div id="nav-menu" class="nav-menu">
+    <!-- Menu -->
+    <div id="nav-menu" class="nav-menu">
         <ul>
-          <li><a href="../User_HTML/bv_home.html">Home</a></li>
-          <div class="divider2"></div>
-          <li><a href="../User_HTML/bv_travel.html">Travel</a></li>
-          <div class="divider2"></div>
-          <li><a href="../User_HTML/bv_weather.html">Weather</a></li>
-          <div class="divider2"></div>
-          <li><a href="../User_HTML/bv_translate.html">Translate</a></li>
-          <div class="divider2"></div>
-          <li><a href="../User_HTML/bv_more.html">More</a></li>
+            <li><a href="../User_HTML/bv_home.html">Home</a></li>
+            <div class="divider2"></div>
+            <li><a href="../User_HTML/bv_travel.html">Travel</a></li>
+            <div class="divider2"></div>
+            <li><a href="../User_HTML/bv_weather.html">Weather</a></li>
+            <div class="divider2"></div>
+            <li><a href="../User_HTML/bv_translate.html">Translate</a></li>
+            <div class="divider2"></div>
+            <li><a href="../User_HTML/bv_more.html">More</a></li>
         </ul>
-      </div>
+    </div>
 
     <div class="container">
         <nav class="sidebar">
@@ -263,13 +263,47 @@
                 </div>     
             </div>
 
-            <!-- Modal for Success Message -->
+            <!-- Updated Modal for Success Message (Following Home Modal Format) -->
             <div id="modal-popup" class="modal" style="display: none;">
                 <div class="modal-content">
-                    <span class="close">&times;</span>
+                    <span class="close-button">&times;</span>
+                    <h1 id="modal-title">Notification</h1>
                     <p id="modal-message"></p>
                 </div>
-            </div>  
+            </div>
+
+            <!-- Updated Date Change Confirmation Modal (Following Home Modal Format) -->
+            <div id="date-change-confirmation-modal" class="modal" style="display: none;">
+                <div class="modal-content2">
+                    <span class="close-button">&times;</span>
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div class="warning-icon">⚠️</div>
+                        <h1 style="color: #d32f2f; margin-bottom: 15px; font-family: 'Pogonia-extrabold', sans-serif;">
+                            Date Change Detected
+                        </h1>
+                    </div>
+                    
+                    <div style="margin-bottom: 25px; text-align: left;">
+                        <p style="font-size: 16px; line-height: 1.6; margin-bottom: 15px; color: var(--text-color);">
+                            Changing the start or end date will <strong>completely clear your entire itinerary schedule</strong>. 
+                            All planned activities, times, and arrangements will be permanently lost and cannot be undone.
+                        </p>
+                        <p style="font-size: 16px; line-height: 1.6; margin-bottom: 0; color: var(--text-color); text-align: center;">
+                            Are you sure you want to proceed with this change?
+                        </p>
+                    </div>
+                    
+                    <div class="button-row" style="display: flex; justify-content: center; gap: 15px; margin-top: 25px;">
+                        <button id="confirm-date-change">
+                            Yes, Clear Schedule
+                        </button>
+                        <button id="cancel-date-change">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -289,11 +323,38 @@
                 }
             });
         });
+        
         // Function to toggle the navigation menu
         function toggleMenu() {
-        const menu = document.getElementById("nav-menu");
-        menu.classList.toggle("active");
-        }      
+            const menu = document.getElementById("nav-menu");
+            menu.classList.toggle("active");
+        }
+
+        // Modal handling for success message
+        const modal = document.getElementById('modal-popup');
+        const closeButton = modal.querySelector('.close-button');
+        
+        closeButton.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Modal handling for date change confirmation
+        const dateChangeModal = document.getElementById('date-change-confirmation-modal');
+        const dateChangeCloseButton = dateChangeModal.querySelector('.close-button');
+        
+        dateChangeCloseButton.addEventListener('click', function() {
+            dateChangeModal.style.display = 'none';
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+            if (event.target === dateChangeModal) {
+                dateChangeModal.style.display = 'none';
+            }
+        });
     </script>
 
     <script src="../JS/theme-handler.js"></script>
@@ -313,7 +374,6 @@
         if (valueFromQuery) {
             document.getElementById('travel-id').value = valueFromQuery;
         }
-
 
         function enableDisabledFields(form) {
             // Select all disabled inputs and textareas in the form

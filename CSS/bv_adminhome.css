@@ -311,6 +311,11 @@ body, html {
     margin-top: 10px;
 }
 
+.profile-edit button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
 .profile-img {
     max-width: 150px; 
     width: 100%; 
@@ -442,7 +447,8 @@ body, html {
 }
 
 form input[type="email"],
-form input[type="text"] {
+form input[type="text"],
+form input[type="password"] {
     width: 100%;
     max-width: 400px;
     padding: 8px;
@@ -485,13 +491,243 @@ form input[type="text"] {
     color: var(--text-color);
 }
 
-#message-container {
+#message-container,
+#password-message-container {
     font-size: 16px;
-    padding: 5px;
+    padding: 8px 16px;
     border-radius: 5px;
-    margin-left: auto; 
-    margin-right: auto; 
+    margin: 10px auto; /* Center horizontally with some vertical margin */
     width: fit-content;
+    text-align: center; /* Center the text inside */
+    display: block; /* Ensure it's a block element */
+    max-width: 90%; /* Prevent overflow on small screens */
+}
+
+/* Modal Button Container for Side-by-Side Layout */
+.modal-button-container {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0 0 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Single primary button (full width) for Edit Profile Modal */
+.modal-primary-btn-single {
+    color: var(--svg-color);
+    border-radius: 15px;
+    border: none;
+    background-color: var(--button-bg-color);
+    font-family: 'Pogonia-extrabold', sans-serif;
+    font-size: 15px;
+    padding: 12px 20px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin: 20px 0 0 0;
+    transition: all 0.3s ease;
+}
+
+.modal-primary-btn-single:hover {
+    background-color: var(--button-hover-bg-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(88, 93, 39, 0.3);
+}
+
+/* Change password link styles */
+.change-password-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.change-password-link a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-family: 'Montserrat-Regular', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.change-password-link a:hover {
+    text-decoration: underline;
+    color: var(--button-hover-bg-color);
+    transform: translateY(-1px);
+}
+
+/* Primary Modal Button (Save Changes) */
+.modal-primary-btn {
+    color: var(--svg-color);
+    border-radius: 15px;
+    border: none;
+    background-color: var(--button-bg-color);
+    font-family: 'Pogonia-extrabold', sans-serif;
+    font-size: 15px;
+    padding: 12px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    flex: 1;
+    justify-content: center;
+    min-width: 140px;
+}
+
+.modal-primary-btn:hover {
+    background-color: var(--button-hover-bg-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(88, 93, 39, 0.3);
+}
+
+/* Secondary Modal Button (Change Password) */
+.modal-secondary-btn {
+    color: var(--text-color);
+    border-radius: 15px;
+    border: 2px solid var(--border-color);
+    background-color: var(--bg-color);
+    font-family: 'Pogonia-extrabold', sans-serif;
+    font-size: 15px;
+    padding: 12px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    flex: 1;
+    justify-content: center;
+    min-width: 140px;
+}
+
+.modal-secondary-btn:hover {
+    background-color: var(--accent-color);
+    color: var(--svg-color);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(88, 93, 39, 0.3);
+}
+
+/* Override default modal button styles for consistency */
+.modal button.modal-primary-btn,
+.modal button.modal-secondary-btn {
+    margin: 0;
+    display: flex;
+}
+
+/* Enhanced button animations */
+.modal-primary-btn:active,
+.modal-secondary-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(88, 93, 39, 0.2);
+}
+
+/* Icon spacing in buttons */
+.modal-primary-btn i,
+.modal-secondary-btn i {
+    font-size: 14px;
+}
+
+/* Success state for password change */
+.modal-secondary-btn.success {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+.modal-secondary-btn.success:hover {
+    background-color: #218838;
+    border-color: #218838;
+}
+
+/* Password input container styles */
+.password-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-container input {
+    padding-right: 40px; /* Make room for the eye icon */
+}
+
+.password-input-container input::placeholder {
+    color: var(--text-color);
+    opacity: 0.6;
+    font-size: 13px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: var(--text-color);
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.password-toggle:hover {
+    opacity: 1;
+}
+
+.password-hint {
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: 12px;
+    margin-top: 5px;
+    font-family: 'Montserrat-Regular', sans-serif;
+}
+
+/* Password Requirements Styles (imported from bv_signup.css) */
+.password-requirements {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.password-requirements p {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-family: 'Montserrat-Medium', sans-serif;
+    font-size: 13px;
+    color: var(--text-color);
+}
+
+.requirement-list {
+    list-style-type: none; 
+    padding-left: 0; 
+    font-family: 'Montserrat-Regular', sans-serif;
+    font-size: 12px;
+    margin: 0;
+}
+
+.requirement-list li {
+    display: flex; 
+    align-items: center; 
+    color: #575757;
+    margin-bottom: 3px;
+}
+
+.requirement-list li i {
+    color: #dc3545;
+    margin-right: 8px; 
+    font-size: 8px;
+    transition: all 0.3s ease;
+}
+
+.requirement-list li.valid {
+    color: var(--accent-color);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.requirement-list li.valid i {
+    color: var(--accent-color);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Change icon to checkmark when requirement is valid */
+.requirement-list li.valid i::before {
+    content: "\f00c"; /* FontAwesome check icon unicode */
 }
 
 /* Crop modal specific styles */
@@ -785,157 +1021,191 @@ form input[type="text"] {
         flex: 1; /* Ensures proper alignment */
         text-align: left;
     }
+
+    /* Profile edit buttons responsive */
+    .profile-edit {
+        width: 25%;
+    }
+    
+    .profile-edit button {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    /* Responsive design for modal buttons */
+    .modal-button-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .modal-primary-btn,
+    .modal-secondary-btn {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .modal-content {
+        width: 90%;
+        margin: 0 20px;
+    }
+
+    /* Responsive design for single button and link */
+    .modal-primary-btn-single {
+        width: 100%;
+        min-width: auto;
+    }
+
+    /* Password requirements responsive */
+    .password-requirements p, 
+    .requirement-list li {   
+        font-size: 10px;  
+    }
 }
 
 .new-main-container {
-            display: flex;
-            gap: 40px;
-            width: 100%;
-            height: 100%;
-            align-items: flex-start;
-        }
+    display: flex;
+    gap: 40px;
+    width: 100%;
+    height: 100%;
+    align-items: flex-start;
+}
 
-        .buttons-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-width: 500px;
-        }
+.buttons-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 500px;
+}
 
-        .chart-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background-color: var(--bg-color);
-            border: 4px solid var(--border-color);
-            border-radius: 20px;
-            padding: 15px;
-            min-height: 355px;
-        }
+.chart-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    border: 4px solid var(--border-color);
+    border-radius: 20px;
+    padding: 15px;
+    min-height: 355px;
+}
 
-        .chart-title {
-            font-family: 'Pogonia-extrabold', sans-serif;
-            font-size: 20px;
-            color: var(--h1-color);
-            text-align: center;
-            margin-bottom: 15px;
-        }
+.chart-title {
+    font-family: 'Pogonia-extrabold', sans-serif;
+    font-size: 20px;
+    color: var(--h1-color);
+    text-align: center;
+    margin-bottom: 15px;
+}
 
-        .chart-container {
-            flex: 1;
-            position: relative;
-            height: 300px;
-        }
+.chart-container {
+    flex: 1;
+    position: relative;
+    height: 300px;
+}
 
-        /* Modified button styles for single column */
-        .button-single-column {
-            background-color: var(--bg-color);
-            border: 4px solid var(--border-color);
-            border-radius: 20px;
-            width: 100%;
-            height: 80px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Montserrat-Bold', sans-serif;
-            color: var(--text-color);
-            text-decoration: none;
-            overflow: hidden;
-            padding: 8px;
-            transition: all 0.3s ease;
-        }
+/* Modified button styles for single column */
+.button-single-column {
+    background-color: var(--bg-color);
+    border: 4px solid var(--border-color);
+    border-radius: 20px;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat-Bold', sans-serif;
+    color: var(--text-color);
+    text-decoration: none;
+    overflow: hidden;
+    padding: 8px;
+    transition: all 0.3s ease;
+}
 
-        .button-single-column:hover {
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-            transform: translateY(-2px);
-        }
+.button-single-column:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
 
-        .button-single-column a {
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            padding: 8px;
-        }
+.button-single-column a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+}
 
-        .button-single-column span {
-            font-size: 18px;
-            flex: 1;
-            text-align: left;
-            margin-left: 15px;
-        }
+.button-single-column span {
+    font-size: 18px;
+    flex: 1;
+    text-align: left;
+    margin-left: 15px;
+}
 
-        .button-single-column div {
-            font-size: 18px;
-            font-weight: bold;
-            flex-shrink: 0;
-            text-align: right;
-            margin-right: 15px;
-        }
+.button-single-column div {
+    font-size: 18px;
+    font-weight: bold;
+    flex-shrink: 0;
+    text-align: right;
+    margin-right: 15px;
+}
 
-        .button-single-column img {
-            margin: 8px;
-            margin-right: 15px;
-            width: 40px;
-            height: auto;
-        }
+.button-single-column img {
+    margin: 8px;
+    margin-right: 15px;
+    width: 40px;
+    height: auto;
+}
 
-        /* Responsive adjustments */
-        @media screen and (max-width: 1280px) {
-            .new-main-container {
-                flex-direction: column;
-                gap: 30px;
-            }
-            
-            .buttons-section {
-                max-width: 100%;
-            }
-            
-            .chart-section {
-                width: 100%;
-            }
-        }
+/* Responsive adjustments */
+@media screen and (max-width: 1280px) {
+    .new-main-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .buttons-section {
+        max-width: 100%;
+    }
+    
+    .chart-section {
+        width: 100%;
+    }
+}
 
-        @media screen and (max-width: 768px) {
-            .new-main-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .button-single-column {
-                height: 60px;
-            }
-            
-            .button-single-column span {
-                font-size: 16px;
-                margin-left: 8px;
-            }
-            
-            .button-single-column div {
-                font-size: 16px;
-                margin-right: 8px;
-            }
-            
-            .button-single-column img {
-                width: 35px;
-                margin-right: 8px;
-            }
-            
-            .chart-container {
-                height: 200px;
-            }
-            
-            .chart-section {
-                min-height: 250px;
-                padding: 12px;
-            }
-            
-            .chart-title {
-                font-size: 18px;
-                margin-bottom: 10px;
-            }
-        }
+@media screen and (max-width: 768px) {
+    .new-main-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .button-single-column {
+        height: 60px;
+    }
+    
+    .button-single-column span {
+        font-size: 16px;
+        margin-left: 8px;
+    }
+    
+    .button-single-column div {
+        font-size: 16px;
+        margin-right: 8px;
+    }
+    
+    .button-single-column img {
+        width: 35px;
+        margin-right: 8px;
+    }
+    
+    .chart-container {
+        height: 200px;
+    }
+    
+    .chart-section {
+        min-height: 250px;
+        padding: 12px;
+    }
+}

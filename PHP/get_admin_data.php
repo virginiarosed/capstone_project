@@ -24,12 +24,20 @@ if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in'] || !is
 $admin_id = $_SESSION['admin_id'];
 
 try {
-    // Get admin data from database (table renamed to 'admin' and using company_name)
-    $stmt = $pdo->prepare("SELECT company_name, email, profile_image FROM admin WHERE admin_id = ?");
+    // Get admin data from database including password changed date
+    $stmt = $pdo->prepare("SELECT company_name, email, profile_image, password_changed_date FROM admin WHERE admin_id = ?");
     $stmt->execute([$admin_id]);
     $admin = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if ($admin) {
+        // Format the password changed date for display
+        if ($admin['password_changed_date']) {
+            $date = new DateTime($admin['password_changed_date']);
+            $admin['password_changed_date_formatted'] = $date->format('F j, Y \a\t g:i A');
+        } else {
+            $admin['password_changed_date_formatted'] = 'Never changed';
+        }
+        
         echo json_encode($admin);
     } else {
         echo json_encode(['error' => 'Admin not found']);

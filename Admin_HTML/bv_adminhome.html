@@ -220,7 +220,7 @@
                 </div>
 
                 <div class="profile-edit">
-                    <button style="color: var(--svg-color);">Edit profile</button>
+                    <button class="edit-profile-btn" style="color: var(--svg-color);">Edit profile</button>
                 </div>
             </div>
 
@@ -272,7 +272,7 @@
         </main>
     </div>
 
-    <!-- Edit Profile Modal -->
+    <!-- Edit Profile Modal with Single Button Layout -->
     <div id="editProfileModal" class="modal" style="display:none;">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -292,7 +292,94 @@
                 <!-- Message will be displayed here -->
                 </div>
 
-                <button type="submit" id="save-changes-btn">Save Changes</button>
+                <!-- Single Save Button with Change Password Link Below -->
+                <button type="submit" id="save-changes-btn" class="modal-primary-btn-single">
+                    Save Changes
+                </button>
+            </form>
+            
+            <div class="change-password-link">
+                <a href="#" id="change-password-link">Change Password</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h1>Change Password</h1>
+            
+            <form id="changePasswordForm">
+                <div class="form-group">
+                    <label>Current Password:</label>
+                    <div class="password-input-container">
+                        <input type="password" id="current-password" name="current_password" placeholder="Loading..." required>
+                        <span class="password-toggle" onclick="togglePassword('current-password')">
+                            <i class="fas fa-eye" id="current-password-icon"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>New Password:</label>
+                    <div class="password-input-container">
+                        <input type="password" id="new-password" name="new_password" required>
+                        <span class="password-toggle" onclick="togglePassword('new-password')">
+                            <i class="fas fa-eye" id="new-password-icon"></i>
+                        </span>
+                    </div>
+                    
+                    <!-- Password Requirements -->
+                    <div id="admin-password-requirements" class="password-requirements" style="display: none;">
+                        <p>Password must contain:</p>
+                        <ul class="requirement-list">
+                            <li id="admin-length-req">
+                                <i class="fa-solid fa-circle"></i>
+                                <span>At least 8 characters length</span>
+                            </li>
+                            <li id="admin-number-req">
+                                <i class="fa-solid fa-circle"></i>
+                                <span>At least 1 number (0-9)</span>
+                            </li>
+                            <li id="admin-lowercase-req">
+                                <i class="fa-solid fa-circle"></i>
+                                <span>At least 1 lowercase letter (a-z)</span>
+                            </li>
+                            <li id="admin-special-req">
+                                <i class="fa-solid fa-circle"></i>
+                                <span>At least 1 special symbol (!, $, etc.)</span>
+                            </li>
+                            <li id="admin-uppercase-req">
+                                <i class="fa-solid fa-circle"></i>
+                                <span>At least 1 uppercase letter (A-Z)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Re-type New Password:</label>
+                    <div class="password-input-container">
+                        <input type="password" id="confirm-password" name="confirm_password" required>
+                        <span class="password-toggle" onclick="togglePassword('confirm-password')">
+                            <i class="fas fa-eye" id="confirm-password-icon"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div id="password-message-container" style="display: none; padding: 8px; border-radius: 4px;">
+                <!-- Message will be displayed here -->
+                </div>
+
+                <div class="modal-button-container">
+                    <button type="button" id="cancel-password-btn" class="modal-secondary-btn">
+                       Cancel
+                    </button>
+                    <button type="submit" id="save-password-btn" class="modal-primary-btn">
+                        Change Password
+                    </button>
+                </div>
             </form>
         </div>
     </div>
@@ -336,79 +423,79 @@
 
         // Chart initialization function
         function initializeChart() {
-    const ctx = document.getElementById('userActivityChart').getContext('2d');
+            const ctx = document.getElementById('userActivityChart').getContext('2d');
 
-    Promise.all([
-        fetch('../PHP/fetch_monthly_users.php').then(res => res.json()),
-        fetch('../PHP/fetch_monthly_itineraries.php').then(res => res.json())
-    ])
-    .then(([userData, itineraryData]) => {
-        const labels = [
-            'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'
-        ];
+            Promise.all([
+                fetch('../PHP/fetch_monthly_users.php').then(res => res.json()),
+                fetch('../PHP/fetch_monthly_itineraries.php').then(res => res.json())
+            ])
+            .then(([userData, itineraryData]) => {
+                const labels = [
+                    'January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'
+                ];
 
-        const chartData = {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'New Users',
-                    data: userData,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 2,
-                    barThickness: 20
-                },
-                {
-                    label: 'Itineraries Created',
-                    data: itineraryData,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 2,
-                    barThickness: 20
-                }
-            ]
-        };
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: chartData,
-            options: {
-                maintainAspectRatio: false,
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: false
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 5
+                const chartData = {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'New Users',
+                            data: userData,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 2,
+                            barThickness: 20
+                        },
+                        {
+                            label: 'Itineraries Created',
+                            data: itineraryData,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 2,
+                            barThickness: 20
                         }
-                    },
-                    x: {
-                        ticks: {
-                            maxRotation: 45,
-                            minRotation: 0
+                    ]
+                };
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: chartData,
+                    options: {
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 5
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    maxRotation: 45,
+                                    minRotation: 0
+                                }
+                            }
+                        },
+                        interaction: {
+                            mode: 'index',
+                            intersect: false,
                         }
                     }
-                },
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
-                }
-            }
-        });
-    })
-    .catch(error => {
-        console.error('Error fetching chart data:', error);
-    });
-}
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching chart data:', error);
+            });
+        }
     </script>    
 
     <script>
@@ -474,9 +561,126 @@
         });
     </script>
 
-    <!-- Profile Edit Modal Script -->
+    <!-- Password Toggle Function -->
     <script>
-        document.querySelector(".profile-edit button").addEventListener("click", function () {
+        function togglePassword(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            const icon = document.getElementById(inputId + '-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
+
+    <!-- Password Requirements Validation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const newPasswordInput = document.getElementById('new-password');
+            const passwordRequirements = document.getElementById('admin-password-requirements');
+            
+            // Password requirement elements
+            const lengthReq = document.getElementById('admin-length-req');
+            const numberReq = document.getElementById('admin-number-req');
+            const lowercaseReq = document.getElementById('admin-lowercase-req');
+            const specialReq = document.getElementById('admin-special-req');
+            const uppercaseReq = document.getElementById('admin-uppercase-req');
+
+            // Show password requirements when new password field is focused
+            newPasswordInput.addEventListener('focus', () => {
+                passwordRequirements.style.display = 'block';
+            });
+
+            // Hide password requirements when new password field loses focus (only if empty)
+            newPasswordInput.addEventListener('blur', () => {
+                if (newPasswordInput.value === '') {
+                    passwordRequirements.style.display = 'none';
+                }
+            });
+
+            // Real-time password validation
+            newPasswordInput.addEventListener('input', () => {
+                const password = newPasswordInput.value;
+
+                // Check length requirement (at least 8 characters)
+                if (password.length >= 8) {
+                    lengthReq.classList.add('valid');
+                } else {
+                    lengthReq.classList.remove('valid');
+                }
+
+                // Check number requirement
+                if (/\d/.test(password)) {
+                    numberReq.classList.add('valid');
+                } else {
+                    numberReq.classList.remove('valid');
+                }
+
+                // Check lowercase requirement
+                if (/[a-z]/.test(password)) {
+                    lowercaseReq.classList.add('valid');
+                } else {
+                    lowercaseReq.classList.remove('valid');
+                }
+
+                // Check special character requirement
+                if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+                    specialReq.classList.add('valid');
+                } else {
+                    specialReq.classList.remove('valid');
+                }
+
+                // Check uppercase requirement
+                if (/[A-Z]/.test(password)) {
+                    uppercaseReq.classList.add('valid');
+                } else {
+                    uppercaseReq.classList.remove('valid');
+                }
+
+                // Hide requirements if password field is empty
+                if (password === '') {
+                    passwordRequirements.style.display = 'none';
+                } else {
+                    passwordRequirements.style.display = 'block';
+                }
+            });
+        });
+    </script>
+
+    <!-- Function to fetch and display password last changed date as placeholder -->
+    <script>
+        function fetchPasswordLastChangedDate() {
+            fetch('../PHP/get_admin_data.php')
+                .then(response => response.json())
+                .then(data => {
+                    const currentPasswordInput = document.getElementById('current-password');
+                    if (!data.error && data.password_changed_date_formatted) {
+                        currentPasswordInput.placeholder = `Last changed: ${data.password_changed_date_formatted}`;
+                    } else {
+                        currentPasswordInput.placeholder = 'Last changed: Never';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching password last changed date:', error);
+                    document.getElementById('current-password').placeholder = 'Last changed: Unknown';
+                });
+        }
+
+        function resetPasswordLastChangedInfo() {
+            document.getElementById('current-password').placeholder = 'Loading...';
+        }
+    </script>
+
+    <!-- Modal Scripts -->
+    <script>
+        // Edit Profile Modal Handler
+        document.querySelector(".edit-profile-btn").addEventListener("click", function () {
             document.getElementById("editProfileModal").style.display = "flex";
 
             // Prefill current data
@@ -497,17 +701,289 @@
                 });
         });
 
-        document.querySelectorAll(".close-button").forEach(button => {
-            button.addEventListener("click", function () {
-                document.getElementById("editProfileModal").style.display = "none";
-                document.getElementById("cropProfileModal").style.display = "none";
-                document.getElementById('message-container').style.display = 'none';
+        // Change Password Modal Handler (from Edit Profile Modal)
+        document.getElementById("change-password-link").addEventListener("click", function (e) {
+            e.preventDefault(); // Prevent default link behavior
+            // Close edit profile modal
+            document.getElementById("editProfileModal").style.display = "none";
+            // Open change password modal
+            document.getElementById("changePasswordModal").style.display = "flex";
+            
+            // Fetch and display password last changed date
+            fetchPasswordLastChangedDate();
+            
+            // Clear all password fields and hide requirements
+            document.getElementById('current-password').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+            document.getElementById('password-message-container').style.display = 'none';
+            document.getElementById('admin-password-requirements').style.display = 'none';
+            
+            // Reset all requirement classes
+            const requirements = ['admin-length-req', 'admin-number-req', 'admin-lowercase-req', 'admin-special-req', 'admin-uppercase-req'];
+            requirements.forEach(req => {
+                document.getElementById(req).classList.remove('valid');
             });
         });
 
-        // Form submission handler
+        // Cancel Password Change Handler
+        document.getElementById("cancel-password-btn").addEventListener("click", function () {
+            // Reset password last changed info
+            resetPasswordLastChangedInfo();
+            
+            // Close change password modal
+            document.getElementById("changePasswordModal").style.display = "none";
+            // Reopen edit profile modal
+            document.getElementById("editProfileModal").style.display = "flex";
+        });
+
+        // Close button handlers for all modals
+        document.querySelectorAll(".close-button").forEach(button => {
+            button.addEventListener("click", function () {
+                // Reset password placeholder when closing change password modal
+                if (document.getElementById("changePasswordModal").style.display === "flex") {
+                    resetPasswordLastChangedInfo();
+                }
+                
+                document.getElementById("editProfileModal").style.display = "none";
+                document.getElementById("changePasswordModal").style.display = "none";
+                document.getElementById("cropProfileModal").style.display = "none";
+                document.getElementById('message-container').style.display = 'none';
+                document.getElementById('password-message-container').style.display = 'none';
+                document.getElementById('admin-password-requirements').style.display = 'none';
+            });
+        });
+
+        // Enhanced Change Password Form submission handler with requirement validation
+        document.getElementById("changePasswordForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('current-password').value.trim();
+            const newPassword = document.getElementById('new-password').value.trim();
+            const confirmPassword = document.getElementById('confirm-password').value.trim();
+            
+            const messageContainer = document.getElementById('password-message-container');
+            
+            // Validate required fields
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                messageContainer.textContent = 'All fields are required';
+                messageContainer.style.color = '#c82333';
+                messageContainer.style.display = 'block';
+                
+                setTimeout(function () {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+                
+                return;
+            }
+            
+            // Enhanced password validation with all requirements
+            if (newPassword.length < 8) {
+                messageContainer.textContent = 'New password must be at least 8 characters long';
+                messageContainer.style.color = '#c82333';
+                messageContainer.style.display = 'block';
+                
+                setTimeout(function () {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+                
+                return;
+            }
+
+            // Check if password contains at least one number
+            if (!/\d/.test(newPassword)) {
+                messageContainer.textContent = 'New password must contain at least one number (0-9)';
+                messageContainer.style.color = '#c82333';
+                messageContainer.style.display = 'block';
+                
+                setTimeout(function () {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+                
+                return;
+            }
+
+            // Check if password contains at least one lowercase letter
+            if (!/[a-z]/.test(newPassword)) {
+                messageContainer.textContent = 'New password must contain at least one lowercase letter (a-z)';
+                messageContainer.style.color = '#c82333';
+                messageContainer.style.display = 'block';
+                
+                setTimeout(function () {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+                
+                return;
+            }
+
+            // Check if password contains at least one uppercase letter
+            if (!/[A-Z]/.test(newPassword)) {
+                messageContainer.textContent = 'New password must contain at least one uppercase letter (A-Z)';
+                messageContainer.style.color = '#c82333';
+                messageContainer.style.display = 'block';
+                
+                setTimeout(function () {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+                
+                return;
+            }
+
+            // Check if password contains at least one special character
+            if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(newPassword)) {
+                messageContainer.textContent = 'New password must contain at least one special symbol (!, $, etc.)';
+                messageContainer.style.color = '#c82333';
+                messageContainer.style.display = 'block';
+                
+                setTimeout(function () {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+                
+                return;
+            }
+            
+            // Validate password confirmation
+            if (newPassword !== confirmPassword) {
+                messageContainer.textContent = 'New passwords do not match';
+                messageContainer.style.color = '#c82333';
+                messageContainer.style.display = 'block';
+                
+                setTimeout(function () {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+                
+                return;
+            }
+            
+            // Check if new password is same as current password
+            if (currentPassword === newPassword) {
+                messageContainer.textContent = 'New password must be different from current password';
+                messageContainer.style.color = '#c82333';
+                messageContainer.style.display = 'block';
+                
+                setTimeout(function () {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+                
+                return;
+            }
+            
+            // If validation passes, proceed with form submission
+            const formData = new FormData(this);
+
+            fetch('../PHP/change_admin_password.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    messageContainer.textContent = 'Password changed successfully!';
+                    messageContainer.style.color = '#28a745';
+                    messageContainer.style.display = 'block';
+                    
+                    // Update password last changed placeholder immediately
+                    const currentPasswordInput = document.getElementById('current-password');
+                    const now = new Date();
+                    const formattedDate = now.toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true
+                    });
+                    currentPasswordInput.placeholder = `Last changed: ${formattedDate}`;
+                    
+                    // Clear the form after successful change
+                    setTimeout(() => {
+                        document.getElementById('current-password').value = '';
+                        document.getElementById('new-password').value = '';
+                        document.getElementById('confirm-password').value = '';
+                        document.getElementById("changePasswordModal").style.display = "none";
+                        messageContainer.style.display = 'none';
+                        document.getElementById('admin-password-requirements').style.display = 'none';
+                        resetPasswordLastChangedInfo();
+                    }, 3000);
+                } else {
+                    messageContainer.textContent = data.message;
+                    messageContainer.style.color = '#c82333';
+                    messageContainer.style.display = 'block';
+                    
+                    setTimeout(function () {
+                        messageContainer.style.display = 'none';
+                    }, 5000);
+                }
+            })
+            .catch(error => {
+                console.error('Error changing password:', error);
+                messageContainer.textContent = 'An error occurred while changing password';
+                messageContainer.style.color = '#c82333';
+                messageContainer.style.display = 'block';
+                
+                setTimeout(function () {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+            });
+        });
+
+        // Edit Profile Form submission handler
         document.getElementById("editProfileForm").addEventListener("submit", function (e) {
             e.preventDefault();
+            
+            // Get current values
+            const companyName = document.getElementById('company-name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            // Get initial values
+            const initialCompanyName = document.getElementById('company-name').dataset.initial;
+            const initialEmail = document.getElementById('email').dataset.initial;
+            
+            const messageContainer = document.getElementById('message-container');
+            
+            // Validate required fields
+            if (!companyName || !email) {
+                messageContainer.textContent = 'All fields are required';
+                messageContainer.style.color = '#c82333';
+                messageContainer.style.display = 'block';
+                
+                setTimeout(function () {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+                
+                return;
+            }
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                messageContainer.textContent = 'Please enter a valid email address';
+                messageContainer.style.color = '#c82333';
+                messageContainer.style.display = 'block';
+                
+                setTimeout(function () {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+                
+                return;
+            }
+            
+            // Check if changes were made
+            const changesMade = companyName !== initialCompanyName || email !== initialEmail;
+            
+            if (!changesMade) {
+                messageContainer.textContent = 'No changes were made';
+                messageContainer.style.color = '#c82333';
+                messageContainer.style.display = 'block';
+                
+                setTimeout(function () {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+                
+                return;
+            }
+            
+            // If validation passes and changes were made, proceed with form submission
             const formData = new FormData(this);
 
             fetch('../PHP/update_admin_data.php', {
@@ -517,50 +993,33 @@
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
+                    messageContainer.textContent = 'Profile updated successfully!';
+                    messageContainer.style.color = '#28a745';
+                    messageContainer.style.display = 'block';
+                    
                     setTimeout(() => {
                         location.reload();
                     }, 3000);
                 } else {
-                    const messageContainer = document.getElementById('message-container');
-                    messageContainer.textContent = 'Update failed: ' + data.message;
+                    messageContainer.textContent = data.message;
                     messageContainer.style.color = '#c82333';
-                    messageContainer.style.backgroundColor = '#f8d7da';
                     messageContainer.style.display = 'block';
+                    
+                    setTimeout(function () {
+                        messageContainer.style.display = 'none';
+                    }, 5000);
                 }
             })
             .catch(error => {
                 console.error('Error updating admin data:', error);
-            });
-        });
-
-        // Save changes button handler
-        document.getElementById('save-changes-btn').addEventListener('click', function (event) {
-            // Get current values
-            const companyName = document.getElementById('company-name').value;
-            const email = document.getElementById('email').value;
-
-            // Get initial values from data attributes
-            const initialCompanyName = document.getElementById('company-name').dataset.initial;
-            const initialEmail = document.getElementById('email').dataset.initial;
-
-            // Check if any changes were made
-            const changesMade = companyName !== initialCompanyName || email !== initialEmail;
-
-            const messageContainer = document.getElementById('message-container');
-
-            if (changesMade) {
-                messageContainer.textContent = 'Profile updated successfully!';
-                messageContainer.style.color = '#28a745';
-            } else {
-                messageContainer.textContent = 'No changes were made';
+                messageContainer.textContent = 'An error occurred while updating profile';
                 messageContainer.style.color = '#c82333';
-            }
-
-            messageContainer.style.display = 'block';
-
-            setTimeout(function () {
-                messageContainer.style.display = 'none';
-            }, 5000);
+                messageContainer.style.display = 'block';
+                
+                setTimeout(function () {
+                    messageContainer.style.display = 'none';
+                }, 5000);
+            });
         });
     </script>
 

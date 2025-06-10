@@ -1,3 +1,9 @@
+// Date change confirmation variables
+let hasExistingItinerary = false;
+let originalStartDate = '';
+let originalEndDate = '';
+let pendingDateChange = null;
+
 document.addEventListener("DOMContentLoaded", function () {
   // Get travel_id from the URL
   const urlParams = new URLSearchParams(window.location.search);
@@ -24,6 +30,11 @@ document.addEventListener("DOMContentLoaded", function () {
         $("#end-date").val(data.end_date.split(" ")[0]);
         $("#lodging").val(data.lodging);
 
+        // Set original dates for confirmation check
+        originalStartDate = data.start_date.split(" ")[0];
+        originalEndDate = data.end_date.split(" ")[0];
+        hasExistingItinerary = true;
+
         computeItineraryDuration(data.itinerary_days);
 
         toggleEditMode(true);
@@ -31,7 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleEditMode(false);
         $("#client-name").val(data.FullName);
         $("#destination").val(data.travel_name);
+        hasExistingItinerary = false;
       }
+
+      // Initialize date change confirmation after data is loaded
+      initializeDateChangeConfirmation();
     },
     error: function (xhr, status, error) {
       console.error("Error fetching itinerary data:", error);
@@ -40,6 +55,155 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 });
+
+// Function to check if there's existing itinerary data
+function checkForExistingItinerary() {
+  const mainDayContainer = document.getElementById("main-day-container");
+  const clientName = document.getElementById("client-name").value;
+  const destination = document.getElementById("destination").value;
+  const lodging = document.getElementById("lodging").value;
+  const startDate = document.getElementById("start-date").value;
+  const endDate = document.getElementById("end-date").value;
+  
+  // Check if there's existing data (any time slots or filled fields)
+  const hasTimeSlots = mainDayContainer.children.length > 0;
+  const hasFilledFields = clientName || destination || lodging || startDate || endDate;
+  
+  if (hasTimeSlots || hasFilledFields) {
+    hasExistingItinerary = true;
+    if (!originalStartDate) originalStartDate = startDate;
+    if (!originalEndDate) originalEndDate = endDate;
+  }
+}
+
+// Function to show date change confirmation modal
+function showDateChangeConfirmation(inputElement, newValue) {
+  pendingDateChange = {
+    element: inputElement,
+    newValue: newValue,
+    originalValue: inputElement.id === 'start-date' ? originalStartDate : originalEndDate
+  };
+  
+  // Show the confirmation modal
+  document.getElementById('date-change-confirmation-modal').style.display = 'flex';
+}
+
+// Function to hide the confirmation modal
+function hideDateChangeModal() {
+  document.getElementById('date-change-confirmation-modal').style.display = 'none';
+  pendingDateChange = null;
+}
+
+// Function to clear the entire itinerary schedule
+function clearItinerarySchedule() {
+  const mainDayContainer = document.getElementById("main-day-container");
+  mainDayContainer.innerHTML = ""; // Clear all day containers
+  
+  // Reset duration text
+  const durationText = document.getElementById("duration-text");
+  durationText.innerHTML = `<b>Duration:</b> 0 Days, 0 Nights`;
+  
+  // Reset duration values
+  document.getElementById("duration-days").value = '';
+  document.getElementById("duration-nights").value = '';
+  
+  // Reset endTimes array
+  endTimes = [];
+  
+  console.log("Itinerary schedule cleared");
+}
+
+// Function to handle date input changes with confirmation
+function handleDateChangeWithConfirmation(event) {
+  const inputElement = event.target;
+  const newValue = event.target.value;
+  
+  // Check if there's existing itinerary data and the value has actually changed
+  if (hasExistingItinerary) {
+    const originalValue = inputElement.id === 'start-date' ? originalStartDate : originalEndDate;
+    
+    if (newValue !== originalValue && newValue !== '' && originalValue !== '') {
+      // Prevent the change and show confirmation
+      event.preventDefault();
+      inputElement.value = originalValue; // Reset to original value
+      showDateChangeConfirmation(inputElement, newValue);
+      return false; // Prevent further processing
+    }
+  }
+  
+  // If no existing data or no change, proceed normally
+  return true;
+}
+
+// Initialize date change confirmation
+function initializeDateChangeConfirmation() {
+  const startDateInput = document.getElementById("start-date");
+  const endDateInput = document.getElementById("end-date");
+  const confirmBtn = document.getElementById('confirm-date-change');
+  const cancelBtn = document.getElementById('cancel-date-change');
+  const modal = document.getElementById('date-change-confirmation-modal');
+
+  // Add event listeners to date inputs
+  if (startDateInput) {
+    startDateInput.addEventListener('input', handleDateChangeWithConfirmation);
+    startDateInput.addEventListener('change', handleDateChangeWithConfirmation);
+  }
+  
+  if (endDateInput) {
+    endDateInput.addEventListener('input', handleDateChangeWithConfirmation);
+    endDateInput.addEventListener('change', handleDateChangeWithConfirmation);
+  }
+
+  // Confirm button click handler
+  if (confirmBtn) {
+    confirmBtn.addEventListener('click', function() {
+      if (pendingDateChange) {
+        // Clear the existing itinerary first
+        clearItinerarySchedule();
+        
+        // Apply the pending change
+        pendingDateChange.element.value = pendingDateChange.newValue;
+        
+        // Update original values
+        if (pendingDateChange.element.id === 'start-date') {
+          originalStartDate = pendingDateChange.newValue;
+        } else {
+          originalEndDate = pendingDateChange.newValue;
+        }
+        
+        // Trigger the duration computation with new dates
+        computeItineraryDuration();
+        
+        // Show success message
+        showModal('Date changed successfully. Itinerary schedule has been cleared.');
+      }
+      hideDateChangeModal();
+    });
+  }
+
+  // Cancel button click handler
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', function() {
+      hideDateChangeModal();
+    });
+  }
+
+  // Close modal when clicking outside
+  if (modal) {
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        hideDateChangeModal();
+      }
+    });
+  }
+
+  // Escape key to close modal
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && modal && modal.style.display === 'flex') {
+      hideDateChangeModal();
+    }
+  });
+}
 
 // Generate day containers dynamically
 function generateDayContainers(duration, startDate, itinerary_days = []) {
@@ -219,9 +383,6 @@ function computeItineraryDuration(itinerary_days = []) {
   const mainDayContainer = document.getElementById("main-day-container");
   const form = document.getElementById("itinerary-form");
 
-  // Hide the "Add Itinerary" button initially
-  //   document.querySelector(".add-itinerary-btn").style.display = "none";
-
   // Listen for changes in the start and end dates
   function updateDuration() {
     const startDate = new Date(startDateInput.value);
@@ -244,63 +405,66 @@ function computeItineraryDuration(itinerary_days = []) {
       // Generate day containers
       generateDayContainers(duration, startDate, itinerary_days);
 
+      // Check if there's existing data for confirmation
+      if (startDateInput.value || endDateInput.value) {
+        checkForExistingItinerary();
+      }
+
       // Show the "Submit" button only if there's at least one day-container
       console.log(duration);
       if (!duration) {
-        // document.querySelector(".add-itinerary-btn").style.display =
-        //   "inline-block";
         durationText.innerHTML = `<b>Duration:</b> Invalid Dates`;
         mainDayContainer.innerHTML = ""; // Clear day containers
-        saveBtn.style.display = "none"; // Hide the button if dates are invalid
+        const saveBtn = document.getElementById("save-btn");
+        if (saveBtn) saveBtn.style.display = "none"; // Hide the button if dates are invalid
       }
     }
-  }
-
-  // Function to display the modal message
-  function showModal(message, isError = false) {
-    const modal = document.getElementById("modal-popup");
-    const modalMessage = document.getElementById("modal-message");
-
-    // Set the message
-    modalMessage.textContent = message;
-
-    // Add the appropriate class (error or success) based on the isError flag
-    if (isError) {
-      modal.classList.add("error-modal");
-      modal.classList.remove("success-modal");
-    } else {
-      modal.classList.add("success-modal");
-      modal.classList.remove("error-modal");
-    }
-
-    // Show the modal
-    modal.style.display = "block";
-
-    // Close the modal when the "close" button is clicked
-    modal.querySelector(".close").addEventListener("click", function () {
-      modal.style.display = "none";
-    });
   }
 
   updateDuration();
 }
 
+// Function to display the modal message
+function showModal(message, isError = false) {
+  const modal = document.getElementById("modal-popup");
+  const modalMessage = document.getElementById("modal-message");
+
+  // Set the message
+  modalMessage.textContent = message;
+
+  // Add the appropriate class (error or success) based on the isError flag
+  if (isError) {
+    modal.classList.add("error-modal");
+    modal.classList.remove("success-modal");
+  } else {
+    modal.classList.add("success-modal");
+    modal.classList.remove("error-modal");
+  }
+
+  // Show the modal
+  modal.style.display = "block";
+
+  // Close the modal when the "close" button is clicked
+  const closeBtn = modal.querySelector(".close");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", function () {
+      modal.style.display = "none";
+    });
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   toggleEditMode(false);
-  // localStorage.setItem("isSaveMode", "false"); // Save the mode
 
   const startDateInput = document.getElementById("start-date");
   const endDateInput = document.getElementById("end-date");
 
-  startDateInput.value = "";
-  endDateInput.value = "";
+  // Don't clear values on page load - they may be set by AJAX
+  // startDateInput.value = "";
+  // endDateInput.value = "";
 
-  startDateInput.addEventListener("change", () => {
-    computeItineraryDuration();
-  });
-  endDateInput.addEventListener("change", () => {
-    computeItineraryDuration();
-  });
+  // Remove the original event listeners since we handle them in initializeDateChangeConfirmation
+  // The date change confirmation will handle these events
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -404,19 +568,18 @@ const editBtn = document.getElementById("edit-btn");
 // Get all input and textarea fields
 const inputs = document.querySelectorAll("input, textarea");
 
-// Check if the page is in "save mode" from localStorage
-// if (localStorage.getItem("isSaveMode") === "true") {
-//   toggleEditMode(false);
-// }
-
 // Add click event to the save button
-saveBtn.addEventListener("click", () => {
-  toggleEditMode(true);
-});
+if (saveBtn) {
+  saveBtn.addEventListener("click", () => {
+    toggleEditMode(true);
+  });
+}
 
-editBtn.addEventListener("click", () => {
-  toggleEditMode(false);
-});
+if (editBtn) {
+  editBtn.addEventListener("click", () => {
+    toggleEditMode(false);
+  });
+}
 
 // Function to toggle edit mode
 function toggleEditMode(isEditMode) {
@@ -435,11 +598,15 @@ function toggleEditMode(isEditMode) {
   });
 
   if (isEditMode) {
-    saveBtn.style.display = "none";
-    editBtn.style.display = "block";
+    const saveBtn = document.getElementById("save-btn");
+    const editBtn = document.getElementById("edit-btn");
+    if (saveBtn) saveBtn.style.display = "none";
+    if (editBtn) editBtn.style.display = "block";
   } else {
-    saveBtn.style.display = "block";
-    editBtn.style.display = "none";
+    const saveBtn = document.getElementById("save-btn");
+    const editBtn = document.getElementById("edit-btn");
+    if (saveBtn) saveBtn.style.display = "block";
+    if (editBtn) editBtn.style.display = "none";
   }
 }
 
