@@ -597,6 +597,26 @@ function toggleEditMode(isEditMode) {
     input.disabled = isEditMode; // Disable or enable each time slot input
   });
 
+  // Hide/show the "+ Add Time" buttons based on edit mode
+  const addTimeButtons = document.querySelectorAll(".add-time-btn");
+  addTimeButtons.forEach((button) => {
+    if (isEditMode) {
+      button.style.display = "none"; // Hide buttons in save mode
+    } else {
+      button.style.display = "block"; // Show buttons in edit mode
+    }
+  });
+
+  // Hide/show the delete time buttons based on edit mode
+  const deleteTimeButtons = document.querySelectorAll(".delete-time-btn");
+  deleteTimeButtons.forEach((button) => {
+    if (isEditMode) {
+      button.style.display = "none"; // Hide delete buttons in save mode
+    } else {
+      button.style.display = "inline-flex"; // Show delete buttons in edit mode
+    }
+  });
+
   if (isEditMode) {
     const saveBtn = document.getElementById("save-btn");
     const editBtn = document.getElementById("edit-btn");
